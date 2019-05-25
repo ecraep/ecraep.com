@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html>
+
+<!-- Mirrored from ecraep.com/securing-your-digital-world by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 25 May 2019 15:00:31 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8">
+    <title>Securing your digital world - ecraep.com</title>
+    <meta name="description" content="Everything requires a password. A long time ago it bugged me that I couldn’t think of something secure so I visited a web page that randomly">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed for ecraep.com" href="feed.rss">
+    <link rel="stylesheet" href="style1ef1.css?1558722798200">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" sizes="180x180" href="_apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="_favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="_favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#b91d47">
+    <meta name="theme-color" content="#ffffff">
+</head>  <body>
+
+<div class="sidebar">
+
+  <a href="index.html" title="The homepage of ecraep.com" class="logo hasAvatar">
+    <img width="42" height="42" src="_avatars/9eeee76b-8be8-4f56-83e8-990f0f556786.png" class="avatar ">
+    <span style="display:block">ecraep.com</span>
+  </a>
+
+  <a href="index.html" class="light" title="Home">Home</a>
+  <a href="archives.html" class="light" title="Archives">Archives</a>
+  <a href="search.html" class="light" title="Search">Search</a>
+  <a href="feed.rss" class="light" title="Feed">Feed</a>
+  <a href="contact.html" class="light" title="Contact">Contact</a>
+
+</div>
+
+      <div class="entry">
+        <h1 id="securing-your-digital-world">Securing your digital world</h1>
+<p>Everything requires a password. A long time ago it bugged me that I couldn’t think of something secure so I visited a web page that randomly generated passwords for you and I used the same 8 character password ever since, it contained 1 number and 7 letters one of which was uppercase. What if one of your favourite services gets hacked? What if someone <a href="http://blog.linkedin.com/2012/06/06/linkedin-member-passwords-compromised/">hacks</a> <a href="http://blog.linkedin.com/2012/06/06/linkedin-member-passwords-compromised/">Linkedin</a> and <a href="http://leakedin.org/">leaks 6 million user passwords</a>? Perhaps one day your <a href="http://blog.spiderlabs.com/2012/06/eharmony-password-dump-analysis.html">favourite dating website</a> might get hacked? These leaks give some interesting insights to people’s passwords, of the 1,215,846 passwords that were analysed in the recent eHarmony password dump 99.5% of them didn’t contain a special character.</p>
+<p>I think it’s safe (or not) to assume that if you’re giving your password to somebody else to store and they don’t <a href="https://lastpass.com/whylastpass_technology.php">openly publish</a> how they’re storing your password then it’s entirely possible it will get leaked for the world to use and abuse, so in that case we need to start setting completely different passwords for each website, but that’s going to be impossible to manage right?. This is where password managers are handy, one database holding all your passwords for all your sites encrypted with a master key. There are <a href="http://passpack.com/">plenty</a> of <a href="https://agilebits.com/onepassword">password</a> <a href="http://keepass.info/">managers</a> <a href="https://lastpass.com/">out</a> <a href="http://passwordsafe.sourceforge.net/">there</a> all of which I wouldn’t have a problem storing my passwords with, ensuring your passwords are protected is what these guys do and the cloud based products are very attractive. I’m probably a bit old school but I  opted for a <a href="http://keepass.info/">KeePass</a> database stored in my Dropbox that is protected using two-factor authentication to which the one time passwords required to access my Dropbox can only be <a href="https://myotp.net/">generated</a> using my <a href="http://www.yubico.com/">YubiKey</a>.</p>
+<p>So what is YubiKey and how can can two-factor authentication help me?</p>
+<p><a href="http://www.yubikey.com/">YubiKey</a> it’s basically a <span class="small-caps">USB</span> device that any computer (laptop, <span class="small-caps">PS3</span>, iPad etc) will recognise a hardware keyboard. It has a contact/button on the top that allows you to generate <a href="http://en.wikipedia.org/wiki/One-time_password">one-time passwords</a>, <a href="http://en.wikipedia.org/wiki/HOTP">OATH-HOTP</a>, <a href="http://en.wikipedia.org/wiki/Challenge–response_authentication">challenge-response</a> and 32 character static passwords. YubiKey has memory for multiple configuration profiles and allows you to program your key with up to two different profiles, press the contact between 0.3 and 1.5 seconds and you’ll get a code from profile 1, press the contact for 2-5 seconds and you’ll get a code from profile 2. My YubiKey is setup as follows: Configuration profile 1 = Static password, Configuration profile 2 = Yubico Cloud <span class="small-caps">OTP</span>.</p>
+<p><img src="_image_cache/ae3e9232-9805-46ee-932f-c8f8ef113234.jpg" alt="Yubikey" width="1000" height="586" data-action="zoom"><span class="caption">Yubikey</span></p>
+<p>One time passwords are 44 characters in length, by nature change each time they’re generated and the best bit is that once a <span class="small-caps">OTP</span> is used once it cannot be used again. Here’s an example of where this could help: You visit your favourite website whilst on holiday and unknowingly the internet cafe <span class="small-caps">PC</span> you’re using has a keylogger installed. You login, eBay asks for your username, password and a <span class="small-caps">OTP</span> generated from your YubiKey. That <span class="small-caps">OTP</span> is then checked against <a href="http://www.yubico.com/products/services-software/yubicloud/">YubiCloud</a> or time-based one-time algorithm you setup earlier and you’re authenticated. The hacker then tries to use those same details but they can’t get in! The YubiKey <span class="small-caps">OTP</span> they recorded is now worthless because it’s already been used. YubiCloud is completely open source and you can even run your own <a href="http://www.yubico.com/develop/open-source-software/validation-server/">authentication servers</a>. Developers can integrate their applications with YubiCloud using <a href="http://www.yubico.com/products/services-software/yubicloud/implement/">documented APIs</a> for free. Unfortunately not all services support YubiCloud yet, such as Google, however there is <a href="http://www.yubico.com/2013/01/google-protocol-yubico-identity-vision/">talk</a> that Google is trialing it internally. More and more of the web is starting to support two-factor authentication. Google and Dropbox today both support two-factor authentication in the form of <a href="http://en.wikipedia.org/wiki/Time-based_One-time_Password_Algorithm">time-based one-time passwords</a>. This is basically a one-time password that stays the same for an amount of time and then changes after that time, for Google and Dropbox this time is 30 seconds. Both companies offer time-based one-time passwords via text message or phone call, they text you a 6-digit code to use alongside your username and password. Google will offer to call you if you can’t receive the text message (whenever that would be?!) and read out the 6-digit code to you, unfortunately some clever chap figured out a way to redirect voicemail to a VoIP service, <span class="small-caps">CEO</span> and Co-founder of CloudFlare Matthew Prince was <a href="http://blog.cloudflare.com/post-mortem-todays-attack-apparent-google-app">victim to an attack</a> like this and what’s to say your network provider won’t suffer the same social engineering hack. Anyone can spoof a phone number and many voicemail systems will grant access to your mailbox if it thinks you’re calling from your own number, enter the default pin of 0000 and they’re in! This relies on knowing a fair bit about the victim, still, not very secure!</p>
+<p>Google Authenticator is a mobile app that generates time-based <span class="small-caps">OTP</span> for you and works with Dropbox too. There are alternative apps out there such as <a href="https://www.authy.com/">Authy</a> that will generate these codes for you too.</p>
+<p><img src="_image_cache/2ae44216-33ec-4d00-9563-7161b9316fd7.png" alt="Authy" width="644" height="553" data-action="zoom"><span class="caption">Authy</span></p>
+<p>I use Authy, <a href="https://myotp.net/about">myopt.net</a> &amp; KeePass. Myopt.net is an alternative to Google authenticator that securely stores the algorithm to generate your time-based one-time passwords using your YubiKey/YubiCloud. When you turn on two factor authentication for Dropbox, Google etc it will give you a <span class="small-caps">QR</span> code to scan or a randomly generated code that you then enter into your authenticator app, the app then uses this to generate those time-based one-time passwords. Myopt.net does not require registration you simply login with your YubiKey, you are then authenticated using YubiCloud and let into your own safe of time-based one-time passwords. The website functions the same way an app would generating new codes every 30 seconds based on that randomly generated code you were given when you enabled two-factor authentication. You’re not required to give provide any identifiable information to use the website and you can give random descriptions to each code you have the site generate, so even if somebody where to extract the codes from the site they’d be no use unless you specified the description as your full email address. It basically provides a third layer of security to those two-factor codes that are already providing the second later of security.</p>
+<p>What if you lose your YubiKey/smart phone? Most services that allow you to protect your account using YubiCloud will let you register more than one YubiKey against it. I’ve done this with a few of my services and then kept a spare YubiKey at home (my girlfriend Stacey can then use the spare to authenticate against my stuff if she needs to). If you lose your smart phone, and therefore your time-based one-time password algorithms then you could be in trouble. Dropbox will allow you to recover your account using an<span class="push-single"></span> <span class="pull-single">‘</span>emergency code’, this code is given to you when you enable two-factor authentication. To gain access to my Gmail wouldn’t be an issue, as long as I hadn’t lost both my YubiKeys. If I had then I guess Google have some stringent way of checking you are the owner of your account, I don’t actually know how they verify this but I do know it’s a manual process and can take up to 5 days. I also take a backup of my KeePass database file and store it in other places online, it really doesn’t matter where I store it as it’s encrypted.</p>
+<p>After you have setup a password manager, YubiKey etc test to see if you can gain access to your own accounts like a hacker would. Test your recovery options. If you see one there that you don’t like the look of, remove it. Whilst writing this post I tried to do a password reset on my Gmail account and noticed an old recovery question that I set years ago and didn’t even know was there, I’ve now removed this. Of course this doesn’t stop you becoming <a href="http://www.wired.com/gadgetlab/2012/08/apple-amazon-mat-honan-hacking/all/">Mat Honan and falling victim</a> to a companies poor security policies, this poor guy had his Macbook, iPad &amp; iPhone all remotely wiped and best of all he didn’t have a backup for any of his data. The hackers used social engineering to have Amazon hand over the last 4 digits of his credit card, Apple then accepted those last 4 digits as authorisation to issue a password reset on his iCloud account.</p>
+<p><strong>Update:</strong> I recently discovered a chrome plugin called <a href="https://www.onelastpass.com/">One Last Pass</a> that generates and auto-fills password fields on websites based on a master password. Nothing is stored with the developers of the plugin and you can tell the plugin to remember your master key so you’re not typing it in all the time.</p>
+      </div>
+
+      <div class="light">
+        <a href="securing-your-digital-world.html" title="Permalink for Securing your digital world">February 15, 2013</a>
+</div>
+
+      <br />
+
+      <br />
+      <p class="entry">
+
+      <span class="light adjacent">Previous:</span><a href="yubikey-mac-os-x-filevault.html" title="YubiKey and Mac OS X FileVault">YubiKey and Mac OS X FileVault</a><br />
+
+      <span class="light adjacent">Next:</span><a href="everpix-is-awesome.html" title="Everpix is awesome">Everpix is awesome</a>
+
+      </p>
+      <br />
+      <br />
+      <br />
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerneldump';
+    var disqus_identifier = 'entry_b0678cf4a4f44484aea9c5656751419a';
+    var disqus_title = 'Securing your digital world';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the comments.</noscript>
+
+
+<script src="script1ef1.js?1558722798200" type="text/javascript"></script>
+<!-- Ticksel v1.0 -->
+<script type="text/javascript">
+  var _tcfg = _tcfg || [];
+  (function() {
+    _tcfg.push(["tags", ""]);
+    var u="https://cdn.ticksel.com/js/analytics_v1.0.js"; _tcfg.push(["account_id", 8456850]);
+    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0];
+    g.type="text/javascript"; g.async=true; g.src=u; g.setAttribute("crossorigin", "anonymous");
+    g.setAttribute("integrity", "sha256-7grd8jMivCG0iCcJ7m/Ny4gvWb0mPVpFhRQovLkaUl8=");
+    s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><img src="https://beacon.ticksel.com/beam?account_id=8456850&amp;referrer=&amp;tags=" style="border:0;" width="0" height="0" alt="" /></noscript>
+<!-- End Ticksel Code -->  </body>
+
+<!-- Mirrored from ecraep.com/securing-your-digital-world by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 25 May 2019 15:00:31 GMT -->
+</html>

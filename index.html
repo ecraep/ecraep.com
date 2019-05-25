@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html>
+
+<!-- Mirrored from ecraep.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 25 May 2019 14:56:41 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8">
+    <title>ecraep.com</title>
+    <meta name="description" content="The latest entries posted on ecraep.com">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed for ecraep.com" href="feed.rss">
+    <link rel="stylesheet" href="style1ef1.css?1558722798200">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" sizes="180x180" href="_apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="_favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="_favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#b91d47">
+    <meta name="theme-color" content="#ffffff">
+</head>  <body>
+
+<div class="sidebar">
+
+  <a href="index.html" title="The homepage of ecraep.com" class="logo hasAvatar">
+    <img width="42" height="42" src="_avatars/9eeee76b-8be8-4f56-83e8-990f0f556786.png" class="avatar ">
+    <span style="display:block">ecraep.com</span>
+  </a>
+
+  <a href="index.html" class="light" title="Home">Home</a>
+  <a href="archives.html" class="light" title="Archives">Archives</a>
+  <a href="search.html" class="light" title="Search">Search</a>
+  <a href="feed.rss" class="light" title="Feed">Feed</a>
+  <a href="contact.html" class="light" title="Contact">Contact</a>
+
+</div>
+
+      <div class="entry">
+        <h2 id="automating-alexa-guard">Automating Alexa Guard</h2>
+<p>Amazon released a new feature for it’s Echo devices called<span class="push-double"></span> <span class="pull-double">“</span>Alexa Guard”</p>
+<p>To get Alexa Guard working in the <span class="small-caps">UK</span> I had to reset my Echo Dot and link it to a new account registered on amazon.com (instead of&nbsp;.co.uk). You can set your device location, language, time zone all back to <span class="small-caps">UK</span> with the new account and Alexa Guard continues to work.</p>
+<blockquote>
+<p><strong>Get Smart Alerts:</strong> Alexa can send you Smart Alerts, via phone notifications, if your Echo device detects the sound of smoke alarms, carbon monoxide alarms, or glass breaking. Play the detected sound from your Alexa app, or Drop In on your Echo remotely to investigate what’s happening.</p>
+</blockquote>
+<p>To activate Alexa Guard you say<span class="push-double"></span> <span class="pull-double">“</span>Alexa, I’m leaving” and to deactivate<span class="push-double"></span> <span class="pull-double">“</span>Alexa, I’m home”, but who would remember to do this?</p>
+<p><a href="https://www.home-assistant.io/">Home Assistant</a> is open source home automation. I setup a simple, albiet silly automation.</p>
+<ol type="1">
+<li>iOS app detects I have left home</li>
+<li>Triggers automation; Text-to-Speech (<span class="small-caps">TTS</span>) service runs and my Google Home says<span class="push-double"></span> <span class="pull-double">“</span>Alexa, I’m leaving”</li>
+<li>Alexa Guard is activated</li>
+</ol>
+      </div>
+
+      <div class="light">
+        <a href="automating-alexa-guard.html" title="Automating Alexa Guard">May 15, 2019</a>
+</div>
+
+      <hr class="full"/>
+
+
+      <div class="entry">
+        <h2 id="sky-broadband---transparent-dns-proxy">Sky Broadband - Transparent <span class="small-caps">DNS</span> proxy</h2>
+<p>As of April 2019 Sky Broadband have started rolling out firmware (2.09.2510.R and newer) to all their routers to add support for the<span class="push-double"></span> <span class="pull-double">“</span>Sky Broadband Boost” add-on.</p>
+<blockquote>
+<p><strong>Broadband Buddy</strong>&thinsp;&mdash;&thinsp;Customers can manage their family’s screen time in &amp; out of their home via the Sky Buddy app (iOS and Android); even<span class="push-double"></span> <span class="pull-double">“</span><em>pause the internet</em><span class="push-double"></span><span class="pull-double">”</span>. The app allows parents to monitor family online internet usage, including internet history. It also includes location tracking. Parents will be notified on their own device if children uninstall Sky Buddy.</p>
+</blockquote>
+<p>Unfortunately this means they now <strong>proxy all your <span class="small-caps">DNS</span> traffic</strong> using a transparent <span class="small-caps">DNS</span> proxy, regardless of what <span class="small-caps">DNS</span> resolver you have set on your client.</p>
+<p>I.e you may have Cloudflare’s 1.1.1.1 configured on your local device, <span class="small-caps">DNS</span> requests will still be answered by Sky. If you’re a Sky Broadband customer you can confirm this yourself here: <a href="https://www.dnsleaktest.com/" class="uri">https://www.dnsleaktest.com/</a></p>
+<p>Is this a problem? It can be if you use<span class="push-double"></span> <span class="pull-double">“</span>Smart <span class="small-caps">DNS</span><span class="push-double"></span><span class="pull-double">”</span> services that allow you to watch streaming services only available in certain countries or if you simply don’t want your <span class="small-caps">ISP</span> logging which sites you visit.</p>
+<p><span class="small-caps">DNS</span> is unencrypted, this is why it can be so easily intercepted.</p>
+<p>A number of well known public recursive <span class="small-caps">DNS</span> resolvers support encrypted <span class="small-caps">DNS</span> via <span class="small-caps">DNS</span> over <span class="small-caps">TLS</span>, <span class="small-caps">DNS</span> over <span class="small-caps">HTTPS</span> or DNSCrypt. <a href="https://dnscrypt.info/implementations/">Clients</a> exist for Mac <span class="small-caps">OS</span>, iOS, Windows.</p>
+<p>I like to use Cloudflare, they support both <span class="small-caps">DNS</span> over <span class="small-caps">TLS</span> and <span class="small-caps">DNS</span> over <span class="small-caps">HTTPS</span>.</p>
+<p>If you already have a Raspberry Pi on your network you’re likely already utilizing Pi-hole for excellent ad blocking and <span class="small-caps">DNS</span> analytics, <strong>implementing encrypted <span class="small-caps">DNS</span> is easy</strong>, follow <a href="https://docs.pi-hole.net/guides/dns-over-https/">these instructions</a></p>
+<p>If you have a router running OpenWRT setting up encrypted <span class="small-caps">DNS</span> is easy:</p>
+<ol type="1">
+<li>Install luci-app-unbound and it’s dependancies</li>
+<li>In the <a href="http://openwrt.lan/cgi-bin/luci/admin/services/unbound/zones"><span class="small-caps">GUI</span></a> add a new zone
+<ul>
+<li>Zone Type: Forward</li>
+<li>Zone Names:&nbsp;.</li>
+<li>Servers: 1.0.0.1, 1.1.1.1</li>
+<li><span class="small-caps">DNS</span> over <span class="small-caps">TLS</span>: Yes</li>
+<li><span class="small-caps">TLS</span> Name Index: cloudflare-dns.com</li>
+</ul></li>
+</ol>
+      </div>
+
+      <div class="light">
+        <a href="sky-broadband-transparent-dns-proxy.html" title="Sky Broadband - Transparent DNS proxy">May 14, 2019</a>
+</div>
+
+      <hr class="full"/>
+
+
+      <div class="entry">
+        <h1 id="north-koreas-naenara-web-browser-its-weirder-than-we-thought"><a href="https://blog.whitehatsec.com/north-koreas-naenara-web-browser-its-weirder-than-we-thought/">North Korea’s Naenara Web Browser: It’s Weirder Than We Thought</a></h1>
+<blockquote>
+<p>Here’s where things start to go off the rails: what this means is that all of the <span class="small-caps">DPRK</span><span class="push-single"></span><span class="pull-single">’</span>s national network is non-routable <span class="small-caps">IP</span> space. You heard me; they’re treating their entire country like some small to medium business might treat their corporate office. The entire country of North Korea is sitting on one class A network (16,777,216 addresses). I was always under the impression they were just pretending that they owned large blocks of public <span class="small-caps">IP</span> space from a networking perspective, blocking everything and selectively turning on outbound traffic via access control lists. Apparently not!</p>
+</blockquote>
+      </div>
+
+      <div class="light">
+        <a href="naenara-weird.html" title="North Korea’s Naenara Web Browser: It’s Weirder Than We Thought">January 9, 2015</a>
+</div>
+
+      <hr class="full"/>
+
+
+      <div class="entry">
+        <h1 id="analyzing-the-fbis-explanation-of-how-they-located-silk-road"><a href="https://www.nikcub.com/posts/analyzing-fbi-explanation-silk-road/">Analyzing the <span class="small-caps">FBI</span><span class="push-single"></span><span class="pull-single">’</span>s Explanation of How They Located Silk Road</a></h1>
+<p>I read <a href="http://www.wired.com/2014/09/the-fbi-finally-says-how-it-legally-pinpointed-silk-roads-server/">Wired’s</a> article on Friday, it gave a brief explanation of how the <span class="small-caps">FBI</span> located the real <span class="small-caps">IP</span> of Silk Road’s server. Nik Cubrilovic does a great job of analysing the tech behind it.</p>
+      </div>
+
+      <div class="light">
+        <a href="analyzing-fbi-explanation-silk-road.html" title="Analyzing the FBI’s Explanation of How They Located Silk Road">September 7, 2014</a>
+</div>
+
+      <hr class="full"/>
+
+
+      <div class="entry">
+        <h1 id="http-shaming"><a href="http://httpshaming.tumblr.com/"><span class="small-caps">HTTP</span> Shaming</a></h1>
+<p><em><strong>Update, 31 Aug 2014:</strong></em> I even made my own submission</p>
+<p><img src="_image_cache/ffcb0455-3aa5-4511-b439-27f8dbfc33f5.png" alt="Asda jobs website SSL issue" width="864" height="344" data-action="zoom"><span class="caption">Asda jobs website SSL issue</span></p>
+<hr>
+<p>This site shames software developers by posting details of their insecure registration, log in, payment portals, software updates etc.</p>
+<p>Scary to see <a href="http://httpshaming.tumblr.com/post/95206154681/bittorrent-sync-requests-its-tracker-relay-and">BitTorrent Sync</a>, <a href="http://httpshaming.tumblr.com/post/95190367451/little-snitch-round-two">Little Snitch</a> and a <a href="http://httpshaming.tumblr.com/post/95182431977/keepass">password manager</a> I have used in the past on the list. Also:</p>
+<blockquote>
+<p>Dymocks Booksellers in Australia doesn’t use <span class="small-caps">SSL</span> while accepting credit card numbers. Both the page with the form and the POSTing location use <span class="small-caps">HTTP</span>. Any credit card numbers entered here would be insecure.</p>
+</blockquote>
+      </div>
+
+      <div class="light">
+        <a href="http-shaming.html" title="HTTP Shaming">August 21, 2014</a>
+</div>
+
+      <hr class="full"/>
+
+
+      <div class="entry">
+        <h1 id="warkitteh"><a href="http://www.wired.com/2014/08/how-to-use-your-cat-to-hack-your-neighbors-wi-fi/">WarKitteh</a></h1>
+<blockquote>
+<p><span class="pull-double">“</span>I put some technology on a cat and let it roam around because the idea amused me” says Bransfield, who works for the security consultancy Tenacity.<span class="push-double"></span> <span class="pull-double">“</span>But the result of this cat research was that there were a lot more open and WEP-encrypted hot spots out there than there should be in 2014.”</p>
+</blockquote>
+<p><img src="_image_cache/7fc8ab20-2e26-4649-84d9-dd3805325a3a.jpg" alt="Skitzy the cat" width="399" height="519" data-action="zoom"><span class="caption">Skitzy the cat</span></p>
+      </div>
+
+      <div class="light">
+        <a href="warkitteh.html" title="WarKitteh">August 8, 2014</a>
+</div>
+
+      <hr class="full"/>
+
+
+      <div class="entry">
+        <h1 id="social-engineering-a-telemarketer"><a href="https://plus.google.com/+ChrisBlasko/posts/GzCuzTyUXNq">Social Engineering a Telemarketer</a></h1>
+<blockquote>
+<p><span class="pull-double">“</span>Today is a good day. I just had a call from a telemarketer. Did I yell and scream at them, you ask? Certainly not. Like a good <span class="small-caps">IT</span> administrator I put my skills to use for their benefit. Here’s how the conversation went”</p>
+</blockquote>
+<p>Brilliant</p>
+      </div>
+
+      <div class="light">
+        <a href="social-engineering-a-telemarketer.html" title="Social Engineering a Telemarketer">August 8, 2014</a>
+</div>
+
+      <hr class="full"/>
+
+
+      <div class="entry">
+        <h1 id="hacker-redirects-traffic-from-19-internet-providers-to-steal-bitcoins"><a href="http://www.wired.com/2014/08/isp-bitcoin-theft/">Hacker Redirects Traffic From 19 Internet Providers to Steal Bitcoins</a></h1>
+<blockquote>
+<p>That <span class="small-caps">BGP</span> hijack allowed the hacker to redirect the miners’ computers to a malicious server controlled by the hijacker. From that server, the hacker sent the mining machines a<span class="push-double"></span> <span class="pull-double">“</span>reconnect” command that changed the mining computers’ configuration to contribute their processing power to a pool that stockpiled the bitcoins they produced rather paying them out to the mining pool’s participants.</p>
+</blockquote>
+<blockquote>
+<p>At its peak, according to the researchers’ measurements, the hacker’s scam was pocketing a flow of bitcoins and other digital currencies including dogecoin and worldcoin worth close to $9,000 a day.</p>
+</blockquote>
+      </div>
+
+      <div class="light">
+        <a href="hacker-redirects-traffic-from-19-internet-providers-to.html" title="Hacker Redirects Traffic From 19 Internet Providers to Steal Bitcoins">August 8, 2014</a>
+</div>
+
+      <hr class="full"/>
+
+
+      <div class="entry">
+        <h1 id="social-attack-against-subscriber-identity-module-sim-cards">Social attack against Subscriber Identity Module (<span class="small-caps">SIM</span> cards)</h1>
+<p>A number of attacks on high profile individuals that have made the news recently are of a social nature more so than a vulnerability in a certain software’s code. <a href="http://www.wired.com/2012/08/apple-amazon-mat-honan-hacking/all/">Mat Honan</a> perhaps being one of the most well known cases.</p>
+<blockquote>
+<p><a href="http://www.wired.com/2012/08/apple-amazon-mat-honan-hacking/all/"><em>In the space of one hour, my entire digital life was destroyed.</em></a></p>
+</blockquote>
+<p>Two factor authentication is being used by more as different services begin to support it, but it won’t make you entirely hack-proof. Matthew Prince, <span class="small-caps">CEO</span> of Cloudflare was the victim of an attack where by somebody socially engineered AT&amp;T to redirect Matthew’s voicemail to a number the attacker owned at which point two factor authentication in the way he had it setup became useless.</p>
+<p><strong><span class="small-caps">SIM</span> card replacement, a new kind of vulnerability</strong></p>
+<p>This leads me onto an attack method that I would like to share. If somebody were determined enough, it would be incredibly quick and easy to visit a network carrier’s store, present a fake <span class="small-caps">ID</span> and have them issue a new <span class="small-caps">SIM</span> card that replaces the old and immediately have access to your phone number. The important thing to note here is that they will hand you the physical <span class="small-caps">SIM</span> card replacement in the store near immediately disabling the original <span class="small-caps">SIM</span> card. The victim’s phone would lose signal but it could be days before they realise what has happened. I can’t imagine any of the other well known network carriers have more stringent security checks than asking for <span class="small-caps">ID</span>, in this case I was told a debit card with my name on it would have been enough.</p>
+<p><strong>How to protect yourself</strong></p>
+<p>In some cases you can setup two factor authentication in a way that it does not use your phone number to issue codes or account recovery, in these cases you should almost always use an app such as <a href="https://www.authy.com/">Authy</a>. Authy will backup your two factor tokens in an encrypted manner too.</p>
+<p>Google</p>
+<blockquote>
+<p><em>We’ll use your phone to do things like challenge hijackers or to send you a text message to help you access your account if you forget your password.</em></p>
+</blockquote>
+<p>On Google’s account recovery page we see the above text and the option to provide a phone number, don’t. On their 2-step Verification page you have the option of adding backup phone numbers for when you cannot access your primary way of receiving codes such as Authy, do not set a backup number.</p>
+<p>Dropbox</p>
+<p>Their settings page allows you to set a backup phone number in case you lose access to your two factor authentication device, don’t set this.</p>
+<p>Tumblr</p>
+<p>On your account settings page under Two Factor Authentication switch off <span class="small-caps">SMS</span> and switch on<span class="push-single"></span> <span class="pull-single">‘</span>Generate code via authenticator app’</p>
+<p>These are just a few examples of how you can better protect yourself when using two factor authentication. Two factor authentication itself adds massive amounts of security to your accounts and in most instances using <span class="small-caps">SMS</span> or phone calls for code generation is secure enough however if you want to take it that one step further I would recommend relying on Authy or <a href="http://www.yubico.com/">Yubikey</a> + <a href="https://myotp.net/">myotp.net</a></p>
+      </div>
+
+      <div class="light">
+        <a href="social-attack-against-sim-cards.html" title="Social attack against Subscriber Identity Module (SIM cards)">August 6, 2014</a>
+</div>
+
+      <hr class="full"/>
+
+
+      <div class="entry">
+        <h1 id="how-a-bug-in-dropbox-permanently-deleted-my-8000-photos"><a href="https://medium.com/@jan.curn/how-bug-in-dropbox-permanently-deleted-my-8000-photos-cb7dcf13647b">How a bug in Dropbox permanently deleted my 8000 photos</a></h1>
+<p>I feel very sorry for this person. I recommend <a href="http://www.haystacksoftware.com/arq/">Arq</a> to all mac users for backing up your important stuff to Amazon Glacier.</p>
+      </div>
+
+      <div class="light">
+        <a href="how-a-bug-in-dropbox-permanently-deleted-my-8000-photos.html" title="How a bug in Dropbox permanently deleted my 8000 photos">July 29, 2014</a>
+</div>
+
+      <hr class="full"/>
+
+
+      <div class="entry">
+        <h1 id="canvas-fingerprinting"><a href="http://www.propublica.org/article/meet-the-online-tracking-device-that-is-virtually-impossible-to-block">Canvas Fingerprinting</a></h1>
+<blockquote>
+<p>A new kind of tracking tool, canvas fingerprinting, is being used to follow visitors to thousands of top websites, from WhiteHouse.gov to YouPorn. Device fingerprints rely on the fact that every computer is slightly different: Each contains different fonts, different software, different clock settings and other distinctive features. Computers automatically broadcast some of their attributes when they connect to another computer over the Internet.</p>
+</blockquote>
+<p>An interesting technology I did not know existed. Luis Abreu shows <a href="https://twitter.com/lmjabreu/status/491322308779597824">here</a> that same fingerprint remains across normal and incognito browser modes. A brief explanation and example of the technology is found <a href="http://valve.github.io/blog/2013/07/14/anonymous-browser-fingerprinting/">here.</a></p>
+      </div>
+
+      <div class="light">
+        <a href="canvas-fingerprinting.html" title="Canvas Fingerprinting">July 21, 2014</a>
+</div>
+
+      <hr class="full"/>
+
+
+      <div class="entry">
+        <h1 id="crypto-weakness-in-smart-led-lightbulbs-exposes-wi-fi-passwords"><a href="http://arstechnica.com/security/2014/07/crypto-weakness-in-smart-led-lightbulbs-exposes-wi-fi-passwords/">Crypto weakness in smart <span class="small-caps">LED</span> lightbulbs exposes Wi-Fi passwords</a></h1>
+<blockquote>
+<p>Armed with knowledge of the encryption algorithm, key, initialization vector and an understanding of the mesh network protocol we could then inject packets into the mesh network, capture the WiFi details and decrypt the credentials, all without any prior authentication or alerting of our presence. Success!</p>
+</blockquote>
+<p>Love these kind of hacks. Firmware fix <a href="https://updates.lifx.co/">available.</a></p>
+      </div>
+
+      <div class="light">
+        <a href="crypto-weakness-in-smart-led-lightbulbs-exposes-wi-fi.html" title="Crypto weakness in smart LED lightbulbs exposes Wi-Fi passwords">July 7, 2014</a>
+</div>
+
+      <hr class="full"/>
+
+
+      <div class="entry">
+        <h1 id="many-uk-council-sites-breaching-pci-compliance-still-using-sslv2"><a href="http://ramblingrant.co.uk/2014/06/15/council-tax-pcn-benefits-payment-data-leaked-are-you-affected/">Many <span class="small-caps">UK</span> Council sites breaching <span class="small-caps">PCI</span> compliance, still using SSLv2</a></h1>
+<blockquote>
+<p>Of the 32 council sites I tested until the vein in my head burst, a whopping 23 were found to be processing payments in breach of <span class="small-caps">PCI</span>, <span class="small-caps">PECR</span> and <span class="small-caps">DPA</span> regulations.</p>
+</blockquote>
+<p>The majority of sites tested by <a href="http://ramblingrant.co.uk/">Paul Moore</a> scored F on Qualys <span class="small-caps">SSL</span> Server Test. Two of the sites tested had expired <span class="small-caps">SSL</span> certificates.</p>
+      </div>
+
+      <div class="light">
+        <a href="many-uk-council-sites-breaching-pci-compliance-still.html" title="Many UK Council sites breaching PCI compliance, still using SSLv2">July 5, 2014</a>
+</div>
+
+      <hr class="full"/>
+
+
+      <div class="entry">
+        <h1 id="synology-nas-vulnerability-reaps-half-million-dollars-in-two-months"><a href="http://secureworks.com/resources/blog/hacker-hijacks-synology-nas-boxes-for-dogecoin-mining-operation-reaping-half-million-dollars-in-two-months/">Synology <span class="small-caps">NAS</span> Vulnerability Reaps Half Million Dollars in Two Months</a></h1>
+<p>4 vulnerabilities discovered in September 2013 allowed one man to generate $620,496 <span class="small-caps">USD</span> in Dogecoin. If you haven’t already, reinstall your <span class="small-caps">NAS</span> device.</p>
+      </div>
+
+      <div class="light">
+        <a href="synology-nas-vulnerability-reaps-half-million-dollars.html" title="Synology NAS Vulnerability Reaps Half Million Dollars in Two Months">June 17, 2014</a>
+</div>
+
+      <hr class="full"/>
+
+
+      <div class="entry">
+        <h1 id="bittorrent-sync-encrypted-secret-key-without-api">BitTorrent Sync encrypted secret key without <span class="small-caps">API</span></h1>
+<p>This post explains how to generate secret keys for use on devices you want to give encrypted read only access to your data. It’s a simple trick that I’ll outline below</p>
+<h2 id="steps">Steps</h2>
+<p>Add a folder in BitTorrent sync and generate a secret, for example:</p>
+<pre><code>AL2NP4B5V46OLUQL3OOBQQRCK2WXTO26B</code></pre>
+<p>Before you hit <span class="small-caps">OK</span> change the first letter from A to D, the above would become:</p>
+<pre><code>DL2NP4B5V46OLUQL3OOBQQRCK2WXTO26B</code></pre>
+<p>That’s your read/write secret created, keep that safe from prying eyes. Now view the folder’s info (the part where you find your read only key) Take the first 33 characters from the read only secret and change the first letter from E to F. This is your encrypted read only secret.</p>
+<pre><code>E5TZNDXOI235HTCC745RMU5I2RKRRQGKFUQJ36IZ7GORJB6AOTERQQPKTD4</code></pre>
+<p>would become</p>
+<pre><code>F5TZNDXOI235HTCC745RMU5I2RKRRQGKF</code></pre>
+<p>That’s it! Now it doesn’t matter what device you sync your data to, for as long as you keep the read/write secret safe.</p>
+      </div>
+
+      <div class="light">
+        <a href="bittorrent-sync-encrypted-secret-key-without-api.html" title="BitTorrent Sync encrypted secret key without API">June 14, 2014</a>
+</div>
+
+      <hr class="full"/>
+
+
+      <div class="entry">
+        <h1 id="virgin-media-why-are-you-manipulating-my-traffic">Virgin Media, why are you manipulating my traffic?</h1>
+<h2 id="updates">Updates</h2>
+<ul>
+<li>6th April: TalkTalk <a href="https://gist.github.com/Joev-/0e3cc1a3b613c54d97bb">appear</a> to be doing something similar</li>
+<li>7th April: <a href="http://equk.co.uk/2014/04/07/uk-isps-providing-cdn-for-google/">Plusnet</a> are doing it too. The responses to my post have hightlighted that using DNSCrypt + OpenDNS doesn’t allow you to opt out of this behaviour which suggests a deal between the ISPs, Google and OpenDNS has been made.</li>
+</ul>
+<hr>
+<p>Virgin Media why does <em><a href="http://www.google.com/">www.google.com</a> resolve to host-62-253-8-99.not-set-yet.virginmedia.net</em>? What a funny name for a <span class="small-caps">PTR</span> record, but seriously, why are you manipulating my traffic?</p>
+<p>I was testing something only to find that google.com, google.co.uk both resolve to an <span class="small-caps">IP</span> address owned by Virgin Media.</p>
+<blockquote>
+<p><em><span class="small-caps">PING</span> google.com (62.253.3.103): 56 data bytes 64 bytes from 62.253.3.103: icmp_seq=0 ttl=58 time=17.569 ms</em></p>
+</blockquote>
+<blockquote>
+<p><em>nslookup <a href="http://www.google.com/">www.google.com</a> Server: 208.67.222.222 Address: 208.67.222.222#53</em> <em>Non-authoritative answer: Name: <a href="http://www.google.com/">www.google.com</a> Address: 62.253.3.103</em></p>
+</blockquote>
+<blockquote>
+<p>host 62.253.3.103 103.3.253.62.in-addr.arpa domain name pointer host-62-253-8-103.not-set-yet.virginmedia.net.</p>
+</blockquote>
+<p>Performing a <code>dig a google.com +trace</code> fools me into thinking that ns1.google.com is dishing out these Virgin owned IPs, yet a query from elsewhere tells me otherwise.</p>
+<p><strong>Using Virgin Media</strong></p>
+<pre><code>dig a google.com @ns1.google.com
+;; ANSWER SECTION: google.com. 300 IN A 62.253.3.99 
+google.com. 300 IN A 62.253.3.93 
+google.com. 300 IN A 62.253.3.109 
+google.com. 300 IN A 62.253.3.103 
+google.com. 300 IN A 62.253.3.119 
+google.com. 300 IN A 62.253.3.94 
+google.com. 300 IN A 62.253.3.118 
+google.com. 300 IN A 62.253.3.108 
+google.com. 300 IN A 62.253.3.84 
+google.com. 300 IN A 62.253.3.88 
+google.com. 300 IN A 62.253.3.98 
+google.com. 300 IN A 62.253.3.123 
+google.com. 300 IN A 62.253.3.113 
+google.com. 300 IN A 62.253.3.114 
+google.com. 300 IN A 62.253.3.104 
+google.com. 300 IN A 62.253.3.89</code></pre>
+<p><strong>Another <span class="small-caps">ISP</span></strong></p>
+<pre><code>dig a google.com @ns1.google.com
+;; ANSWER SECTION: google.com. 300 IN A 74.125.136.113 
+google.com. 300 IN A 74.125.136.100 
+google.com. 300 IN A 74.125.136.102 
+google.com. 300 IN A 74.125.136.138 
+google.com. 300 IN A 74.125.136.101 
+google.com. 300 IN A 74.125.136.139</code></pre>
+<p>Most odd. Especially seeing as I <strong>do not use Virgin Media’s <span class="small-caps">DNS</span> resolvers</strong>, I use OpenDNS._m7.lon.opendns.com_ to be exact, according to <a href="http://www.dnsleaktest.com/">www.dnsleaktest.com</a>. <a href="http://cachecheck.opendns.com/">OpenDNS’ cache check</a> matches my other <span class="small-caps">ISP</span>, a whole bunch of IPs none of which are anywhere near this 62.253.3.0/24 we’re seeing from Virgin Media.</p>
+<p>So for some reason Virgin Media someone is manipulating the <span class="small-caps">DNS</span> response I recieve from OpenDNS’ 208.67.222.222, 208.67.220.220 for google.com, google.co.uk and possibly other domains. They’re also proxying google.com to me as loading <a href="http://62.253.3.103/">http://62.253.3.103</a> in a web browser shows me Google’s home page, creepy. Ok so where does a traceroute take me?</p>
+<blockquote>
+<p><em>traceroute: Warning: google.com has multiple addresses; using 62.253.3.93 traceroute to google.com (62.253.3.93), 64 hops max, 52 byte packets</em></p>
+</blockquote>
+<blockquote>
+<ul>
+<li>1 192.168.1.1 (192.168.1.1) 4.610 ms 4.257 ms 34.474 ms</li>
+<li>2 cpc10-sotn8-2-0-gw.15-1.cable.virginm.net (81.101.98.1) 22.904 ms 79.800 ms 14.122 ms</li>
+<li>3 sotn-core-2a-ae6-610.network.virginmedia.net (80.4.225.53) 13.692 ms 12.621 ms 11.575 ms</li>
+<li>4 popl-bb-1c-ae14-0.network.virginmedia.net (62.253.175.30) 33.107 ms 16.609 ms 27.541 ms</li>
+<li>5 brnt-bb-1c-et-000-0.network.virginmedia.net (62.253.175.238) 28.404 ms brnt-bb-1c-et-510-0.network.virginmedia.net (62.253.175.242) 15.146 ms 25.651 ms</li>
+<li>6 haye-icdn-1-ae0-0.network.virginmedia.net (62.253.174.242) 14.849 ms 16.701 ms 16.381 ms</li>
+<li>7 * * *</li>
+<li>8 * * *</li>
+</ul>
+</blockquote>
+<p>Most interesting that it stops here: <em>haye-<strong>icdn</strong>-1-ae0-0.network.virginmedia.net (62.253.174.242)</em></p>
+<p><strong>haye-icdn-1, what do you do?</strong> A quick google (ironic) reveals <a href="http://www.cableforum.co.uk/board/12/33694218-virgin-hijacking.html">this thread</a> titled<span class="push-single"></span> <span class="pull-single">‘</span>Virgin hijacking’. One user suggests:</p>
+<blockquote>
+<p>Content Distribution Network ran by Virgin to try and speed things up. It’s not really hijacking, per-se and if it worked, it would actually be a good thing. The problem is, it’s heavily congested so has the opposite effect.</p>
+</blockquote>
+<p>….</p>
+<p>I have no idea why Virgin and OpenDNS feel the need to proxy or <span class="small-caps">CDN</span> google.com for me. The ping response time to one of Google’s actual IPs is 20.049 ms. From now on I will encrypt my <span class="small-caps">DNS</span> traffic to OpenDNS using <a href="http://dnscrypt.org/">DNSCrypt</a> and one of the suggested <span class="small-caps">DNS</span> providers, it takes 5 seconds to install their app.</p>
+<p>Ahh, that’s better&nbsp;:-)</p>
+<hr>
+<h2 id="some-notes">Some Notes</h2>
+<ul>
+<li>My Virgin SuperHub is in modem mode</li>
+<li>It’s entirely possible Virgin Media has struck a deal with OpenDNS however I couldn’t find mention of that anywhere and it seems unlikely. The responses to this post have led me to believe some deal has been made.</li>
+</ul>
+<p>Discuss at <span class="small-caps">HN</span>: <a href="https://news.ycombinator.com/item?id=7504737" class="uri">https://news.ycombinator.com/item?id=7504737</a></p>
+      </div>
+
+      <div class="light">
+        <a href="virgin-media-why-are-you-manipulating-my-traffic.html" title="Virgin Media, why are you manipulating my traffic?">April 1, 2014</a>
+</div>
+
+      <hr class="full"/>
+
+
+      <div class="entry">
+        <h1 id="how-to-ipv6-over-ipv4-at-home-today">How To: IPv6 over IPv4 at home, today</h1>
+<p>In this article I explain how to enable IPv6 connectivity from any desktop in less than 5 minutes.</p>
+<p>I was chatting with <a href="https://twitter.com/dan_jenkins">Dan Jenkins</a> on Twitter. He asked when will Virgin Media roll out IPv6 support? I suggested an IPv6 over IPv4 tunnel but it may be tricky to setup. I did a quick Google but to my surprise didn’t find the slew of blog posts explaining how to set this up. I did however find <a href="https://tunnelbroker.net/">Tunnel Broker</a>.</p>
+<p><strong>Tunnel Broker</strong></p>
+<blockquote>
+<p><span class="pull-double">“</span>Our free tunnel broker service enables you to reach the IPv6 Internet by tunneling over existing IPv4 connections from your IPv6 enabled host or router to one of our IPv6 routers. Try it now!”</p>
+</blockquote>
+<p>Awesome.</p>
+<ul>
+<li>It’s free</li>
+<li>It’s from <span class="small-caps">HE</span>. (Hurricane Electric)</li>
+<li>Your own /48 prefix once your tunnel is up</li>
+<li>Ability to create your tunnel on geographically diverse tunnel-servers (Fremont, Ashburn, Chicago, Dallas, Denver, Kansas City, Los Angeles, Miami, New York, Seattle, Toronto, Amsterdam, Berlin, Frankfurt, London, Paris, Prague, Stockholm, Warsaw, Zurich, Hong Kong, Singapore, and Tokyo)</li>
+</ul>
+<h2 id="step-by-step">Step by step</h2>
+<p>First <a href="http://test-ipv6.com/">test to see</a> if your <span class="small-caps">ISP</span> already supports IPv6. Nope? <span class="small-caps">OK</span> on to the next step.</p>
+<ul>
+<li>Register at <a href="https://tunnelbroker.net/">Tunnel Broker</a></li>
+<li><a href="https://tunnelbroker.net/new_tunnel.php">Create Regular Tunnel</a></li>
+<li>Fill in your <a href="http://queryip.net/ip/">IPv4 Endpoint</a>. It’s important to note that at this stage their system will attempt to ping the <span class="small-caps">IP</span> you supply. I enabled <span class="small-caps">WAN</span> <span class="small-caps">ICMP</span> response on my router until the form was submitted at which point I disabled it again.</li>
+<li>Choose a Tunnel Server that is geographically closest to you. After completing these steps <span class="small-caps">HE</span> will assign you a /64.</li>
+</ul>
+<p>On your<span class="push-single"></span> <span class="pull-single">‘</span>Tunnel Details’ page you’ll want to select the<span class="push-single"></span> <span class="pull-single">‘</span>Example Configurations’ tab.</p>
+<p>There will typically be three commands you’ll have to run. One to create the 6in4 tunnel. One to assign your IPv6 address to that tunnel and one to statically route all IPv6 traffic over that tunnel.</p>
+<p>There are examples for many routers and operating systems including Cisco <span class="small-caps">IOS</span>, JunOS, OpenWRT, pfSense, FreeBSD, Debian/Ubuntu, Mac <span class="small-caps">OS</span> X, and Windows etc.</p>
+<p>Well.. that was easy. <img src="_image_cache/ef341fc0-6e5e-482c-885d-708721700d90.png" alt="IPv6 on Macbook Air" width="1060" height="738" data-action="zoom"></p>
+<h2 id="bear-in-mind">Bear in mind</h2>
+<p><img src="_image_cache/987a9424-0e17-44c9-a310-40ee3f3e9897.png" alt="image" width="245" height="240"></p>
+<pre><code>route -n add -inet6 default 2001:470:1f08:1a6::1
+netsh interface ipv6 add route ::/0 IP6Tunnel 2001:470:1f08:1a6::1
+ipv6 route ::/0 Tunnel0</code></pre>
+<p>When running any of the above commands, these are just three examples, you’re telling your device to route all IPv6 traffic via <span class="small-caps">HE</span>. Afterall, this is a tunnel!</p>
+<p>IPv6 is a scary thing and I’d love to be more confident on the subject. This is something I am most definitely going to study for and I reccommend anyone in the industry to do the same.</p>
+      </div>
+
+      <div class="light">
+        <a href="ipv6-over-ipv4-at-home.html" title="How To: IPv6 over IPv4 at home, today">January 29, 2014</a>
+</div>
+
+      <hr class="full"/>
+
+
+      <div class="entry">
+        <h1 id="investigating-the-dirty-world-of-phishing-emails">Investigating the dirty world of phishing emails</h1>
+<p>The other day I was having a quick look through my Gmail spam folder and a particular email caught my eye.<span class="push-double"></span> <span class="pull-double">“</span>Your NatWest CreditCard Online Statement is Ready Online”. Gmail warned me about the message. That they couldn’t verify it had been sent from natwestsecure.com and disabled all images and links. I was intruiged to know what would happen if I did click the link and also exactly where they were hosting this phishing site. Was it cheap shared hosting, or even a dedicated box?</p>
+<p>I told Gmail the email was not spam, that allowed me to see both the images and the link.</p>
+<p><img src="_image_cache/1a9ec288-84d7-4bca-bf47-0abe6af160ef.png" alt="Natwest Phishing email" width="490" height="308" data-action="zoom"><span class="caption">Natwest Phishing email</span></p>
+<p>Hovering my mouse over the link I could see it would in fact take me to</p>
+<pre><code>    http://informacja.wimbp.lodz.pl/cache/fr.php</code></pre>
+<h2 id="who-hosts-this">Who hosts this?</h2>
+<p>First let’s do a <span class="small-caps">WHOIS</span> on lodz.pl.</p>
+<pre><code>    DOMAIN NAME: lodz.pl 
+    registrant type: organization 
+    nameservers: dns2.man.lodz.pl. 
+    dns4.man.lodz.pl. dns.man.lodz.pl. ns1.tpnet.pl. 
+    created: 1995.01.01 12:00:00 
+    last modified: 2004.08.06 09:57:55 
+    renewal date: 2014.12.31 13:00:00 
+    option created: 2012.11.16 08:03:07 
+    option expiration date: 2015.11.16 08:03:07 
+    dnssec: Unsigned</code></pre>
+<p>Hmm. Their own vanity nameservers plus the domain was registered in 1995. Certainly doesn’t look how I’d expect it to look. Ok, let’s check out the website itself.</p>
+<blockquote>
+<p>Lodz, the former textile industry empire, today is a city of modern technologies, creative enterprises and grand events.</p>
+</blockquote>
+<p>The website looks real, the official website of the city Lodz in Poland. How about``</p>
+<blockquote>
+<p>Department of Information Science WiMBP in Lodz</p>
+</blockquote>
+<p>That looks genuine too.</p>
+<p>I notice the site is running off the <span class="small-caps">CMS</span> Joomla.</p>
+<pre><code>    &lt;meta name=&quot;generator&quot; content=&quot;Joomla! 1.5  
+    - Open Source Content Management&quot; /&gt;</code></pre>
+<p>What’s the bet 1.5 isn’t the latest version? <a href="http://docs.joomla.org/What_version_of_Joomla!_should_you_use%3F">Nope</a>. According to Joomla’s documentation 1.5 went <span class="small-caps">EOL</span> Sept 2012, all security updates for that version have stopped. I think it’s <a href="http://www.cvedetails.com/vulnerability-list/vendor_id-3496/cvssscoremin-5/cvssscoremax-5.99/Joomla.html">safe to assume</a> that /cache/fr.php has been planted there by an attacker. What happens when we visit that site? A quick <span class="small-caps">CURL</span> reveals something interesting.</p>
+<pre><code>    HTTP/1.1 302 Found
+    Date: Wed, 22 Jan 2014 20:28:00 GMT
+    Server: Apache
+    X-Powered-By PHP/5.3.1
+    Location: http://www.remart.com.ua/logs/index.html
+    Content-Type: text/html</code></pre>
+<p>A 302 redirect to <a href="http://www.remart.com.ua/logs/index.html" class="uri">http://www.remart.com.ua/logs/index.html</a></p>
+<p>A <span class="small-caps">WHOIS</span> on remart.com.au revleals a similar situation to lodz.pl. The domain was created in 2011 and the site itself appears genuine, a sort of high-end home repairs company. <span class="small-caps">OK</span>, let’s check the headers.</p>
+<pre><code>    &lt;meta name=&quot;generator&quot; content=&quot;Joomla! 1.5  
+    - Open Source Content Management&quot; /&gt;</code></pre>
+<p>There’s a theme appearing here isn’t there? Let’s visit that site in a browser.</p>
+<p><img src="_image_cache/2a174506-4ebc-4229-b9df-05ce2fe85b3d.png" alt="NatWest Phishing site" width="981" height="513" data-action="zoom"><span class="caption">NatWest Phishing site</span></p>
+<p>The source code reveals that nearly all of the site’s elements (<span class="small-caps">CSS</span>, <span class="small-caps">JS</span>) are being loaded from the natwest.com domain itself. The footer says Copyright 2005-2009, perhaps this is some old source code they stole? A quick visit to <a href="https://cardservices.natwest.com/RBSG_Consumer/Login.do?promoCode=NatWest">NatWest actual site</a> shows that it potentially isn’t old as even their own website has Copyright 2005-2009 in the footer.</p>
+<p>Interestingly at the bottom of the source code we see some javascript for Adobe’s analytics service SiteCatalyst.</p>
+<pre><code>    &lt;!-- SiteCatalyst code version: H.23.3.  
+    Copyright 1996-2011 Adobe, Inc. All Rights Reserved  
+    More info available at http://www.omniture.com --&gt;  
+    &lt;sript language=&quot;JavaScript&quot; type=&quot;text/javascript&quot;&gt;&lt;!--  
+    var s_account=&quot;tssprodrbsgnatwestconsumer&quot;  
+    var linkInternalFiltersPage=&quot;javascript:&quot; + window.location.hostname
+    + &quot;,testdomain.com&quot;  
+    //--&gt;</code></pre>
+<p>The <code>var s_account=&quot;tssprodrbsgnatwestconsumer&quot;</code> string matches what is on NatWest.com. The attackers obviously weren’t smart enough to strip this out. I’ve never used Adobe SiteCatalyst before but NatWest <em>should</em> be able to see this dodgy domain showing up in their statistics.</p>
+<p>I’m now fairly certain the two sites involved in hosting the phishing site do not know they’re hosting it. How about the email, where did that originate from?</p>
+<h2 id="the-email">The Email</h2>
+<pre><code>    Return-Path: 
+    Received: from servhotel1.automerkit.fi (servhotel1.automerkit.fi. 
+    [80.69.163.62])
+    Received-SPF: pass
+    (google.com: best guess record for domain of
+    www-data@servhotel1.automerkit.fi
+    designates 80.69.163.62 as permitted sender)</code></pre>
+<p>That’s odd, the <span class="small-caps">SPF</span> passes. There’s even a <span class="small-caps">PTR</span> record on 80.69.163.62.</p>
+<p><span class="small-caps">WHOIS</span> again. Created: 2010. Desc: Interactive Auto Media Oy</p>
+<p>automerkit.fi another genuine website? Yep! Looks to be a Finnish car enthusiast site.</p>
+<h2 id="what-weve-learnt">What we’ve learnt</h2>
+<p>Whoever is sending these phishing emails has compromised three separate systems, I assume, to avoid being caught. They’ve compromised somebody’s email system with working <span class="small-caps">SPF</span> and <span class="small-caps">PTR</span> record to try and make their way into your inbox. Fortunately their efforts have failed, at least they do if you use Gmail &amp; Google Chrome.</p>
+<p>Gmail knew the email was dodgy and sent it straight to Spam:</p>
+<p><img src="_image_cache/91a0d346-9e84-4a4f-903e-4e76eaea911a.png" alt="Gmail phishing detection" width="921" height="127" data-action="zoom"><span class="caption">Gmail phishing detection</span></p>
+<p>Google Chrome knew that both links were dodgy:</p>
+<p><img src="_image_cache/e478fb6c-9479-4e59-a5fc-b8decc8052a8.png" alt="Google Chrome phishing detection" width="842" height="502" data-action="zoom"><span class="caption">Google Chrome phishing detection</span></p>
+<p>Morale of the story. If you’re a web developer, don’t leave your site running on old versions of any <span class="small-caps">CMS</span>. Be that Joomla, Wordpress. If you’re really serious about security or don’t have the time to keep it patched, publish your site as static files, if possible. Lock down access to your servers using secure passwords, <a href="http://blog.authy.com/two-factor-ssh-in-thirty-seconds">two factor authentication</a> and ideally <a href="https://www.dome9.com/">access lists</a> too. Follow some <a href="https://www.vircom.com/security/top-10-tips-to-secure-your-email-server/">simple steps</a> to locking down that <span class="small-caps">SMTP</span> server too.</p>
+<p>Because I’m a good citizen I forwarded the phishing email to <a href="mailto:phishing%40natwest.com">phishing@natwest.com</a> and notified the website owners of the two pages. I also emailed the owner of automerkit.fi to let them know their servers were spamming.</p>
+      </div>
+
+      <div class="light">
+        <a href="investigating-the-dirty-world-of-phishing-emails.html" title="Investigating the dirty world of phishing emails">January 22, 2014</a>
+</div>
+
+      <hr class="full"/>
+
+
+      <div class="entry">
+        <h1 id="have-a-lightning-fast-blog-and-host-it-for-free">Have a lightning fast blog and host it for free</h1>
+<p>I recently migrated my blog from Wordpress to <a href="https://dsowers.silvrback.com/introducing-silvrback">Silvrback</a> to <a href="http://ghost.org/">Ghost</a>. I was very happy with Silvrback, it’s an excellent writing platform. In the end I got fed up not being able to change how my site looked (no theming), so switched to Ghost.</p>
+<p>I’m a bit of an uptime and performance freak. This website is relatively lightweight and performs well in most situations. I wanted to ensure it performed the best it ever could and sustained 100% uptime. Ghost isn’t difficult to setup on your own server but there are so many advantages to hosting a static site vs one that is dynamically generated server side with a database backend. Nor did I want to pay for a hosted solution once I discovered you can host your static site for free using <a href="http://pages.github.com/">GitHub Pages</a>.</p>
+<h2 id="static-ghost">Static Ghost</h2>
+<p>Enter <a href="https://github.com/axitkhurana/buster">Buster</a>. Buster is a static site generator for Ghost. There are many reasons you might want a static site</p>
+<ul>
+<li>Host it anywhere</li>
+<li>No database dependancy</li>
+<li>Better performance</li>
+<li>Easy to backup</li>
+<li>Far more secure, no admin backend</li>
+</ul>
+<p>Getting Buster <a href="http://www.metacotta.com/ghost-static-site-generation-with-buster/">setup</a> was easy and in 10 minutes I had a static copy of my then hosted Ghost blog. You can actually target any Ghost blog hosted on any server with Buster, it’s quite powerful.</p>
+<h2 id="github-pages">GitHub Pages</h2>
+<p>Before you <code>buster deploy</code> you’ll want to setup a GitHub account (free) if you don’t already have one and then configure a GitHub Pages respository (also free) as per <a href="http://pages.github.com/">instructions here.</a> Make sure you follow the guide on <a href="https://help.github.com/articles/setting-up-a-custom-domain-with-pages">configuring a custom domain</a> before you make and <span class="small-caps">DNS</span> changes.</p>
+<h2 id="my-workflow">My Workflow</h2>
+<p>I have a locally hosted copy of Ghost running on my Macbook and I target this using Buster. <a href="http://docs.ghost.org/installation/">Getting Ghost up and running locally</a> is very simple. The great thing about having a local install of Ghost is that I can publish posts before I’m finished, make styling changes etc and preview what they look like on the site before statically generating the updated version and pushing that to GitHub. I store my Ghost installation in my Dropbox along with the static files.</p>
+<p>1) <a href="http://127.0.0.1:2368/ghost" class="uri">http://127.0.0.1:2368/ghost</a> </p>
+<ol start="2" type="1">
+<li>Write post <br>
+</li>
+<li>buster generate –domain=<a href="http://127.0.0.1:2368/" class="uri">http://127.0.0.1:2368</a> <br>
+4) buster deploy</li>
+</ol>
+<h2 id="performance">Performance</h2>
+<p>GitHub sits behind the <a href="https://www.fastly.com/">Fastly <span class="small-caps">CDN</span>.</a> You may not of heard of Fastly but they <span class="small-caps">CDN</span> for the likes of Twitter, Disqus, The Guardian, Shazam. Converting your site to static files and hosting with GitHub Pages will guarentee to improve performance. My site’s load time before I moved was 1.6s. My site now loads in just over 330ms.</p>
+<p><img src="_image_cache/be71e84d-1212-461f-bbae-e8d5d419ff47.png" alt="Pingdom test" width="638" height="466" data-action="zoom"><span class="caption">Pingdom test</span></p>
+<p>Make the switch today. <a href="http://alexcican.com/post/guide-hosting-website-dropbox-github/">Loads</a> <a href="http://sirupsen.com/the-switch-to-github-pages">of</a> <a href="http://hpehl.info/moved-blog-to-github-pages.html">people</a> <a href="http://jtimberman.housepub.org/blog/2011/09/29/blog-moved-to-github-pages/">are</a> <a href="http://ocramius.github.io/blog/moving-my-blog-to-jekyll/">moving</a> <a href="http://www.alexrothenberg.com/2011/01/27/moved-blog-to-jekyll-and-github-pages.html">to</a> <a href="http://hugogiraudel.com/2013/02/21/jekyll/">static.</a></p>
+<h2 id="amazon-s3-cloudfront">Amazon <span class="small-caps">S3</span> + CloudFront</h2>
+<p>If you don’t feel comfortable hosting your website for free then I’d highly recommend reading Paul’s<a href="http://paulstamatiou.com/hosting-on-amazon-s3-with-cloudfront/"><span class="push-double"></span><span class="pull-double">“</span>How To: Hosting on Amazon <span class="small-caps">S3</span> with CloudFront”</a>. Paul’s site is built using Jekyll 1, as are most blogs hosted on GitHub Pages, but you can follow pretty much everything he does to get your Buster generated static blog online.</p>
+<p>1. Buster is built from Jekyll</p>
+      </div>
+
+      <div class="light">
+        <a href="have-a-lightning-fast-blog-and-host-it-for-free.html" title="Have a lightning fast blog and host it for free">January 17, 2014</a>
+</div>
+
+      <hr class="full"/>
+
+
+      <div class="entry">
+        <h1 id="organising-a-massive-photo-collection">Organising a massive photo collection</h1>
+<p>I say massive, it’s not actually that big. It does make for a good title though. I’d like to share some of the methods I use to organise my photo collection. Most of the stuff I do is a result of reading somebody’s blog and then implementing in my own way. Organizing my photo collection has been incredibly liberating these past few days. I set out to de-duplicate, sort my photos into some sort of folder structure, shrink their file size down somewhat without affecting the quality of the images and then finally automate this for the future. This article assumes you are using a Mac as most of the software featured here isn’t available on Windows. I also recommend anyone who has a keen interest in this subject to follow <a href="https://twitter.com/bradleychambers">Bradley Chambers</a> on Twitter, he shares this passion and invests more time in it than I do.</p>
+<p>Like many, this blog post would probably not exist had Everpix not shutdown. Pre-Everpix I had photos stored everywhere, mostly dumped into random folders synced to Dropbox. I would often restore iOS betas to my iPhone, dumping my photos out to randomly named folders before doing so. My dad had 20,000 something photos on his iMac in iPhoto dating back to 2006 which I synced to my Everpix account and then backed up using CrashPlan. Everpix - the be all and end all of photo management software in the cloud. Install the desktop uploader, iOS app - tell it to upload everything - be ignorant to the complete mess behind the scenes. Everpix hid this, allowed you to view your photos with no duplicates, no folder structure, just pure photos. Boy was Everpix a good product. A massive time saver, not fully realised by myself until now.</p>
+<h2 id="exporting-your-iphoto-library">Exporting Your iPhoto Library</h2>
+<p>Sven Fechner wrote up an <a href="http://simplicitybliss.com/exporting-your-iphoto-library-to-dropbox">excellent blog post</a> that details how to <em>correctly</em> export your iPhoto library and then sort those photos into a date based folder structure. At first I followed Sven’s method, it involves using <a href="http://code.google.com/p/phoshare/">Phoshare</a> to export your photos instead of File&gt;Export in iPhoto. The reason behind this is that iPhoto will set Date modified and Date created on all the files it exports to <em>today’s date</em>, this hampers the automated sorting process later on. I have since discovered <span class="small-caps">DIM</span> - Digital Image Mover that can sort photos based on Exif data rather than the Date created / Date modified time stamps.</p>
+<h2 id="sorting-your-photos-into-folders">Sorting your photos into folders</h2>
+<p>Once you have an export of all your images, or if you do not use iPhoto you may already have all your photos dumped into folders, you’ll want to organise them into subfolders based on Year, Month and depending on the number of photos you have maybe even days. When I first experimented with this I used Hazel to organise my photos into subfolders, as described by Sven. Due to limitations in <span class="small-caps">OS</span> X Spotlight Hazel can only organise photos based on the file’s<span class="push-single"></span> <span class="pull-single">‘</span>Date Created’ or<span class="push-single"></span> <span class="pull-single">‘</span>Date Modified’ and not Exif data from the image itself such as<span class="push-single"></span> <span class="pull-single">‘</span>Date Time Digitized’ and<span class="push-single"></span> <span class="pull-single">‘</span>Date Time Original’. Really if you’re going to organise your photos accurately you’ll want to use Exif data as this remain unchanged since your camera first recorded the image, unlike<span class="push-single"></span> <span class="pull-single">‘</span>Date Created’ and<span class="push-single"></span> <span class="pull-single">‘</span>Date Modified’. For this I used <a href="http://digitalimagemover.tumblr.com/"><span class="small-caps">DIM</span>: Digital Image Mover 5.0 Beta</a>.</p>
+<p><img src="_image_cache/46a0dfff-0235-4334-bba7-2bfe83722c31.png" alt="DIM" width="873" height="492" data-action="zoom"><span class="caption">DIM</span></p>
+<p>I only stumbled across <span class="small-caps">DIM</span> the other day. It looks to of been created in 2001, the latest beta version released Dec 2013 still has a <span class="small-caps">UI</span> from 2001 but that really doesn’t matter. The tasks the software is designed to do it does very well. It sorted my 27,000+ photos into subfolders in less than 5 minutes. The software is very self-explanatory, it will copy your photos by default rather than altering the originals. To speed things up a bit I switched off the Geolocation functionality. This allows you to sort your photos based on Location. You can see which <span class="small-caps">DIM</span> settings I switched on and off <a href="https://i.imgur.com/M0RCCZj.png">here</a> and <a href="https://i.imgur.com/6gOOSNI.png">here</a>.</p>
+<h2 id="de-duplicating">De-duplicating</h2>
+<p>If like me you have a ton of duplicate photos there are two pieces of software that can help with that.</p>
+<p><a href="http://macpaw.com/gemini">MacPaw Gemini</a> is an awesome piece of software, you can use it to de-duplicate any file not just photos. Gemini scanned through my <span class="small-caps">60GB</span> photo collection in less than 1 minute showing me all the duplicates. The software itself is pretty self explanatory and doesn’t require any guidance. Gemini will detect duplicates based on the file itself rather than the image content i.e those that are exactly the same size and share the same <span class="small-caps">MD5</span> hash. It won’t detect two of the same photo if one has been resized or compressed. For this you need <a href="http://photosweeper.com/">PhotoSweeper</a>.</p>
+<p><img src="_image_cache/e8262ad5-5fc4-43ac-90a1-515e5968b695.png" alt="Gemini" width="338" height="320" data-action="zoom"><span class="caption">Gemini</span></p>
+<p><a href="http://photosweeper.com/">PhotoSweeper</a> is an excellent piece of software that has helped me to remove all my what I call<span class="push-single"></span> <span class="pull-single">‘</span>WhatsApp duplicates’. These are low-resolution copies of photos that WhatsApp creates and end up in recipients Camera Roll when you send somebody a photo i.e your partner that syncs their photos to the same Dropbox account as you. PhotoSweeper isn’t as 100% accurate as Gemini. It’s detection methods are based on the image content itself however I found it more than accurate enough to rid my collection of nearly all duplicates.</p>
+<h2 id="saving-space">Saving space</h2>
+<p>When I first started sorting through my photo collection I told myself I wouldn’t compress or shrink any of my photos. After <a href="http://www.jpeg.org/.demo/FAQJpeg2k/coding-and-compression.htm#Why%20is%20a%20lossy%20compression%20acceptable?">researching</a> the <a href="http://www.ece.ucdavis.edu/cerl/ReliableJPEG/Cung/jpeg.html">process behind compressing a <span class="small-caps">JPEG</span> photo</a> I changed my mind. Although I do not fully understand the science behind losslessly compressing a <span class="small-caps">JPEG</span> image I do trust it and the results are amazing. At no point have I shrunk the resolution of any of my photos, only re-organised the<span class="push-single"></span> <span class="pull-single">‘</span>huffman tables’ to shrink the size of the file itself. The software I am using is <a href="https://github.com/tjko/jpegoptim">jpegoptim</a>, available as a command line tool for Mac <span class="small-caps">OS</span> X and <span class="small-caps">GUI </span><a href="http://imageoptim.com/">here</a>. I will show you how to implement an automated workflow using the command line tool.</p>
+<p>Lossless compression (100% quality) produced significant savings in photos where colors are similar across the whole image. I started to experiment with lower quality settings. At 80% I was hitting near 60% space savings on every image I ran through jpegoptim with no visual loss of image quality. I ran a handful of completely different photos from different devices through jpegoptim with a maximum quality of 80%, zoomed in to 100% and could spot no differences to the original. My whole photo collection now comes in at 25.29 GB where as before running this process it was just over <span class="small-caps">55 GB</span>, that’s just under a 50% reduction in size with no visible loss in photo quality.</p>
+<h2 id="automating-this---my-workflow">Automating this - My Workflow</h2>
+<p>As I only shoot using my iPhone my workflow is perhaps more simple than most. I use Dropbox to automatically sync my photos and then have a very simple set of Hazel rules that compress, tag and sort my photos from there. Dropbox’s camera upload app is very well made, files are dropped into a<span class="push-single"></span> <span class="pull-single">‘</span>Camera Uploads’ folder renamed with the date the photo was taken, extracted from Exif, it also sets the<span class="push-single"></span> <span class="pull-single">‘</span>Date Created’ as per Exif.</p>
+<h2 id="rule-1">Rule 1</h2>
+<p>Rule Name: Compress, tag, move to photos folder <br>
+Target: Dropbox/Camera Uploads <br>
+Conditions: Extension is jpg <br>
+Actions: Run shell script- embedded script: </p>
+<pre><code>jpegoptim -m80 -p &quot;$1&quot;</code></pre>
+<p>Add tags: jpegoptim80 <br>
+Move: to folder: Dropbox/Photos</p>
+<p>The embedded script broken down. jpegoptim calls the executable, -m80 sets quality to 80%, -p<span class="push-double"></span> <span class="pull-double">“</span>$1”tells jpegoptim to process the file that <a href="http://www.noodlesoft.com/hazel.php">Hazel</a> has detected in Dropbox/Camera Uploads.</p>
+<p><img src="_image_cache/0b0c5095-97bc-45f6-8f88-fc196dc6a6ef.png" alt="Hazel Rule" width="782" height="641" data-action="zoom"><span class="caption">Hazel Rule</span></p>
+<h2 id="rule-2">Rule 2</h2>
+<p>Rule Name: once moved to photos, sort into subfolders <br>
+Target: Dropbox/Photos <br>
+Conditions: Extension is jpg <br>
+Actions: Sort into subfolders: date created (2013) ▸ date created (12 - Dec) ▸ date created (01)</p>
+<p><img src="_image_cache/6dda8d3a-9832-4619-a9f6-b43b501f7e6e.png" alt="Hazel Rule" width="782" height="641" data-action="zoom"><span class="caption">Hazel Rule</span></p>
+<p>This sorts the photos into a dated folder structure moved to Dropbox/Photos by Rule #1. Here we can use Hazel because Dropbox has set the Date Created / Date Modified attributes on the file as per Exif.</p>
+<h2 id="what-about-video">What about Video?</h2>
+<p>I’m yet to work out how I can de-duplicate, compress and accurately sort my videos. Nearly 70% of my Dropbox is consumed by video and I’d love to do get that number down. If anybody has a similar workflow for video I’d love to here it.</p>
+      </div>
+
+      <div class="light">
+        <a href="organising-a-massive-photo-collection.html" title="Organising a massive photo collection">January 13, 2014</a>
+</div>
+
+      <hr class="full"/>
+
+
+    <p class="entry" style="text-align:center">View <a href="archives.html">the archives</a></p>
+
+<script src="script1ef1.js?1558722798200" type="text/javascript"></script>
+<!-- Ticksel v1.0 -->
+<script type="text/javascript">
+  var _tcfg = _tcfg || [];
+  (function() {
+    _tcfg.push(["tags", ""]);
+    var u="https://cdn.ticksel.com/js/analytics_v1.0.js"; _tcfg.push(["account_id", 8456850]);
+    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0];
+    g.type="text/javascript"; g.async=true; g.src=u; g.setAttribute("crossorigin", "anonymous");
+    g.setAttribute("integrity", "sha256-7grd8jMivCG0iCcJ7m/Ny4gvWb0mPVpFhRQovLkaUl8=");
+    s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><img src="https://beacon.ticksel.com/beam?account_id=8456850&amp;referrer=&amp;tags=" style="border:0;" width="0" height="0" alt="" /></noscript>
+<!-- End Ticksel Code -->  </body>
+
+<!-- Mirrored from ecraep.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 25 May 2019 14:56:41 GMT -->
+</html>

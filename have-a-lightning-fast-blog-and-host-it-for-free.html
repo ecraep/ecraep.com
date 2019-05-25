@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html>
+
+<!-- Mirrored from ecraep.com/have-a-lightning-fast-blog-and-host-it-for-free by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 25 May 2019 15:00:31 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8">
+    <title>Have a lightning fast blog and host it for free - ecraep.com</title>
+    <meta name="description" content="I recently migrated my blog from Wordpress to Silvrback to Ghost. I was very happy with Silvrback, it’s an excellent writing platform. In the end I">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed for ecraep.com" href="feed.rss">
+    <link rel="stylesheet" href="style1ef1.css?1558722798200">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" sizes="180x180" href="_apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="_favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="_favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#b91d47">
+    <meta name="theme-color" content="#ffffff">
+</head>  <body>
+
+<div class="sidebar">
+
+  <a href="index.html" title="The homepage of ecraep.com" class="logo hasAvatar">
+    <img width="42" height="42" src="_avatars/9eeee76b-8be8-4f56-83e8-990f0f556786.png" class="avatar ">
+    <span style="display:block">ecraep.com</span>
+  </a>
+
+  <a href="index.html" class="light" title="Home">Home</a>
+  <a href="archives.html" class="light" title="Archives">Archives</a>
+  <a href="search.html" class="light" title="Search">Search</a>
+  <a href="feed.rss" class="light" title="Feed">Feed</a>
+  <a href="contact.html" class="light" title="Contact">Contact</a>
+
+</div>
+
+      <div class="entry">
+        <h1 id="have-a-lightning-fast-blog-and-host-it-for-free">Have a lightning fast blog and host it for free</h1>
+<p>I recently migrated my blog from Wordpress to <a href="https://dsowers.silvrback.com/introducing-silvrback">Silvrback</a> to <a href="http://ghost.org/">Ghost</a>. I was very happy with Silvrback, it’s an excellent writing platform. In the end I got fed up not being able to change how my site looked (no theming), so switched to Ghost.</p>
+<p>I’m a bit of an uptime and performance freak. This website is relatively lightweight and performs well in most situations. I wanted to ensure it performed the best it ever could and sustained 100% uptime. Ghost isn’t difficult to setup on your own server but there are so many advantages to hosting a static site vs one that is dynamically generated server side with a database backend. Nor did I want to pay for a hosted solution once I discovered you can host your static site for free using <a href="http://pages.github.com/">GitHub Pages</a>.</p>
+<h2 id="static-ghost">Static Ghost</h2>
+<p>Enter <a href="https://github.com/axitkhurana/buster">Buster</a>. Buster is a static site generator for Ghost. There are many reasons you might want a static site</p>
+<ul>
+<li>Host it anywhere</li>
+<li>No database dependancy</li>
+<li>Better performance</li>
+<li>Easy to backup</li>
+<li>Far more secure, no admin backend</li>
+</ul>
+<p>Getting Buster <a href="http://www.metacotta.com/ghost-static-site-generation-with-buster/">setup</a> was easy and in 10 minutes I had a static copy of my then hosted Ghost blog. You can actually target any Ghost blog hosted on any server with Buster, it’s quite powerful.</p>
+<h2 id="github-pages">GitHub Pages</h2>
+<p>Before you <code>buster deploy</code> you’ll want to setup a GitHub account (free) if you don’t already have one and then configure a GitHub Pages respository (also free) as per <a href="http://pages.github.com/">instructions here.</a> Make sure you follow the guide on <a href="https://help.github.com/articles/setting-up-a-custom-domain-with-pages">configuring a custom domain</a> before you make and <span class="small-caps">DNS</span> changes.</p>
+<h2 id="my-workflow">My Workflow</h2>
+<p>I have a locally hosted copy of Ghost running on my Macbook and I target this using Buster. <a href="http://docs.ghost.org/installation/">Getting Ghost up and running locally</a> is very simple. The great thing about having a local install of Ghost is that I can publish posts before I’m finished, make styling changes etc and preview what they look like on the site before statically generating the updated version and pushing that to GitHub. I store my Ghost installation in my Dropbox along with the static files.</p>
+<p>1) <a href="http://127.0.0.1:2368/ghost" class="uri">http://127.0.0.1:2368/ghost</a> </p>
+<ol start="2" type="1">
+<li>Write post <br>
+</li>
+<li>buster generate –domain=<a href="http://127.0.0.1:2368/" class="uri">http://127.0.0.1:2368</a> <br>
+4) buster deploy</li>
+</ol>
+<h2 id="performance">Performance</h2>
+<p>GitHub sits behind the <a href="https://www.fastly.com/">Fastly <span class="small-caps">CDN</span>.</a> You may not of heard of Fastly but they <span class="small-caps">CDN</span> for the likes of Twitter, Disqus, The Guardian, Shazam. Converting your site to static files and hosting with GitHub Pages will guarentee to improve performance. My site’s load time before I moved was 1.6s. My site now loads in just over 330ms.</p>
+<p><img src="_image_cache/be71e84d-1212-461f-bbae-e8d5d419ff47.png" alt="Pingdom test" width="638" height="466" data-action="zoom"><span class="caption">Pingdom test</span></p>
+<p>Make the switch today. <a href="http://alexcican.com/post/guide-hosting-website-dropbox-github/">Loads</a> <a href="http://sirupsen.com/the-switch-to-github-pages">of</a> <a href="http://hpehl.info/moved-blog-to-github-pages.html">people</a> <a href="http://jtimberman.housepub.org/blog/2011/09/29/blog-moved-to-github-pages/">are</a> <a href="http://ocramius.github.io/blog/moving-my-blog-to-jekyll/">moving</a> <a href="http://www.alexrothenberg.com/2011/01/27/moved-blog-to-jekyll-and-github-pages.html">to</a> <a href="http://hugogiraudel.com/2013/02/21/jekyll/">static.</a></p>
+<h2 id="amazon-s3-cloudfront">Amazon <span class="small-caps">S3</span> + CloudFront</h2>
+<p>If you don’t feel comfortable hosting your website for free then I’d highly recommend reading Paul’s<a href="http://paulstamatiou.com/hosting-on-amazon-s3-with-cloudfront/"><span class="push-double"></span><span class="pull-double">“</span>How To: Hosting on Amazon <span class="small-caps">S3</span> with CloudFront”</a>. Paul’s site is built using Jekyll 1, as are most blogs hosted on GitHub Pages, but you can follow pretty much everything he does to get your Buster generated static blog online.</p>
+<p>1. Buster is built from Jekyll</p>
+      </div>
+
+      <div class="light">
+        <a href="have-a-lightning-fast-blog-and-host-it-for-free.html" title="Permalink for Have a lightning fast blog and host it for free">January 17, 2014</a>
+</div>
+
+      <br />
+
+      <br />
+      <p class="entry">
+
+      <span class="light adjacent">Previous:</span><a href="organising-a-massive-photo-collection.html" title="Organising a massive photo collection">Organising a massive photo collection</a><br />
+
+      <span class="light adjacent">Next:</span><a href="investigating-the-dirty-world-of-phishing-emails.html" title="Investigating the dirty world of phishing emails">Investigating the dirty world of phishing emails</a>
+
+      </p>
+      <br />
+      <br />
+      <br />
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerneldump';
+    var disqus_identifier = 'entry_9ef0a9a67731478a976e6e2548cbaa66';
+    var disqus_title = 'Have a lightning fast blog and host it for free';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the comments.</noscript>
+
+
+<script src="script1ef1.js?1558722798200" type="text/javascript"></script>
+<!-- Ticksel v1.0 -->
+<script type="text/javascript">
+  var _tcfg = _tcfg || [];
+  (function() {
+    _tcfg.push(["tags", ""]);
+    var u="https://cdn.ticksel.com/js/analytics_v1.0.js"; _tcfg.push(["account_id", 8456850]);
+    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0];
+    g.type="text/javascript"; g.async=true; g.src=u; g.setAttribute("crossorigin", "anonymous");
+    g.setAttribute("integrity", "sha256-7grd8jMivCG0iCcJ7m/Ny4gvWb0mPVpFhRQovLkaUl8=");
+    s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><img src="https://beacon.ticksel.com/beam?account_id=8456850&amp;referrer=&amp;tags=" style="border:0;" width="0" height="0" alt="" /></noscript>
+<!-- End Ticksel Code -->  </body>
+
+<!-- Mirrored from ecraep.com/have-a-lightning-fast-blog-and-host-it-for-free by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 25 May 2019 15:00:31 GMT -->
+</html>

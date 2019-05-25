@@ -1,0 +1,165 @@
+
+<!DOCTYPE html>
+<html>
+
+<!-- Mirrored from ecraep.com/investigating-the-dirty-world-of-phishing-emails by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 25 May 2019 15:00:31 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8">
+    <title>Investigating the dirty world of phishing emails - ecraep.com</title>
+    <meta name="description" content="The other day I was having a quick look through my Gmail spam folder and a particular email caught my eye. “Your NatWest CreditCard Online Statement">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed for ecraep.com" href="feed.rss">
+    <link rel="stylesheet" href="style1ef1.css?1558722798200">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" sizes="180x180" href="_apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="_favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="_favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#b91d47">
+    <meta name="theme-color" content="#ffffff">
+</head>  <body>
+
+<div class="sidebar">
+
+  <a href="index.html" title="The homepage of ecraep.com" class="logo hasAvatar">
+    <img width="42" height="42" src="_avatars/9eeee76b-8be8-4f56-83e8-990f0f556786.png" class="avatar ">
+    <span style="display:block">ecraep.com</span>
+  </a>
+
+  <a href="index.html" class="light" title="Home">Home</a>
+  <a href="archives.html" class="light" title="Archives">Archives</a>
+  <a href="search.html" class="light" title="Search">Search</a>
+  <a href="feed.rss" class="light" title="Feed">Feed</a>
+  <a href="contact.html" class="light" title="Contact">Contact</a>
+
+</div>
+
+      <div class="entry">
+        <h1 id="investigating-the-dirty-world-of-phishing-emails">Investigating the dirty world of phishing emails</h1>
+<p>The other day I was having a quick look through my Gmail spam folder and a particular email caught my eye.<span class="push-double"></span> <span class="pull-double">“</span>Your NatWest CreditCard Online Statement is Ready Online”. Gmail warned me about the message. That they couldn’t verify it had been sent from natwestsecure.com and disabled all images and links. I was intruiged to know what would happen if I did click the link and also exactly where they were hosting this phishing site. Was it cheap shared hosting, or even a dedicated box?</p>
+<p>I told Gmail the email was not spam, that allowed me to see both the images and the link.</p>
+<p><img src="_image_cache/1a9ec288-84d7-4bca-bf47-0abe6af160ef.png" alt="Natwest Phishing email" width="490" height="308" data-action="zoom"><span class="caption">Natwest Phishing email</span></p>
+<p>Hovering my mouse over the link I could see it would in fact take me to</p>
+<pre><code>    http://informacja.wimbp.lodz.pl/cache/fr.php</code></pre>
+<h2 id="who-hosts-this">Who hosts this?</h2>
+<p>First let’s do a <span class="small-caps">WHOIS</span> on lodz.pl.</p>
+<pre><code>    DOMAIN NAME: lodz.pl 
+    registrant type: organization 
+    nameservers: dns2.man.lodz.pl. 
+    dns4.man.lodz.pl. dns.man.lodz.pl. ns1.tpnet.pl. 
+    created: 1995.01.01 12:00:00 
+    last modified: 2004.08.06 09:57:55 
+    renewal date: 2014.12.31 13:00:00 
+    option created: 2012.11.16 08:03:07 
+    option expiration date: 2015.11.16 08:03:07 
+    dnssec: Unsigned</code></pre>
+<p>Hmm. Their own vanity nameservers plus the domain was registered in 1995. Certainly doesn’t look how I’d expect it to look. Ok, let’s check out the website itself.</p>
+<blockquote>
+<p>Lodz, the former textile industry empire, today is a city of modern technologies, creative enterprises and grand events.</p>
+</blockquote>
+<p>The website looks real, the official website of the city Lodz in Poland. How about``</p>
+<blockquote>
+<p>Department of Information Science WiMBP in Lodz</p>
+</blockquote>
+<p>That looks genuine too.</p>
+<p>I notice the site is running off the <span class="small-caps">CMS</span> Joomla.</p>
+<pre><code>    &lt;meta name=&quot;generator&quot; content=&quot;Joomla! 1.5  
+    - Open Source Content Management&quot; /&gt;</code></pre>
+<p>What’s the bet 1.5 isn’t the latest version? <a href="http://docs.joomla.org/What_version_of_Joomla!_should_you_use%3F">Nope</a>. According to Joomla’s documentation 1.5 went <span class="small-caps">EOL</span> Sept 2012, all security updates for that version have stopped. I think it’s <a href="http://www.cvedetails.com/vulnerability-list/vendor_id-3496/cvssscoremin-5/cvssscoremax-5.99/Joomla.html">safe to assume</a> that /cache/fr.php has been planted there by an attacker. What happens when we visit that site? A quick <span class="small-caps">CURL</span> reveals something interesting.</p>
+<pre><code>    HTTP/1.1 302 Found
+    Date: Wed, 22 Jan 2014 20:28:00 GMT
+    Server: Apache
+    X-Powered-By PHP/5.3.1
+    Location: http://www.remart.com.ua/logs/index.html
+    Content-Type: text/html</code></pre>
+<p>A 302 redirect to <a href="http://www.remart.com.ua/logs/index.html" class="uri">http://www.remart.com.ua/logs/index.html</a></p>
+<p>A <span class="small-caps">WHOIS</span> on remart.com.au revleals a similar situation to lodz.pl. The domain was created in 2011 and the site itself appears genuine, a sort of high-end home repairs company. <span class="small-caps">OK</span>, let’s check the headers.</p>
+<pre><code>    &lt;meta name=&quot;generator&quot; content=&quot;Joomla! 1.5  
+    - Open Source Content Management&quot; /&gt;</code></pre>
+<p>There’s a theme appearing here isn’t there? Let’s visit that site in a browser.</p>
+<p><img src="_image_cache/2a174506-4ebc-4229-b9df-05ce2fe85b3d.png" alt="NatWest Phishing site" width="981" height="513" data-action="zoom"><span class="caption">NatWest Phishing site</span></p>
+<p>The source code reveals that nearly all of the site’s elements (<span class="small-caps">CSS</span>, <span class="small-caps">JS</span>) are being loaded from the natwest.com domain itself. The footer says Copyright 2005-2009, perhaps this is some old source code they stole? A quick visit to <a href="https://cardservices.natwest.com/RBSG_Consumer/Login.do?promoCode=NatWest">NatWest actual site</a> shows that it potentially isn’t old as even their own website has Copyright 2005-2009 in the footer.</p>
+<p>Interestingly at the bottom of the source code we see some javascript for Adobe’s analytics service SiteCatalyst.</p>
+<pre><code>    &lt;!-- SiteCatalyst code version: H.23.3.  
+    Copyright 1996-2011 Adobe, Inc. All Rights Reserved  
+    More info available at http://www.omniture.com --&gt;  
+    &lt;sript language=&quot;JavaScript&quot; type=&quot;text/javascript&quot;&gt;&lt;!--  
+    var s_account=&quot;tssprodrbsgnatwestconsumer&quot;  
+    var linkInternalFiltersPage=&quot;javascript:&quot; + window.location.hostname
+    + &quot;,testdomain.com&quot;  
+    //--&gt;</code></pre>
+<p>The <code>var s_account=&quot;tssprodrbsgnatwestconsumer&quot;</code> string matches what is on NatWest.com. The attackers obviously weren’t smart enough to strip this out. I’ve never used Adobe SiteCatalyst before but NatWest <em>should</em> be able to see this dodgy domain showing up in their statistics.</p>
+<p>I’m now fairly certain the two sites involved in hosting the phishing site do not know they’re hosting it. How about the email, where did that originate from?</p>
+<h2 id="the-email">The Email</h2>
+<pre><code>    Return-Path: 
+    Received: from servhotel1.automerkit.fi (servhotel1.automerkit.fi. 
+    [80.69.163.62])
+    Received-SPF: pass
+    (google.com: best guess record for domain of
+    www-data@servhotel1.automerkit.fi
+    designates 80.69.163.62 as permitted sender)</code></pre>
+<p>That’s odd, the <span class="small-caps">SPF</span> passes. There’s even a <span class="small-caps">PTR</span> record on 80.69.163.62.</p>
+<p><span class="small-caps">WHOIS</span> again. Created: 2010. Desc: Interactive Auto Media Oy</p>
+<p>automerkit.fi another genuine website? Yep! Looks to be a Finnish car enthusiast site.</p>
+<h2 id="what-weve-learnt">What we’ve learnt</h2>
+<p>Whoever is sending these phishing emails has compromised three separate systems, I assume, to avoid being caught. They’ve compromised somebody’s email system with working <span class="small-caps">SPF</span> and <span class="small-caps">PTR</span> record to try and make their way into your inbox. Fortunately their efforts have failed, at least they do if you use Gmail &amp; Google Chrome.</p>
+<p>Gmail knew the email was dodgy and sent it straight to Spam:</p>
+<p><img src="_image_cache/91a0d346-9e84-4a4f-903e-4e76eaea911a.png" alt="Gmail phishing detection" width="921" height="127" data-action="zoom"><span class="caption">Gmail phishing detection</span></p>
+<p>Google Chrome knew that both links were dodgy:</p>
+<p><img src="_image_cache/e478fb6c-9479-4e59-a5fc-b8decc8052a8.png" alt="Google Chrome phishing detection" width="842" height="502" data-action="zoom"><span class="caption">Google Chrome phishing detection</span></p>
+<p>Morale of the story. If you’re a web developer, don’t leave your site running on old versions of any <span class="small-caps">CMS</span>. Be that Joomla, Wordpress. If you’re really serious about security or don’t have the time to keep it patched, publish your site as static files, if possible. Lock down access to your servers using secure passwords, <a href="http://blog.authy.com/two-factor-ssh-in-thirty-seconds">two factor authentication</a> and ideally <a href="https://www.dome9.com/">access lists</a> too. Follow some <a href="https://www.vircom.com/security/top-10-tips-to-secure-your-email-server/">simple steps</a> to locking down that <span class="small-caps">SMTP</span> server too.</p>
+<p>Because I’m a good citizen I forwarded the phishing email to <a href="mailto:phishing%40natwest.com">phishing@natwest.com</a> and notified the website owners of the two pages. I also emailed the owner of automerkit.fi to let them know their servers were spamming.</p>
+      </div>
+
+      <div class="light">
+        <a href="investigating-the-dirty-world-of-phishing-emails.html" title="Permalink for Investigating the dirty world of phishing emails">January 22, 2014</a>
+</div>
+
+      <br />
+
+      <br />
+      <p class="entry">
+
+      <span class="light adjacent">Previous:</span><a href="have-a-lightning-fast-blog-and-host-it-for-free.html" title="Have a lightning fast blog and host it for free">Have a lightning fast blog and host it for free</a><br />
+
+      <span class="light adjacent">Next:</span><a href="ipv6-over-ipv4-at-home.html" title="How To: IPv6 over IPv4 at home, today">How To: IPv6 over IPv4 at home, today</a>
+
+      </p>
+      <br />
+      <br />
+      <br />
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerneldump';
+    var disqus_identifier = 'entry_4e7d776a39c14641834e58a4d8fe364e';
+    var disqus_title = 'Investigating the dirty world of phishing emails';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the comments.</noscript>
+
+
+<script src="script1ef1.js?1558722798200" type="text/javascript"></script>
+<!-- Ticksel v1.0 -->
+<script type="text/javascript">
+  var _tcfg = _tcfg || [];
+  (function() {
+    _tcfg.push(["tags", ""]);
+    var u="https://cdn.ticksel.com/js/analytics_v1.0.js"; _tcfg.push(["account_id", 8456850]);
+    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0];
+    g.type="text/javascript"; g.async=true; g.src=u; g.setAttribute("crossorigin", "anonymous");
+    g.setAttribute("integrity", "sha256-7grd8jMivCG0iCcJ7m/Ny4gvWb0mPVpFhRQovLkaUl8=");
+    s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><img src="https://beacon.ticksel.com/beam?account_id=8456850&amp;referrer=&amp;tags=" style="border:0;" width="0" height="0" alt="" /></noscript>
+<!-- End Ticksel Code -->  </body>
+
+<!-- Mirrored from ecraep.com/investigating-the-dirty-world-of-phishing-emails by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 25 May 2019 15:00:31 GMT -->
+</html>

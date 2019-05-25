@@ -1,0 +1,600 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+<channel>
+  <title><![CDATA[ ecraep.com]]></title>
+  <link>https://ecraep.com</link>
+  <atom:link href="https://ecraep.com/feed.rss" rel="self" type="application/rss+xml"/>
+  <description><![CDATA[ The feed of updates to ecraep.com ]]></description>
+  <item> 
+    <title><![CDATA[ Automating Alexa Guard ]]></title>
+    <link>https://ecraep.com/automating-alexa-guard</link>
+    <guid>https://ecraep.com/automating-alexa-guard</guid>
+    <pubDate>Wed, 15 May 2019 18:29:49 +0000</pubDate>
+    <dc:creator><![CDATA[ Automating Alexa Guard ]]></dc:creator>
+    <description><![CDATA[  <h2 id="automating-alexa-guard">Automating Alexa Guard</h2>
+<p>Amazon released a new feature for it&#x2019;s Echo devices called<span class="push-double"></span> <span class="pull-double">&#x201C;</span>Alexa Guard&#x201D;</p>
+<p>To get Alexa Guard working in the <span class="small-caps">UK</span> I had to reset my Echo Dot and link it to a new account registered on amazon.com (instead of&#xA0;.co.uk). You can set your device location, language, time zone all back to <span class="small-caps">UK</span> with the new account and Alexa Guard continues to work.</p>
+<blockquote>
+<p><strong>Get Smart Alerts:</strong> Alexa can send you Smart Alerts, via phone notifications, if your Echo device detects the sound of smoke alarms, carbon monoxide alarms, or glass breaking. Play the detected sound from your Alexa app, or Drop In on your Echo remotely to investigate what&#x2019;s happening.</p>
+</blockquote>
+<p>To activate Alexa Guard you say<span class="push-double"></span> <span class="pull-double">&#x201C;</span>Alexa, I&#x2019;m leaving&#x201D; and to deactivate<span class="push-double"></span> <span class="pull-double">&#x201C;</span>Alexa, I&#x2019;m home&#x201D;, but who would remember to do this?</p>
+<p><a href="https://www.home-assistant.io/">Home Assistant</a> is open source home automation. I setup a simple, albiet silly automation.</p>
+<ol type="1">
+<li>iOS app detects I have left home</li>
+<li>Triggers automation; Text-to-Speech (<span class="small-caps">TTS</span>) service runs and my Google Home says<span class="push-double"></span> <span class="pull-double">&#x201C;</span>Alexa, I&#x2019;m leaving&#x201D;</li>
+<li>Alexa Guard is activated</li>
+</ol>  ]]></description>
+  </item>
+  <item> 
+    <title><![CDATA[ Sky Broadband - Transparent DNS proxy ]]></title>
+    <link>https://ecraep.com/sky-broadband-transparent-dns-proxy</link>
+    <guid>https://ecraep.com/sky-broadband-transparent-dns-proxy</guid>
+    <pubDate>Tue, 14 May 2019 16:25:17 +0000</pubDate>
+    <dc:creator><![CDATA[ Sky Broadband - Transparent DNS proxy ]]></dc:creator>
+    <description><![CDATA[  <h2 id="sky-broadband---transparent-dns-proxy">Sky Broadband - Transparent <span class="small-caps">DNS</span> proxy</h2>
+<p>As of April 2019 Sky Broadband have started rolling out firmware (2.09.2510.R and newer) to all their routers to add support for the<span class="push-double"></span> <span class="pull-double">&#x201C;</span>Sky Broadband Boost&#x201D; add-on.</p>
+<blockquote>
+<p><strong>Broadband Buddy</strong>&#x2009;&#x2014;&#x2009;Customers can manage their family&#x2019;s screen time in &amp; out of their home via the Sky Buddy app (iOS and Android); even<span class="push-double"></span> <span class="pull-double">&#x201C;</span><em>pause the internet</em><span class="push-double"></span><span class="pull-double">&#x201D;</span>. The app allows parents to monitor family online internet usage, including internet history. It also includes location tracking. Parents will be notified on their own device if children uninstall Sky Buddy.</p>
+</blockquote>
+<p>Unfortunately this means they now <strong>proxy all your <span class="small-caps">DNS</span> traffic</strong> using a transparent <span class="small-caps">DNS</span> proxy, regardless of what <span class="small-caps">DNS</span> resolver you have set on your client.</p>
+<p>I.e you may have Cloudflare&#x2019;s 1.1.1.1 configured on your local device, <span class="small-caps">DNS</span> requests will still be answered by Sky. If you&#x2019;re a Sky Broadband customer you can confirm this yourself here: <a href="https://www.dnsleaktest.com/" class="uri">https://www.dnsleaktest.com/</a></p>
+<p>Is this a problem? It can be if you use<span class="push-double"></span> <span class="pull-double">&#x201C;</span>Smart <span class="small-caps">DNS</span><span class="push-double"></span><span class="pull-double">&#x201D;</span> services that allow you to watch streaming services only available in certain countries or if you simply don&#x2019;t want your <span class="small-caps">ISP</span> logging which sites you visit.</p>
+<p><span class="small-caps">DNS</span> is unencrypted, this is why it can be so easily intercepted.</p>
+<p>A number of well known public recursive <span class="small-caps">DNS</span> resolvers support encrypted <span class="small-caps">DNS</span> via <span class="small-caps">DNS</span> over <span class="small-caps">TLS</span>, <span class="small-caps">DNS</span> over <span class="small-caps">HTTPS</span> or DNSCrypt. <a href="https://dnscrypt.info/implementations/">Clients</a> exist for Mac <span class="small-caps">OS</span>, iOS, Windows.</p>
+<p>I like to use Cloudflare, they support both <span class="small-caps">DNS</span> over <span class="small-caps">TLS</span> and <span class="small-caps">DNS</span> over <span class="small-caps">HTTPS</span>.</p>
+<p>If you already have a Raspberry Pi on your network you&#x2019;re likely already utilizing Pi-hole for excellent ad blocking and <span class="small-caps">DNS</span> analytics, <strong>implementing encrypted <span class="small-caps">DNS</span> is easy</strong>, follow <a href="https://docs.pi-hole.net/guides/dns-over-https/">these instructions</a></p>
+<p>If you have a router running OpenWRT setting up encrypted <span class="small-caps">DNS</span> is easy:</p>
+<ol type="1">
+<li>Install luci-app-unbound and it&#x2019;s dependancies</li>
+<li>In the <a href="http://openwrt.lan/cgi-bin/luci/admin/services/unbound/zones"><span class="small-caps">GUI</span></a> add a new zone
+<ul>
+<li>Zone Type: Forward</li>
+<li>Zone Names:&#xA0;.</li>
+<li>Servers: 1.0.0.1, 1.1.1.1</li>
+<li><span class="small-caps">DNS</span> over <span class="small-caps">TLS</span>: Yes</li>
+<li><span class="small-caps">TLS</span> Name Index: cloudflare-dns.com</li>
+</ul></li>
+</ol>  ]]></description>
+  </item>
+  <item> 
+    <title><![CDATA[ North Korea’s Naenara Web Browser: It’s Weirder Than We Thought ]]></title>
+    <link>https://ecraep.com/naenara-weird</link>
+    <guid>https://ecraep.com/naenara-weird</guid>
+    <pubDate>Fri, 09 Jan 2015 22:46:00 +0000</pubDate>
+    <dc:creator><![CDATA[ North Korea’s Naenara Web Browser: It’s Weirder Than We Thought ]]></dc:creator>
+    <description><![CDATA[  
+<blockquote>
+<p>Here&#x2019;s where things start to go off the rails: what this means is that all of the <span class="small-caps">DPRK</span><span class="push-single"></span><span class="pull-single">&#x2019;</span>s national network is non-routable <span class="small-caps">IP</span> space. You heard me; they&#x2019;re treating their entire country like some small to medium business might treat their corporate office. The entire country of North Korea is sitting on one class A network (16,777,216 addresses). I was always under the impression they were just pretending that they owned large blocks of public <span class="small-caps">IP</span> space from a networking perspective, blocking everything and selectively turning on outbound traffic via access control lists. Apparently not!</p>
+</blockquote>  ]]></description>
+  </item>
+  <item> 
+    <title><![CDATA[ Analyzing the FBI’s Explanation of How They Located Silk Road ]]></title>
+    <link>https://ecraep.com/analyzing-fbi-explanation-silk-road</link>
+    <guid>https://ecraep.com/analyzing-fbi-explanation-silk-road</guid>
+    <pubDate>Sun, 07 Sep 2014 21:58:00 +0000</pubDate>
+    <dc:creator><![CDATA[ Analyzing the FBI’s Explanation of How They Located Silk Road ]]></dc:creator>
+    <description><![CDATA[  
+<p>I read <a href="http://www.wired.com/2014/09/the-fbi-finally-says-how-it-legally-pinpointed-silk-roads-server/">Wired&#x2019;s</a> article on Friday, it gave a brief explanation of how the <span class="small-caps">FBI</span> located the real <span class="small-caps">IP</span> of Silk Road&#x2019;s server. Nik Cubrilovic does a great job of analysing the tech behind it.</p>  ]]></description>
+  </item>
+  <item> 
+    <title><![CDATA[ HTTP Shaming ]]></title>
+    <link>https://ecraep.com/http-shaming</link>
+    <guid>https://ecraep.com/http-shaming</guid>
+    <pubDate>Thu, 21 Aug 2014 14:26:00 +0000</pubDate>
+    <dc:creator><![CDATA[ HTTP Shaming ]]></dc:creator>
+    <description><![CDATA[  
+<p><em><strong>Update, 31 Aug 2014:</strong></em> I even made my own submission</p>
+<p><img src="https://ecraep.com/_image_cache/ffcb0455-3aa5-4511-b439-27f8dbfc33f5.png" alt="Asda jobs website SSL issue" width="864" height="344" data-action="zoom"><span class="caption">Asda jobs website SSL issue</span></p>
+<hr>
+<p>This site shames software developers by posting details of their insecure registration, log in, payment portals, software updates etc.</p>
+<p>Scary to see <a href="http://httpshaming.tumblr.com/post/95206154681/bittorrent-sync-requests-its-tracker-relay-and">BitTorrent Sync</a>, <a href="http://httpshaming.tumblr.com/post/95190367451/little-snitch-round-two">Little Snitch</a> and a <a href="http://httpshaming.tumblr.com/post/95182431977/keepass">password manager</a> I have used in the past on the list. Also:</p>
+<blockquote>
+<p>Dymocks Booksellers in Australia doesn&#x2019;t use <span class="small-caps">SSL</span> while accepting credit card numbers. Both the page with the form and the POSTing location use <span class="small-caps">HTTP</span>. Any credit card numbers entered here would be insecure.</p>
+</blockquote>  ]]></description>
+  </item>
+  <item> 
+    <title><![CDATA[ WarKitteh ]]></title>
+    <link>https://ecraep.com/warkitteh</link>
+    <guid>https://ecraep.com/warkitteh</guid>
+    <pubDate>Fri, 08 Aug 2014 22:50:00 +0000</pubDate>
+    <dc:creator><![CDATA[ WarKitteh ]]></dc:creator>
+    <description><![CDATA[  
+<blockquote>
+<p><span class="pull-double">&#x201C;</span>I put some technology on a cat and let it roam around because the idea amused me&#x201D; says Bransfield, who works for the security consultancy Tenacity.<span class="push-double"></span> <span class="pull-double">&#x201C;</span>But the result of this cat research was that there were a lot more open and WEP-encrypted hot spots out there than there should be in 2014.&#x201D;</p>
+</blockquote>
+<p><img src="https://ecraep.com/_image_cache/7fc8ab20-2e26-4649-84d9-dd3805325a3a.jpg" alt="Skitzy the cat" width="399" height="519" data-action="zoom"><span class="caption">Skitzy the cat</span></p>  ]]></description>
+  </item>
+  <item> 
+    <title><![CDATA[ Social Engineering a Telemarketer ]]></title>
+    <link>https://ecraep.com/social-engineering-a-telemarketer</link>
+    <guid>https://ecraep.com/social-engineering-a-telemarketer</guid>
+    <pubDate>Fri, 08 Aug 2014 14:34:00 +0000</pubDate>
+    <dc:creator><![CDATA[ Social Engineering a Telemarketer ]]></dc:creator>
+    <description><![CDATA[  
+<blockquote>
+<p><span class="pull-double">&#x201C;</span>Today is a good day. I just had a call from a telemarketer. Did I yell and scream at them, you ask? Certainly not. Like a good <span class="small-caps">IT</span> administrator I put my skills to use for their benefit. Here&#x2019;s how the conversation went&#x201D;</p>
+</blockquote>
+<p>Brilliant</p>  ]]></description>
+  </item>
+  <item> 
+    <title><![CDATA[ Hacker Redirects Traffic From 19 Internet Providers to Steal Bitcoins ]]></title>
+    <link>https://ecraep.com/hacker-redirects-traffic-from-19-internet-providers-to</link>
+    <guid>https://ecraep.com/hacker-redirects-traffic-from-19-internet-providers-to</guid>
+    <pubDate>Fri, 08 Aug 2014 08:56:00 +0000</pubDate>
+    <dc:creator><![CDATA[ Hacker Redirects Traffic From 19 Internet Providers to Steal Bitcoins ]]></dc:creator>
+    <description><![CDATA[  
+<blockquote>
+<p>That <span class="small-caps">BGP</span> hijack allowed the hacker to redirect the miners&#x2019; computers to a malicious server controlled by the hijacker. From that server, the hacker sent the mining machines a<span class="push-double"></span> <span class="pull-double">&#x201C;</span>reconnect&#x201D; command that changed the mining computers&#x2019; configuration to contribute their processing power to a pool that stockpiled the bitcoins they produced rather paying them out to the mining pool&#x2019;s participants.</p>
+</blockquote>
+<blockquote>
+<p>At its peak, according to the researchers&#x2019; measurements, the hacker&#x2019;s scam was pocketing a flow of bitcoins and other digital currencies including dogecoin and worldcoin worth close to $9,000 a day.</p>
+</blockquote>  ]]></description>
+  </item>
+  <item> 
+    <title><![CDATA[ Social attack against Subscriber Identity Module (SIM cards) ]]></title>
+    <link>https://ecraep.com/social-attack-against-sim-cards</link>
+    <guid>https://ecraep.com/social-attack-against-sim-cards</guid>
+    <pubDate>Wed, 06 Aug 2014 21:09:00 +0000</pubDate>
+    <dc:creator><![CDATA[ Social attack against Subscriber Identity Module (SIM cards) ]]></dc:creator>
+    <description><![CDATA[  
+<p>A number of attacks on high profile individuals that have made the news recently are of a social nature more so than a vulnerability in a certain software&#x2019;s code. <a href="http://www.wired.com/2012/08/apple-amazon-mat-honan-hacking/all/">Mat Honan</a> perhaps being one of the most well known cases.</p>
+<blockquote>
+<p><a href="http://www.wired.com/2012/08/apple-amazon-mat-honan-hacking/all/"><em>In the space of one hour, my entire digital life was destroyed.</em></a></p>
+</blockquote>
+<p>Two factor authentication is being used by more as different services begin to support it, but it won&#x2019;t make you entirely hack-proof. Matthew Prince, <span class="small-caps">CEO</span> of Cloudflare was the victim of an attack where by somebody socially engineered AT&amp;T to redirect Matthew&#x2019;s voicemail to a number the attacker owned at which point two factor authentication in the way he had it setup became useless.</p>
+<p><strong><span class="small-caps">SIM</span> card replacement, a new kind of vulnerability</strong></p>
+<p>This leads me onto an attack method that I would like to share. If somebody were determined enough, it would be incredibly quick and easy to visit a network carrier&#x2019;s store, present a fake <span class="small-caps">ID</span> and have them issue a new <span class="small-caps">SIM</span> card that replaces the old and immediately have access to your phone number. The important thing to note here is that they will hand you the physical <span class="small-caps">SIM</span> card replacement in the store near immediately disabling the original <span class="small-caps">SIM</span> card. The victim&#x2019;s phone would lose signal but it could be days before they realise what has happened. I can&#x2019;t imagine any of the other well known network carriers have more stringent security checks than asking for <span class="small-caps">ID</span>, in this case I was told a debit card with my name on it would have been enough.</p>
+<p><strong>How to protect yourself</strong></p>
+<p>In some cases you can setup two factor authentication in a way that it does not use your phone number to issue codes or account recovery, in these cases you should almost always use an app such as <a href="https://www.authy.com/">Authy</a>. Authy will backup your two factor tokens in an encrypted manner too.</p>
+<p>Google</p>
+<blockquote>
+<p><em>We&#x2019;ll use your phone to do things like challenge hijackers or to send you a text message to help you access your account if you forget your password.</em></p>
+</blockquote>
+<p>On Google&#x2019;s account recovery page we see the above text and the option to provide a phone number, don&#x2019;t. On their 2-step Verification page you have the option of adding backup phone numbers for when you cannot access your primary way of receiving codes such as Authy, do not set a backup number.</p>
+<p>Dropbox</p>
+<p>Their settings page allows you to set a backup phone number in case you lose access to your two factor authentication device, don&#x2019;t set this.</p>
+<p>Tumblr</p>
+<p>On your account settings page under Two Factor Authentication switch off <span class="small-caps">SMS</span> and switch on<span class="push-single"></span> <span class="pull-single">&#x2018;</span>Generate code via authenticator app&#x2019;</p>
+<p>These are just a few examples of how you can better protect yourself when using two factor authentication. Two factor authentication itself adds massive amounts of security to your accounts and in most instances using <span class="small-caps">SMS</span> or phone calls for code generation is secure enough however if you want to take it that one step further I would recommend relying on Authy or <a href="http://www.yubico.com">Yubikey</a> + <a href="https://myotp.net">myotp.net</a></p>  ]]></description>
+  </item>
+  <item> 
+    <title><![CDATA[ How a bug in Dropbox permanently deleted my 8000 photos ]]></title>
+    <link>https://ecraep.com/how-a-bug-in-dropbox-permanently-deleted-my-8000-photos</link>
+    <guid>https://ecraep.com/how-a-bug-in-dropbox-permanently-deleted-my-8000-photos</guid>
+    <pubDate>Tue, 29 Jul 2014 20:51:00 +0000</pubDate>
+    <dc:creator><![CDATA[ How a bug in Dropbox permanently deleted my 8000 photos ]]></dc:creator>
+    <description><![CDATA[  
+<p>I feel very sorry for this person. I recommend <a href="http://www.haystacksoftware.com/arq/">Arq</a> to all mac users for backing up your important stuff to Amazon Glacier.</p>  ]]></description>
+  </item>
+  <item> 
+    <title><![CDATA[ Canvas Fingerprinting ]]></title>
+    <link>https://ecraep.com/canvas-fingerprinting</link>
+    <guid>https://ecraep.com/canvas-fingerprinting</guid>
+    <pubDate>Mon, 21 Jul 2014 22:21:00 +0000</pubDate>
+    <dc:creator><![CDATA[ Canvas Fingerprinting ]]></dc:creator>
+    <description><![CDATA[  
+<blockquote>
+<p>A new kind of tracking tool, canvas fingerprinting, is being used to follow visitors to thousands of top websites, from WhiteHouse.gov to YouPorn. Device fingerprints rely on the fact that every computer is slightly different: Each contains different fonts, different software, different clock settings and other distinctive features. Computers automatically broadcast some of their attributes when they connect to another computer over the Internet.</p>
+</blockquote>
+<p>An interesting technology I did not know existed. Luis Abreu shows <a href="https://twitter.com/lmjabreu/status/491322308779597824">here</a> that same fingerprint remains across normal and incognito browser modes. A brief explanation and example of the technology is found <a href="http://valve.github.io/blog/2013/07/14/anonymous-browser-fingerprinting/">here.</a></p>  ]]></description>
+  </item>
+  <item> 
+    <title><![CDATA[ Crypto weakness in smart LED lightbulbs exposes Wi-Fi passwords ]]></title>
+    <link>https://ecraep.com/crypto-weakness-in-smart-led-lightbulbs-exposes-wi-fi</link>
+    <guid>https://ecraep.com/crypto-weakness-in-smart-led-lightbulbs-exposes-wi-fi</guid>
+    <pubDate>Mon, 07 Jul 2014 21:32:00 +0000</pubDate>
+    <dc:creator><![CDATA[ Crypto weakness in smart LED lightbulbs exposes Wi-Fi passwords ]]></dc:creator>
+    <description><![CDATA[  
+<blockquote>
+<p>Armed with knowledge of the encryption algorithm, key, initialization vector and an understanding of the mesh network protocol we could then inject packets into the mesh network, capture the WiFi details and decrypt the credentials, all without any prior authentication or alerting of our presence. Success!</p>
+</blockquote>
+<p>Love these kind of hacks. Firmware fix <a href="https://updates.lifx.co/">available.</a></p>  ]]></description>
+  </item>
+  <item> 
+    <title><![CDATA[ Many UK Council sites breaching PCI compliance, still using SSLv2 ]]></title>
+    <link>https://ecraep.com/many-uk-council-sites-breaching-pci-compliance-still</link>
+    <guid>https://ecraep.com/many-uk-council-sites-breaching-pci-compliance-still</guid>
+    <pubDate>Sat, 05 Jul 2014 23:00:00 +0000</pubDate>
+    <dc:creator><![CDATA[ Many UK Council sites breaching PCI compliance, still using SSLv2 ]]></dc:creator>
+    <description><![CDATA[  
+<blockquote>
+<p>Of the 32 council sites I tested until the vein in my head burst, a whopping 23 were found to be processing payments in breach of <span class="small-caps">PCI</span>, <span class="small-caps">PECR</span> and <span class="small-caps">DPA</span> regulations.</p>
+</blockquote>
+<p>The majority of sites tested by <a href="http://ramblingrant.co.uk/">Paul Moore</a> scored F on Qualys <span class="small-caps">SSL</span> Server Test. Two of the sites tested had expired <span class="small-caps">SSL</span> certificates.</p>  ]]></description>
+  </item>
+  <item> 
+    <title><![CDATA[ Synology NAS Vulnerability Reaps Half Million Dollars in Two Months ]]></title>
+    <link>https://ecraep.com/synology-nas-vulnerability-reaps-half-million-dollars</link>
+    <guid>https://ecraep.com/synology-nas-vulnerability-reaps-half-million-dollars</guid>
+    <pubDate>Tue, 17 Jun 2014 22:36:00 +0000</pubDate>
+    <dc:creator><![CDATA[ Synology NAS Vulnerability Reaps Half Million Dollars in Two Months ]]></dc:creator>
+    <description><![CDATA[  
+<p>4 vulnerabilities discovered in September 2013 allowed one man to generate $620,496 <span class="small-caps">USD</span> in Dogecoin. If you haven&#x2019;t already, reinstall your <span class="small-caps">NAS</span> device.</p>  ]]></description>
+  </item>
+  <item> 
+    <title><![CDATA[ BitTorrent Sync encrypted secret key without API ]]></title>
+    <link>https://ecraep.com/bittorrent-sync-encrypted-secret-key-without-api</link>
+    <guid>https://ecraep.com/bittorrent-sync-encrypted-secret-key-without-api</guid>
+    <pubDate>Sat, 14 Jun 2014 23:22:00 +0000</pubDate>
+    <dc:creator><![CDATA[ BitTorrent Sync encrypted secret key without API ]]></dc:creator>
+    <description><![CDATA[  
+<p>This post explains how to generate secret keys for use on devices you want to give encrypted read only access to your data. It&#x2019;s a simple trick that I&#x2019;ll outline below</p>
+<h2 id="steps">Steps</h2>
+<p>Add a folder in BitTorrent sync and generate a secret, for example:</p>
+<pre><code>AL2NP4B5V46OLUQL3OOBQQRCK2WXTO26B</code></pre>
+<p>Before you hit <span class="small-caps">OK</span> change the first letter from A to D, the above would become:</p>
+<pre><code>DL2NP4B5V46OLUQL3OOBQQRCK2WXTO26B</code></pre>
+<p>That&#x2019;s your read/write secret created, keep that safe from prying eyes. Now view the folder&#x2019;s info (the part where you find your read only key) Take the first 33 characters from the read only secret and change the first letter from E to F. This is your encrypted read only secret.</p>
+<pre><code>E5TZNDXOI235HTCC745RMU5I2RKRRQGKFUQJ36IZ7GORJB6AOTERQQPKTD4</code></pre>
+<p>would become</p>
+<pre><code>F5TZNDXOI235HTCC745RMU5I2RKRRQGKF</code></pre>
+<p>That&#x2019;s it! Now it doesn&#x2019;t matter what device you sync your data to, for as long as you keep the read/write secret safe.</p>  ]]></description>
+  </item>
+  <item> 
+    <title><![CDATA[ Virgin Media, why are you manipulating my traffic? ]]></title>
+    <link>https://ecraep.com/virgin-media-why-are-you-manipulating-my-traffic</link>
+    <guid>https://ecraep.com/virgin-media-why-are-you-manipulating-my-traffic</guid>
+    <pubDate>Tue, 01 Apr 2014 01:20:00 +0000</pubDate>
+    <dc:creator><![CDATA[ Virgin Media, why are you manipulating my traffic? ]]></dc:creator>
+    <description><![CDATA[  
+<h2 id="updates">Updates</h2>
+<ul>
+<li>6th April: TalkTalk <a href="https://gist.github.com/Joev-/0e3cc1a3b613c54d97bb">appear</a> to be doing something similar</li>
+<li>7th April: <a href="http://equk.co.uk/2014/04/07/uk-isps-providing-cdn-for-google/">Plusnet</a> are doing it too. The responses to my post have hightlighted that using DNSCrypt + OpenDNS doesn&#x2019;t allow you to opt out of this behaviour which suggests a deal between the ISPs, Google and OpenDNS has been made.</li>
+</ul>
+<hr>
+<p>Virgin Media why does <em><a href="http://www.google.com">www.google.com</a> resolve to host-62-253-8-99.not-set-yet.virginmedia.net</em>? What a funny name for a <span class="small-caps">PTR</span> record, but seriously, why are you manipulating my traffic?</p>
+<p>I was testing something only to find that google.com, google.co.uk both resolve to an <span class="small-caps">IP</span> address owned by Virgin Media.</p>
+<blockquote>
+<p><em><span class="small-caps">PING</span> google.com (62.253.3.103): 56 data bytes 64 bytes from 62.253.3.103: icmp_seq=0 ttl=58 time=17.569 ms</em></p>
+</blockquote>
+<blockquote>
+<p><em>nslookup <a href="http://www.google.com">www.google.com</a> Server: 208.67.222.222 Address: 208.67.222.222#53</em> <em>Non-authoritative answer: Name: <a href="http://www.google.com">www.google.com</a> Address: 62.253.3.103</em></p>
+</blockquote>
+<blockquote>
+<p>host 62.253.3.103 103.3.253.62.in-addr.arpa domain name pointer host-62-253-8-103.not-set-yet.virginmedia.net.</p>
+</blockquote>
+<p>Performing a <code>dig a google.com +trace</code> fools me into thinking that ns1.google.com is dishing out these Virgin owned IPs, yet a query from elsewhere tells me otherwise.</p>
+<p><strong>Using Virgin Media</strong></p>
+<pre><code>dig a google.com @ns1.google.com
+;; ANSWER SECTION: google.com. 300 IN A 62.253.3.99 
+google.com. 300 IN A 62.253.3.93 
+google.com. 300 IN A 62.253.3.109 
+google.com. 300 IN A 62.253.3.103 
+google.com. 300 IN A 62.253.3.119 
+google.com. 300 IN A 62.253.3.94 
+google.com. 300 IN A 62.253.3.118 
+google.com. 300 IN A 62.253.3.108 
+google.com. 300 IN A 62.253.3.84 
+google.com. 300 IN A 62.253.3.88 
+google.com. 300 IN A 62.253.3.98 
+google.com. 300 IN A 62.253.3.123 
+google.com. 300 IN A 62.253.3.113 
+google.com. 300 IN A 62.253.3.114 
+google.com. 300 IN A 62.253.3.104 
+google.com. 300 IN A 62.253.3.89</code></pre>
+<p><strong>Another <span class="small-caps">ISP</span></strong></p>
+<pre><code>dig a google.com @ns1.google.com
+;; ANSWER SECTION: google.com. 300 IN A 74.125.136.113 
+google.com. 300 IN A 74.125.136.100 
+google.com. 300 IN A 74.125.136.102 
+google.com. 300 IN A 74.125.136.138 
+google.com. 300 IN A 74.125.136.101 
+google.com. 300 IN A 74.125.136.139</code></pre>
+<p>Most odd. Especially seeing as I <strong>do not use Virgin Media&#x2019;s <span class="small-caps">DNS</span> resolvers</strong>, I use OpenDNS._m7.lon.opendns.com_ to be exact, according to <a href="http://www.dnsleaktest.com/">www.dnsleaktest.com</a>. <a href="http://cachecheck.opendns.com/">OpenDNS&#x2019; cache check</a> matches my other <span class="small-caps">ISP</span>, a whole bunch of IPs none of which are anywhere near this 62.253.3.0/24 we&#x2019;re seeing from Virgin Media.</p>
+<p>So for some reason Virgin Media someone is manipulating the <span class="small-caps">DNS</span> response I recieve from OpenDNS&#x2019; 208.67.222.222, 208.67.220.220 for google.com, google.co.uk and possibly other domains. They&#x2019;re also proxying google.com to me as loading <a href="http://62.253.3.103/">http://62.253.3.103</a> in a web browser shows me Google&#x2019;s home page, creepy. Ok so where does a traceroute take me?</p>
+<blockquote>
+<p><em>traceroute: Warning: google.com has multiple addresses; using 62.253.3.93 traceroute to google.com (62.253.3.93), 64 hops max, 52 byte packets</em></p>
+</blockquote>
+<blockquote>
+<ul>
+<li>1 192.168.1.1 (192.168.1.1) 4.610 ms 4.257 ms 34.474 ms</li>
+<li>2 cpc10-sotn8-2-0-gw.15-1.cable.virginm.net (81.101.98.1) 22.904 ms 79.800 ms 14.122 ms</li>
+<li>3 sotn-core-2a-ae6-610.network.virginmedia.net (80.4.225.53) 13.692 ms 12.621 ms 11.575 ms</li>
+<li>4 popl-bb-1c-ae14-0.network.virginmedia.net (62.253.175.30) 33.107 ms 16.609 ms 27.541 ms</li>
+<li>5 brnt-bb-1c-et-000-0.network.virginmedia.net (62.253.175.238) 28.404 ms brnt-bb-1c-et-510-0.network.virginmedia.net (62.253.175.242) 15.146 ms 25.651 ms</li>
+<li>6 haye-icdn-1-ae0-0.network.virginmedia.net (62.253.174.242) 14.849 ms 16.701 ms 16.381 ms</li>
+<li>7 * * *</li>
+<li>8 * * *</li>
+</ul>
+</blockquote>
+<p>Most interesting that it stops here: <em>haye-<strong>icdn</strong>-1-ae0-0.network.virginmedia.net (62.253.174.242)</em></p>
+<p><strong>haye-icdn-1, what do you do?</strong> A quick google (ironic) reveals <a href="http://www.cableforum.co.uk/board/12/33694218-virgin-hijacking.html">this thread</a> titled<span class="push-single"></span> <span class="pull-single">&#x2018;</span>Virgin hijacking&#x2019;. One user suggests:</p>
+<blockquote>
+<p>Content Distribution Network ran by Virgin to try and speed things up. It&#x2019;s not really hijacking, per-se and if it worked, it would actually be a good thing. The problem is, it&#x2019;s heavily congested so has the opposite effect.</p>
+</blockquote>
+<p>&#x2026;.</p>
+<p>I have no idea why Virgin and OpenDNS feel the need to proxy or <span class="small-caps">CDN</span> google.com for me. The ping response time to one of Google&#x2019;s actual IPs is 20.049 ms. From now on I will encrypt my <span class="small-caps">DNS</span> traffic to OpenDNS using <a href="http://dnscrypt.org/">DNSCrypt</a> and one of the suggested <span class="small-caps">DNS</span> providers, it takes 5 seconds to install their app.</p>
+<p>Ahh, that&#x2019;s better&#xA0;:-)</p>
+<hr>
+<h2 id="some-notes">Some Notes</h2>
+<ul>
+<li>My Virgin SuperHub is in modem mode</li>
+<li>It&#x2019;s entirely possible Virgin Media has struck a deal with OpenDNS however I couldn&#x2019;t find mention of that anywhere and it seems unlikely. The responses to this post have led me to believe some deal has been made.</li>
+</ul>
+<p>Discuss at <span class="small-caps">HN</span>: <a href="https://news.ycombinator.com/item?id=7504737" class="uri">https://news.ycombinator.com/item?id=7504737</a></p>  ]]></description>
+  </item>
+  <item> 
+    <title><![CDATA[ How To: IPv6 over IPv4 at home, today ]]></title>
+    <link>https://ecraep.com/ipv6-over-ipv4-at-home</link>
+    <guid>https://ecraep.com/ipv6-over-ipv4-at-home</guid>
+    <pubDate>Wed, 29 Jan 2014 17:07:00 +0000</pubDate>
+    <dc:creator><![CDATA[ How To: IPv6 over IPv4 at home, today ]]></dc:creator>
+    <description><![CDATA[  
+<p>In this article I explain how to enable IPv6 connectivity from any desktop in less than 5 minutes.</p>
+<p>I was chatting with <a href="https://twitter.com/dan_jenkins">Dan Jenkins</a> on Twitter. He asked when will Virgin Media roll out IPv6 support? I suggested an IPv6 over IPv4 tunnel but it may be tricky to setup. I did a quick Google but to my surprise didn&#x2019;t find the slew of blog posts explaining how to set this up. I did however find <a href="https://tunnelbroker.net/">Tunnel Broker</a>.</p>
+<p><strong>Tunnel Broker</strong></p>
+<blockquote>
+<p><span class="pull-double">&#x201C;</span>Our free tunnel broker service enables you to reach the IPv6 Internet by tunneling over existing IPv4 connections from your IPv6 enabled host or router to one of our IPv6 routers. Try it now!&#x201D;</p>
+</blockquote>
+<p>Awesome.</p>
+<ul>
+<li>It&#x2019;s free</li>
+<li>It&#x2019;s from <span class="small-caps">HE</span>. (Hurricane Electric)</li>
+<li>Your own /48 prefix once your tunnel is up</li>
+<li>Ability to create your tunnel on geographically diverse tunnel-servers (Fremont, Ashburn, Chicago, Dallas, Denver, Kansas City, Los Angeles, Miami, New York, Seattle, Toronto, Amsterdam, Berlin, Frankfurt, London, Paris, Prague, Stockholm, Warsaw, Zurich, Hong Kong, Singapore, and Tokyo)</li>
+</ul>
+<h2 id="step-by-step">Step by step</h2>
+<p>First <a href="http://test-ipv6.com/">test to see</a> if your <span class="small-caps">ISP</span> already supports IPv6. Nope? <span class="small-caps">OK</span> on to the next step.</p>
+<ul>
+<li>Register at <a href="https://tunnelbroker.net/">Tunnel Broker</a></li>
+<li><a href="https://tunnelbroker.net/new_tunnel.php">Create Regular Tunnel</a></li>
+<li>Fill in your <a href="http://queryip.net/ip/">IPv4 Endpoint</a>. It&#x2019;s important to note that at this stage their system will attempt to ping the <span class="small-caps">IP</span> you supply. I enabled <span class="small-caps">WAN</span> <span class="small-caps">ICMP</span> response on my router until the form was submitted at which point I disabled it again.</li>
+<li>Choose a Tunnel Server that is geographically closest to you. After completing these steps <span class="small-caps">HE</span> will assign you a /64.</li>
+</ul>
+<p>On your<span class="push-single"></span> <span class="pull-single">&#x2018;</span>Tunnel Details&#x2019; page you&#x2019;ll want to select the<span class="push-single"></span> <span class="pull-single">&#x2018;</span>Example Configurations&#x2019; tab.</p>
+<p>There will typically be three commands you&#x2019;ll have to run. One to create the 6in4 tunnel. One to assign your IPv6 address to that tunnel and one to statically route all IPv6 traffic over that tunnel.</p>
+<p>There are examples for many routers and operating systems including Cisco <span class="small-caps">IOS</span>, JunOS, OpenWRT, pfSense, FreeBSD, Debian/Ubuntu, Mac <span class="small-caps">OS</span> X, and Windows etc.</p>
+<p>Well.. that was easy. <img src="https://ecraep.com/_image_cache/ef341fc0-6e5e-482c-885d-708721700d90.png" alt="IPv6 on Macbook Air" width="1060" height="738" data-action="zoom"></p>
+<h2 id="bear-in-mind">Bear in mind</h2>
+<p><img src="https://ecraep.com/_image_cache/987a9424-0e17-44c9-a310-40ee3f3e9897.png" alt="image" width="245" height="240"></p>
+<pre><code>route -n add -inet6 default 2001:470:1f08:1a6::1
+netsh interface ipv6 add route ::/0 IP6Tunnel 2001:470:1f08:1a6::1
+ipv6 route ::/0 Tunnel0</code></pre>
+<p>When running any of the above commands, these are just three examples, you&#x2019;re telling your device to route all IPv6 traffic via <span class="small-caps">HE</span>. Afterall, this is a tunnel!</p>
+<p>IPv6 is a scary thing and I&#x2019;d love to be more confident on the subject. This is something I am most definitely going to study for and I reccommend anyone in the industry to do the same.</p>  ]]></description>
+  </item>
+  <item> 
+    <title><![CDATA[ Investigating the dirty world of phishing emails ]]></title>
+    <link>https://ecraep.com/investigating-the-dirty-world-of-phishing-emails</link>
+    <guid>https://ecraep.com/investigating-the-dirty-world-of-phishing-emails</guid>
+    <pubDate>Wed, 22 Jan 2014 00:00:00 +0000</pubDate>
+    <dc:creator><![CDATA[ Investigating the dirty world of phishing emails ]]></dc:creator>
+    <description><![CDATA[  
+<p>The other day I was having a quick look through my Gmail spam folder and a particular email caught my eye.<span class="push-double"></span> <span class="pull-double">&#x201C;</span>Your NatWest CreditCard Online Statement is Ready Online&#x201D;. Gmail warned me about the message. That they couldn&#x2019;t verify it had been sent from natwestsecure.com and disabled all images and links. I was intruiged to know what would happen if I did click the link and also exactly where they were hosting this phishing site. Was it cheap shared hosting, or even a dedicated box?</p>
+<p>I told Gmail the email was not spam, that allowed me to see both the images and the link.</p>
+<p><img src="https://ecraep.com/_image_cache/1a9ec288-84d7-4bca-bf47-0abe6af160ef.png" alt="Natwest Phishing email" width="490" height="308" data-action="zoom"><span class="caption">Natwest Phishing email</span></p>
+<p>Hovering my mouse over the link I could see it would in fact take me to</p>
+<pre><code>    http://informacja.wimbp.lodz.pl/cache/fr.php</code></pre>
+<h2 id="who-hosts-this">Who hosts this?</h2>
+<p>First let&#x2019;s do a <span class="small-caps">WHOIS</span> on lodz.pl.</p>
+<pre><code>    DOMAIN NAME: lodz.pl 
+    registrant type: organization 
+    nameservers: dns2.man.lodz.pl. 
+    dns4.man.lodz.pl. dns.man.lodz.pl. ns1.tpnet.pl. 
+    created: 1995.01.01 12:00:00 
+    last modified: 2004.08.06 09:57:55 
+    renewal date: 2014.12.31 13:00:00 
+    option created: 2012.11.16 08:03:07 
+    option expiration date: 2015.11.16 08:03:07 
+    dnssec: Unsigned</code></pre>
+<p>Hmm. Their own vanity nameservers plus the domain was registered in 1995. Certainly doesn&#x2019;t look how I&#x2019;d expect it to look. Ok, let&#x2019;s check out the website itself.</p>
+<blockquote>
+<p>Lodz, the former textile industry empire, today is a city of modern technologies, creative enterprises and grand events.</p>
+</blockquote>
+<p>The website looks real, the official website of the city Lodz in Poland. How about``</p>
+<blockquote>
+<p>Department of Information Science WiMBP in Lodz</p>
+</blockquote>
+<p>That looks genuine too.</p>
+<p>I notice the site is running off the <span class="small-caps">CMS</span> Joomla.</p>
+<pre><code>    &lt;meta name=&quot;generator&quot; content=&quot;Joomla! 1.5  
+    - Open Source Content Management&quot; /&gt;</code></pre>
+<p>What&#x2019;s the bet 1.5 isn&#x2019;t the latest version? <a href="http://docs.joomla.org/What_version_of_Joomla!_should_you_use%3F">Nope</a>. According to Joomla&#x2019;s documentation 1.5 went <span class="small-caps">EOL</span> Sept 2012, all security updates for that version have stopped. I think it&#x2019;s <a href="http://www.cvedetails.com/vulnerability-list/vendor_id-3496/cvssscoremin-5/cvssscoremax-5.99/Joomla.html">safe to assume</a> that /cache/fr.php has been planted there by an attacker. What happens when we visit that site? A quick <span class="small-caps">CURL</span> reveals something interesting.</p>
+<pre><code>    HTTP/1.1 302 Found
+    Date: Wed, 22 Jan 2014 20:28:00 GMT
+    Server: Apache
+    X-Powered-By PHP/5.3.1
+    Location: http://www.remart.com.ua/logs/index.html
+    Content-Type: text/html</code></pre>
+<p>A 302 redirect to <a href="http://www.remart.com.ua/logs/index.html" class="uri">http://www.remart.com.ua/logs/index.html</a></p>
+<p>A <span class="small-caps">WHOIS</span> on remart.com.au revleals a similar situation to lodz.pl. The domain was created in 2011 and the site itself appears genuine, a sort of high-end home repairs company. <span class="small-caps">OK</span>, let&#x2019;s check the headers.</p>
+<pre><code>    &lt;meta name=&quot;generator&quot; content=&quot;Joomla! 1.5  
+    - Open Source Content Management&quot; /&gt;</code></pre>
+<p>There&#x2019;s a theme appearing here isn&#x2019;t there? Let&#x2019;s visit that site in a browser.</p>
+<p><img src="https://ecraep.com/_image_cache/2a174506-4ebc-4229-b9df-05ce2fe85b3d.png" alt="NatWest Phishing site" width="981" height="513" data-action="zoom"><span class="caption">NatWest Phishing site</span></p>
+<p>The source code reveals that nearly all of the site&#x2019;s elements (<span class="small-caps">CSS</span>, <span class="small-caps">JS</span>) are being loaded from the natwest.com domain itself. The footer says Copyright 2005-2009, perhaps this is some old source code they stole? A quick visit to <a href="https://cardservices.natwest.com/RBSG_Consumer/Login.do?promoCode=NatWest">NatWest actual site</a> shows that it potentially isn&#x2019;t old as even their own website has Copyright 2005-2009 in the footer.</p>
+<p>Interestingly at the bottom of the source code we see some javascript for Adobe&#x2019;s analytics service SiteCatalyst.</p>
+<pre><code>    &lt;!-- SiteCatalyst code version: H.23.3.  
+    Copyright 1996-2011 Adobe, Inc. All Rights Reserved  
+    More info available at http://www.omniture.com --&gt;  
+    &lt;sript language=&quot;JavaScript&quot; type=&quot;text/javascript&quot;&gt;&lt;!--  
+    var s_account=&quot;tssprodrbsgnatwestconsumer&quot;  
+    var linkInternalFiltersPage=&quot;javascript:&quot; + window.location.hostname
+    + &quot;,testdomain.com&quot;  
+    //--&gt;</code></pre>
+<p>The <code>var s_account=&quot;tssprodrbsgnatwestconsumer&quot;</code> string matches what is on NatWest.com. The attackers obviously weren&#x2019;t smart enough to strip this out. I&#x2019;ve never used Adobe SiteCatalyst before but NatWest <em>should</em> be able to see this dodgy domain showing up in their statistics.</p>
+<p>I&#x2019;m now fairly certain the two sites involved in hosting the phishing site do not know they&#x2019;re hosting it. How about the email, where did that originate from?</p>
+<h2 id="the-email">The Email</h2>
+<pre><code>    Return-Path: 
+    Received: from servhotel1.automerkit.fi (servhotel1.automerkit.fi. 
+    [80.69.163.62])
+    Received-SPF: pass
+    (google.com: best guess record for domain of
+    www-data@servhotel1.automerkit.fi
+    designates 80.69.163.62 as permitted sender)</code></pre>
+<p>That&#x2019;s odd, the <span class="small-caps">SPF</span> passes. There&#x2019;s even a <span class="small-caps">PTR</span> record on 80.69.163.62.</p>
+<p><span class="small-caps">WHOIS</span> again. Created: 2010. Desc: Interactive Auto Media Oy</p>
+<p>automerkit.fi another genuine website? Yep! Looks to be a Finnish car enthusiast site.</p>
+<h2 id="what-weve-learnt">What we&#x2019;ve learnt</h2>
+<p>Whoever is sending these phishing emails has compromised three separate systems, I assume, to avoid being caught. They&#x2019;ve compromised somebody&#x2019;s email system with working <span class="small-caps">SPF</span> and <span class="small-caps">PTR</span> record to try and make their way into your inbox. Fortunately their efforts have failed, at least they do if you use Gmail &amp; Google Chrome.</p>
+<p>Gmail knew the email was dodgy and sent it straight to Spam:</p>
+<p><img src="https://ecraep.com/_image_cache/91a0d346-9e84-4a4f-903e-4e76eaea911a.png" alt="Gmail phishing detection" width="921" height="127" data-action="zoom"><span class="caption">Gmail phishing detection</span></p>
+<p>Google Chrome knew that both links were dodgy:</p>
+<p><img src="https://ecraep.com/_image_cache/e478fb6c-9479-4e59-a5fc-b8decc8052a8.png" alt="Google Chrome phishing detection" width="842" height="502" data-action="zoom"><span class="caption">Google Chrome phishing detection</span></p>
+<p>Morale of the story. If you&#x2019;re a web developer, don&#x2019;t leave your site running on old versions of any <span class="small-caps">CMS</span>. Be that Joomla, Wordpress. If you&#x2019;re really serious about security or don&#x2019;t have the time to keep it patched, publish your site as static files, if possible. Lock down access to your servers using secure passwords, <a href="http://blog.authy.com/two-factor-ssh-in-thirty-seconds">two factor authentication</a> and ideally <a href="https://www.dome9.com/">access lists</a> too. Follow some <a href="https://www.vircom.com/security/top-10-tips-to-secure-your-email-server/">simple steps</a> to locking down that <span class="small-caps">SMTP</span> server too.</p>
+<p>Because I&#x2019;m a good citizen I forwarded the phishing email to <a href="mailto:phishing%40natwest.com">phishing@natwest.com</a> and notified the website owners of the two pages. I also emailed the owner of automerkit.fi to let them know their servers were spamming.</p>  ]]></description>
+  </item>
+  <item> 
+    <title><![CDATA[ Have a lightning fast blog and host it for free ]]></title>
+    <link>https://ecraep.com/have-a-lightning-fast-blog-and-host-it-for-free</link>
+    <guid>https://ecraep.com/have-a-lightning-fast-blog-and-host-it-for-free</guid>
+    <pubDate>Fri, 17 Jan 2014 00:00:00 +0000</pubDate>
+    <dc:creator><![CDATA[ Have a lightning fast blog and host it for free ]]></dc:creator>
+    <description><![CDATA[  
+<p>I recently migrated my blog from Wordpress to&#xA0;<a href="https://dsowers.silvrback.com/introducing-silvrback">Silvrback</a>&#xA0;to&#xA0;<a href="http://ghost.org/">Ghost</a>. I was very happy with Silvrback, it&#x2019;s an excellent writing platform. In the end I got fed up not being able to change how my site looked (no theming), so switched to Ghost.</p>
+<p>I&#x2019;m a bit of an uptime and performance freak. This website is relatively lightweight and performs well in most situations. I wanted to ensure it performed the best it ever could and sustained 100% uptime. Ghost isn&#x2019;t difficult to setup on your own server but there are so many advantages to hosting a static site vs one that is dynamically generated server side with a database backend. Nor did I want to pay for a hosted solution once I discovered you can host your static site for free using&#xA0;<a href="http://pages.github.com/">GitHub Pages</a>.</p>
+<h2 id="static-ghost">Static Ghost</h2>
+<p>Enter&#xA0;<a href="https://github.com/axitkhurana/buster">Buster</a>. Buster is a static site generator for Ghost. There are many reasons you might want a static site</p>
+<ul>
+<li>Host it anywhere</li>
+<li>No database dependancy</li>
+<li>Better performance</li>
+<li>Easy to backup</li>
+<li>Far more secure, no admin backend</li>
+</ul>
+<p>Getting Buster&#xA0;<a href="http://www.metacotta.com/ghost-static-site-generation-with-buster/">setup</a>&#xA0;was easy and in 10 minutes I had a static copy of my then hosted Ghost blog. You can actually target any Ghost blog hosted on any server with Buster, it&#x2019;s quite powerful.</p>
+<h2 id="github-pages">GitHub Pages</h2>
+<p>Before you&#xA0;<code>buster deploy</code>&#xA0;you&#x2019;ll want to setup a GitHub account (free) if you don&#x2019;t already have one and then configure a GitHub Pages respository (also free) as per&#xA0;<a href="http://pages.github.com/">instructions here.</a>&#xA0;Make sure you follow the guide on&#xA0;<a href="https://help.github.com/articles/setting-up-a-custom-domain-with-pages">configuring a custom domain</a>&#xA0;before you make and <span class="small-caps">DNS</span> changes.</p>
+<h2 id="my-workflow">My Workflow</h2>
+<p>I have a locally hosted copy of Ghost running on my Macbook and I target this using Buster.&#xA0;<a href="http://docs.ghost.org/installation/">Getting Ghost up and running locally</a>&#xA0;is very simple. The great thing about having a local install of Ghost is that I can publish posts before I&#x2019;m finished, make styling changes etc and preview what they look like on the site before statically generating the updated version and pushing that to GitHub. I store my Ghost installation in my Dropbox along with the static files.</p>
+<p>1)&#xA0;<a href="http://127.0.0.1:2368/ghost" class="uri">http://127.0.0.1:2368/ghost</a>&#xA0;</p>
+<ol start="2" type="1">
+<li>Write post&#xA0;<br>
+</li>
+<li>buster generate &#x2013;domain=<a href="http://127.0.0.1:2368" class="uri">http://127.0.0.1:2368</a>&#xA0;<br>
+4)&#xA0;buster deploy</li>
+</ol>
+<h2 id="performance">Performance</h2>
+<p>GitHub sits behind the&#xA0;<a href="https://www.fastly.com/">Fastly <span class="small-caps">CDN</span>.</a>&#xA0;You may not of heard of Fastly but they <span class="small-caps">CDN</span> for the likes of Twitter, Disqus, The Guardian, Shazam. Converting your site to static files and hosting with GitHub Pages will guarentee to improve performance. My site&#x2019;s load time before I moved was 1.6s. My site now loads in just over 330ms.</p>
+<p><img src="https://ecraep.com/_image_cache/be71e84d-1212-461f-bbae-e8d5d419ff47.png" alt="Pingdom test" width="638" height="466" data-action="zoom"><span class="caption">Pingdom test</span></p>
+<p>Make the switch today.&#xA0;<a href="http://alexcican.com/post/guide-hosting-website-dropbox-github/">Loads</a>&#xA0;<a href="http://sirupsen.com/the-switch-to-github-pages">of</a>&#xA0;<a href="http://hpehl.info/moved-blog-to-github-pages.html">people</a>&#xA0;<a href="http://jtimberman.housepub.org/blog/2011/09/29/blog-moved-to-github-pages/">are</a>&#xA0;<a href="http://ocramius.github.io/blog/moving-my-blog-to-jekyll/">moving</a>&#xA0;<a href="http://www.alexrothenberg.com/2011/01/27/moved-blog-to-jekyll-and-github-pages.html">to</a>&#xA0;<a href="http://hugogiraudel.com/2013/02/21/jekyll/">static.</a></p>
+<h2 id="amazon-s3-cloudfront">Amazon <span class="small-caps">S3</span> + CloudFront</h2>
+<p>If you don&#x2019;t feel comfortable hosting your website for free then I&#x2019;d highly recommend reading Paul&#x2019;s<a href="http://paulstamatiou.com/hosting-on-amazon-s3-with-cloudfront/"><span class="push-double"></span><span class="pull-double">&#x201C;</span>How To: Hosting on Amazon <span class="small-caps">S3</span> with CloudFront&#x201D;</a>. Paul&#x2019;s site is built using Jekyll&#xA0;1, as are most blogs hosted on GitHub Pages, but you can follow pretty much everything he does to get your Buster generated static blog online.</p>
+<p>1.&#xA0;Buster is built from Jekyll</p>  ]]></description>
+  </item>
+  <item> 
+    <title><![CDATA[ Organising a massive photo collection ]]></title>
+    <link>https://ecraep.com/organising-a-massive-photo-collection</link>
+    <guid>https://ecraep.com/organising-a-massive-photo-collection</guid>
+    <pubDate>Mon, 13 Jan 2014 00:00:00 +0000</pubDate>
+    <dc:creator><![CDATA[ Organising a massive photo collection ]]></dc:creator>
+    <description><![CDATA[  
+<p>I say massive, it&#x2019;s not actually that big. It does make for a good title though. I&#x2019;d like to share some of the methods I use to organise my photo collection. Most of the stuff I do is a result of reading somebody&#x2019;s blog and then implementing in my own way. Organizing my photo collection has been incredibly liberating these past few days. I set out to de-duplicate, sort my photos into some sort of folder structure, shrink their file size down somewhat without affecting the quality of the images and then finally automate this for the future. This article assumes you are using a Mac as most of the software featured here isn&#x2019;t available on Windows. I also recommend anyone who has a keen interest in this subject to follow&#xA0;<a href="https://twitter.com/bradleychambers">Bradley Chambers</a>&#xA0;on Twitter, he shares this passion and invests more time in it than I do.</p>
+<p>Like many, this blog post would probably not exist had Everpix not shutdown. Pre-Everpix I had photos stored everywhere, mostly dumped into random folders synced to Dropbox. I would often restore iOS betas to my iPhone, dumping my photos out to randomly named folders before doing so. My dad had 20,000 something photos on his iMac in iPhoto dating back to 2006 which I synced to my Everpix account and then backed up using CrashPlan. Everpix - the be all and end all of photo management software in the cloud. Install the desktop uploader, iOS app - tell it to upload everything - be ignorant to the complete mess behind the scenes. Everpix hid this, allowed you to view your photos with no duplicates, no folder structure, just pure photos. Boy was Everpix a good product. A massive time saver, not fully realised by myself until now.</p>
+<h2 id="exporting-your-iphoto-library">Exporting Your iPhoto Library</h2>
+<p>Sven Fechner wrote up an&#xA0;<a href="http://simplicitybliss.com/exporting-your-iphoto-library-to-dropbox">excellent blog post</a>&#xA0;that details how to&#xA0;<em>correctly</em>&#xA0;export your iPhoto library and then sort those photos into a date based folder structure. At first I followed Sven&#x2019;s method, it involves using&#xA0;<a href="http://code.google.com/p/phoshare/">Phoshare</a>&#xA0;to export your photos instead of File&gt;Export in iPhoto. The reason behind this is that iPhoto will set Date modified and Date created on all the files it exports to&#xA0;<em>today&#x2019;s date</em>, this hampers the automated sorting process later on. I have since discovered <span class="small-caps">DIM</span> - Digital Image Mover that can sort photos based on Exif data rather than the Date created&#x200A;/&#x200A;Date modified time stamps.</p>
+<h2 id="sorting-your-photos-into-folders">Sorting your photos into folders</h2>
+<p>Once you have an export of all your images, or if you do not use iPhoto you may already have all your photos dumped into folders, you&#x2019;ll want to organise them into subfolders based on Year, Month and depending on the number of photos you have maybe even days. When I first experimented with this I used Hazel to organise my photos into subfolders, as described by Sven. Due to limitations in <span class="small-caps">OS</span> X Spotlight Hazel can only organise photos based on the file&#x2019;s<span class="push-single"></span> <span class="pull-single">&#x2018;</span>Date Created&#x2019; or<span class="push-single"></span> <span class="pull-single">&#x2018;</span>Date Modified&#x2019; and not Exif data from the image itself such as<span class="push-single"></span> <span class="pull-single">&#x2018;</span>Date Time Digitized&#x2019; and<span class="push-single"></span> <span class="pull-single">&#x2018;</span>Date Time Original&#x2019;. Really if you&#x2019;re going to organise your photos accurately you&#x2019;ll want to use Exif data as this remain unchanged since your camera first recorded the image, unlike<span class="push-single"></span> <span class="pull-single">&#x2018;</span>Date Created&#x2019; and<span class="push-single"></span> <span class="pull-single">&#x2018;</span>Date Modified&#x2019;. For this I used&#xA0;<a href="http://digitalimagemover.tumblr.com/"><span class="small-caps">DIM</span>: Digital Image Mover 5.0 Beta</a>.</p>
+<p><img src="https://ecraep.com/_image_cache/46a0dfff-0235-4334-bba7-2bfe83722c31.png" alt="DIM" width="873" height="492" data-action="zoom"><span class="caption">DIM</span></p>
+<p>I only stumbled across <span class="small-caps">DIM</span> the other day. It looks to of been created in 2001, the latest beta version released Dec 2013 still has a <span class="small-caps">UI</span> from 2001 but that really doesn&#x2019;t matter. The tasks the software is designed to do it does very well. It sorted my 27,000+ photos into subfolders in less than 5 minutes. The software is very self-explanatory, it will copy your photos by default rather than altering the originals. To speed things up a bit I switched off the Geolocation functionality. This allows you to sort your photos based on Location. You can see which <span class="small-caps">DIM</span> settings I switched on and off&#xA0;<a href="https://i.imgur.com/M0RCCZj.png">here</a>&#xA0;and&#xA0;<a href="https://i.imgur.com/6gOOSNI.png">here</a>.</p>
+<h2 id="de-duplicating">De-duplicating</h2>
+<p>If like me you have a ton of duplicate photos there are two pieces of software that can help with that.</p>
+<p><a href="http://macpaw.com/gemini">MacPaw Gemini</a>&#xA0;is an awesome piece of software, you can use it to de-duplicate any file not just photos. Gemini scanned through my <span class="small-caps">60GB</span> photo collection in less than 1 minute showing me all the duplicates. The software itself is pretty self explanatory and doesn&#x2019;t require any guidance. Gemini will detect duplicates based on the file itself rather than the image content i.e those that are exactly the same size and share the same <span class="small-caps">MD5</span> hash. It won&#x2019;t detect two of the same photo if one has been resized or compressed. For this you need&#xA0;<a href="http://photosweeper.com/">PhotoSweeper</a>.</p>
+<p><img src="https://ecraep.com/_image_cache/e8262ad5-5fc4-43ac-90a1-515e5968b695.png" alt="Gemini" width="338" height="320" data-action="zoom"><span class="caption">Gemini</span></p>
+<p><a href="http://photosweeper.com/">PhotoSweeper</a>&#xA0;is an excellent piece of software that has helped me to remove all my what I call<span class="push-single"></span> <span class="pull-single">&#x2018;</span>WhatsApp duplicates&#x2019;. These are low-resolution copies of photos that WhatsApp creates and end up in recipients Camera Roll when you send somebody a photo i.e your partner that syncs their photos to the same Dropbox account as you. PhotoSweeper isn&#x2019;t as 100% accurate as Gemini. It&#x2019;s detection methods are based on the image content itself however I found it more than accurate enough to rid my collection of nearly all duplicates.</p>
+<h2 id="saving-space">Saving space</h2>
+<p>When I first started sorting through my photo collection I told myself I wouldn&#x2019;t compress or shrink any of my photos. After&#xA0;<a href="http://www.jpeg.org/.demo/FAQJpeg2k/coding-and-compression.htm#Why%20is%20a%20lossy%20compression%20acceptable?">researching</a>&#xA0;the&#xA0;<a href="http://www.ece.ucdavis.edu/cerl/ReliableJPEG/Cung/jpeg.html">process behind compressing a <span class="small-caps">JPEG</span> photo</a>&#xA0;I changed my mind. Although I do not fully understand the science behind losslessly compressing a <span class="small-caps">JPEG</span> image I do trust it and the results are amazing. At no point have I shrunk the resolution of any of my photos, only re-organised the<span class="push-single"></span> <span class="pull-single">&#x2018;</span>huffman tables&#x2019; to shrink the size of the file itself. The software I am using is&#xA0;<a href="https://github.com/tjko/jpegoptim">jpegoptim</a>, available as a command line tool for Mac <span class="small-caps">OS</span> X and <span class="small-caps">GUI&#xA0;</span><a href="http://imageoptim.com/">here</a>. I will show you how to implement an automated workflow using the command line tool.</p>
+<p>Lossless compression (100% quality) produced significant savings in photos where colors are similar across the whole image. I started to experiment with lower quality settings. At 80% I was hitting near 60% space savings on every image I ran through jpegoptim with no visual loss of image quality. I ran a handful of completely different photos from different devices through jpegoptim with a maximum quality of 80%, zoomed in to 100% and could spot no differences to the original. My whole photo collection now comes in at 25.29&#xA0;GB where as before running this process it was just over <span class="small-caps">55&#xA0;GB</span>, that&#x2019;s just under a 50% reduction in size with no visible loss in photo quality.</p>
+<h2 id="automating-this---my-workflow">Automating this - My Workflow</h2>
+<p>As I only shoot using my iPhone my workflow is perhaps more simple than most. I use Dropbox to automatically sync my photos and then have a very simple set of Hazel rules that compress, tag and sort my photos from there. Dropbox&#x2019;s camera upload app is very well made, files are dropped into a<span class="push-single"></span> <span class="pull-single">&#x2018;</span>Camera Uploads&#x2019; folder renamed with the date the photo was taken, extracted from Exif, it also sets the<span class="push-single"></span> <span class="pull-single">&#x2018;</span>Date Created&#x2019; as per Exif.</p>
+<h2 id="rule-1">Rule 1</h2>
+<p>Rule Name: Compress, tag, move to photos folder&#xA0;<br>
+Target: Dropbox/Camera Uploads&#xA0;<br>
+Conditions: Extension is jpg&#xA0;<br>
+Actions: Run shell script- embedded script:&#xA0;</p>
+<pre><code>jpegoptim -m80 -p &quot;$1&quot;</code></pre>
+<p>Add tags: jpegoptim80&#xA0;<br>
+Move: to folder: Dropbox/Photos</p>
+<p>The embedded script broken down.&#xA0;jpegoptim&#xA0;calls the executable,&#xA0;-m80&#xA0;sets quality to 80%,&#xA0;-p<span class="push-double"></span> <span class="pull-double">&#x201C;</span>$1&#x201D;tells jpegoptim to process the file that&#xA0;<a href="http://www.noodlesoft.com/hazel.php">Hazel</a>&#xA0;has detected in Dropbox/Camera Uploads.</p>
+<p><img src="https://ecraep.com/_image_cache/0b0c5095-97bc-45f6-8f88-fc196dc6a6ef.png" alt="Hazel Rule" width="782" height="641" data-action="zoom"><span class="caption">Hazel Rule</span></p>
+<h2 id="rule-2">Rule 2</h2>
+<p>Rule Name: once moved to photos, sort into subfolders&#xA0;<br>
+Target: Dropbox/Photos&#xA0;<br>
+Conditions: Extension is jpg&#xA0;<br>
+Actions: Sort into subfolders: date created (2013) &#x25B8; date created (12 - Dec) &#x25B8; date created (01)</p>
+<p><img src="https://ecraep.com/_image_cache/6dda8d3a-9832-4619-a9f6-b43b501f7e6e.png" alt="Hazel Rule" width="782" height="641" data-action="zoom"><span class="caption">Hazel Rule</span></p>
+<p>This sorts the photos into a dated folder structure moved to Dropbox/Photos by Rule #1. Here we can use Hazel because Dropbox has set the Date Created&#x200A;/&#x200A;Date Modified attributes on the file as per Exif.</p>
+<h2 id="what-about-video">What about Video?</h2>
+<p>I&#x2019;m yet to work out how I can de-duplicate, compress and accurately sort my videos. Nearly 70% of my Dropbox is consumed by video and I&#x2019;d love to do get that number down. If anybody has a similar workflow for video I&#x2019;d love to here it.</p>  ]]></description>
+  </item>
+  <item> 
+    <title><![CDATA[ Finding an Everpix replacement ]]></title>
+    <link>https://ecraep.com/finding-an-everpix-replacement</link>
+    <guid>https://ecraep.com/finding-an-everpix-replacement</guid>
+    <pubDate>Fri, 11 Oct 2013 00:00:00 +0000</pubDate>
+    <dc:creator><![CDATA[ Finding an Everpix replacement ]]></dc:creator>
+    <description><![CDATA[  
+<blockquote>
+<p>It pains me to use the word<span class="push-single"></span> <span class="pull-single">&#x2018;</span>replacement&#x2019;, reiterating the fact that this time next month Everpix won&#x2019;t be with us anymore&#x2026;</p>
+</blockquote>  ]]></description>
+  </item>
+  <item> 
+    <title><![CDATA[ Everpix is awesome ]]></title>
+    <link>https://ecraep.com/everpix-is-awesome</link>
+    <guid>https://ecraep.com/everpix-is-awesome</guid>
+    <pubDate>Sun, 18 Aug 2013 00:00:00 +0000</pubDate>
+    <dc:creator><![CDATA[ Everpix is awesome ]]></dc:creator>
+    <description><![CDATA[  
+<p>I use&#xA0;<a href="http://www.everpix.com/">Everpix</a>&#xA0;to backup and organise every photo I&#x2019;ve ever taken&#x2009;&#x2014;&#x2009;all 27,159 of them.</p>
+<p>Not so long ago I used to take my camera with me everywhere, see&#xA0;<a href="http://www.flickr.com/photos/jackpearceblog/sets/72157600879029232/">my Flickr</a>&#xA0;for proof. Over a&#xA0;<a href="http://www.flickr.com/photos/jackpearceblog/archives/">few years</a>&#xA0;the number of photos I&#x2019;d taken&#xA0;started to add up (only a handful ended up on Flickr). The saddest part is that I have easily taken 5x the amount I have today.&#xA0;I can&#x2019;t remember how but I stumbled across Everpix roughly 6 months ago and I&#x2019;m fairly gutted I didn&#x2019;t discover it sooner. Everpix is the answer to so many problems. I own a laptop, I own an iPhone and I own a digital camera. Where possible I want my photos to be automatically synced and stored in the cloud forever, without having to worry about storage limits.</p>
+<p>I take photos on my iPhone every single day, only the most recent 1000 photos are synced to iCloud Photo Stream.&#xA0;If I take photos using my <span class="small-caps">DSLR</span> (rare these days) I&#x2019;ll import those photos into iPhoto&#x2009;&#x2014;&#x2009;the most recent 1000&#xA0;photos from iPhoto are uploaded to Photo Stream pushing my iPhone photos out&#xA0;of Photo Stream. If I want to view a photo I&#x2019;ve taken on&#xA0;my iPhone using my laptop I have to open iPhoto, wait a minute for them to&#xA0;download and import, then view. In 2013 this 1 minute wait isn&#x2019;t cool. Photo Stream doesn&#x2019;t have a web interface. With Everpix everything is instantly accessible through your web browser&#xA0;_1**_&#xA0;**and you can store an unlimited number of photos. Apple&#x2019;s idea is that you use iCloud Photo Stream to sync your photos from your iPhone, iPad back to your Mac and then you&#x2019;ll use Time machine to store a backup from there. Apple also offer <span class="small-caps">5GB</span> free iCloud backups which I should imagine most people don&#x2019;t have switched on. Once you hit your <span class="small-caps">5GB</span> limit (roughly 1700 photos) you can then purchase expensive&#xA0;<a href="http://support.apple.com/kb/PH12796?viewlocale=en_US">additional iCloud storage</a>.</p>
+<p>Until now my photos were stored in unorganised folders that had accumulated over the years. I used Picasa to sort through it all. Unfortunately most of my photography is lost forever, the good stuff is on Flickr but mostly in scaled down formats. Thinking back I don&#x2019;t really understand how I&#x2019;ve managed to lose so many of the originals, I think I have possibly got fed up and installed a clean <span class="small-caps">OS</span> on my machine at the time and thought to myself<span class="push-single"></span> <span class="pull-single">&#x2018;</span>the good stuff is on Flickr, I don&#x2019;t need the originals&#x2019;. Same goes with my iPhone&#x2009;&#x2014;&#x2009;installed a beta <span class="small-caps">OS</span> and accidentally wiped my photos in the process. Saying that I still have just over 27,000 photos (<span class="small-caps">55GB</span>) that aren&#x2019;t lost.</p>
+<p>Why I&#xA0;<em>love</em>&#xA0;Everpix</p>
+<ol type="1">
+<li>No Duplicates.&#xA0;Everpix automatically de-duplicates your whole collection. It does it in a few ways. It makes a note of your file&#x2019;s checksums to ensure it doesn&#x2019;t re-upload any photos that are already in your collection. Photos that aren&#x2019;t exact copies so different size, resolution, Everpix will de-duplicate server-side too so that only the best quality version is visible to you through the web interface and in the apps. The metadata from the copies is saved and listed beside the original so that you know where a photo came from.&#xA0;<a href="https://i.imgur.com/jByQ0AT.png">See it in action</a></li>
+<li>Everything is private by default. Everpix is designed to store all your photos including photos of your privates. By default nothing you upload to Everpix is shared with anyone. Sharing an album of 300 photos is achieved in a few clicks but you have to explicitly tell Everpix you want to share those photos.</li>
+<li>Unlimited. You can upload as many photos as you like to Everpix. I&#x2019;ve even seen stories on twitter of people uploading well over 300,000 photos with no issues. I currently have just over 27,000 photos (with 2,000 duplicates). For free Everpix will store your last 1 years worth of photos, if you want to store more than that you&#x2019;ll have to upgrade to the paid plan. For the price of a coffee each month it really is worth it.</li>
+<li>Sharing lots of photos is easy. When I get back from Holiday I like to round up all my best photos and then share those with my family (not the whole of Facebook). The easiest way to do that was to email lower res versions. With Everpix you can highlight as many photos as you like and send them across in seconds. You have the choice of sending a link to a private page with your photos on, or<span class="push-single"></span> <span class="pull-single">&#x2018;</span>Everpix mail&#x2019; which is basically just an email with that same link in it&#x2009;&#x2014;&#x2009;if they&#x2019;ve got an Everpix account the photos will also show up in their web interface or the Everpix app.</li>
+<li>Nothing gets deleted. Everpix doesn&#x2019;t sync your photos, it uploads them and keeps them there forever. If you run out of local storage space and need to make room for more, go for it&#x2009;&#x2014;&#x2009;your photos will still stay in your Everpix account.</li>
+</ol>
+<p>Everpix encourage you to rediscover old photos.&#xA0;This is my favorite feature. &#xA0;Built into their apps is a feature called<span class="push-single"></span> <span class="pull-single">&#x2018;</span>Flashback&#x2019;. This will show you photos that were taken 1 year ago today, 2 years ago today, 3 years ago today etc. The 1 year ago today view always catches me out makes me realise how quickly time passes. I constantly find myself re-discovering classic moments and emailing them off with the subject of<span class="push-single"></span> <span class="pull-single">&#x2018;</span>This was one year ago!&#x2019;. Everpix has another feature that encourages rediscovery and this is called Explore; it allows you to return photos based on photo subject. For example<span class="push-single"></span> <span class="pull-single">&#x2018;</span>Food&#x2019;<span class="push-single"></span> <span class="pull-single">&#x2018;</span>Nature&#x2019;<span class="push-single"></span> <span class="pull-single">&#x2018;</span>City&#x2019;<span class="push-single"></span> <span class="pull-single">&#x2018;</span>People&#x2019;. Explore is still in it&#x2019;s early stages and isn&#x2019;t perfect, sometimes it doesn&#x2019;t work at all. When it does it&#x2019;s a fantastic way of looking through your photo collection from all years based on photo subject. Food is particularly interesting, for some reason if I&#x2019;m about to eat something that looks badass I&#x2019;ll take a photo of it and then never do anything with that photo, now I can trawl through all those photos re-living those awesome fatty moments.</p>
+<p>I like Everpix because I trust it. It&#x2019;s simple and it works well. You install the desktop client on your laptop and it will upload photos from any source (folders, iPhoto, Aperture) automatically. You install the iPhone app and it will sync all your photos, in the background, automatically. The post processing of your photos is nice but at the moment not the deal breaker. Everpix is what iCloud Photo Stream&#x200A;/&#x200A;iCloud backup should be.</p>
+<p>Right now I don&#x2019;t believe Everpix is designed as a standalone solution for professional photographers. There are three things that would stop a professional photographer from using Everpix.</p>
+<ol type="1">
+<li>Doesn&#x2019;t sync RAWs</li>
+<li>Doesn&#x2019;t sync videos</li>
+<li>Compression. Everpix use a&#xA0;<a href="https://support.everpix.com/entries/23231607-Why-have-some-photos-a-different-file-size-when-I-re-download-them-">proprietary image optimization algorithm</a>, a fancy way of saying they&#x2019;ll do their absolute best to preserve the quality of your photos at full resolution. They don&#x2019;t touch the originals, instead make a copy of the original and compress that. Uploads are quicker and for them it saves on storage space requirements. I am not a professional photographer so I don&#x2019;t have an issue with this and at 100% I can&#x2019;t tell the difference between an original and an Everpix-original.&#xA0;<a href="https://picturelife.com/learn/raw">Picturelife</a>&#xA0;deals with RAWs and videos, might take a look at this soon.</li>
+</ol>
+<p>I recently read an article named&#xA0;<a href="http://chambersdaily.com/bradleychambers/2013/8/3/regular-people-have-no-idea-how-to-manage-photos-their-iphone">Regular People Have No Idea How To Manage Photos On Their iPhone</a>&#xA0;and it highlights that regular people really don&#x2019;t do enough to look after their photos. Let Everpix do it for you and never worry about losing a photo again.</p>
+<blockquote>
+<p>&#xA0;1.&#xA0;As per Everpix website:&#xA0;Everpix can receive millions of new photos per day, which must then be processed by our&#xA0;very advanced Image Analysis. After this step is done, the&#xA0;automated<a href="https://support.everpix.com/entries/22001287">&#xA0;Everpix views</a>&#xA0;must also be updated.&#xA0;There might therefore be some delay between when a photo is uploaded and it showing up on Everpix.</p>
+</blockquote>  ]]></description>
+  </item>
+  <item> 
+    <title><![CDATA[ Securing your digital world ]]></title>
+    <link>https://ecraep.com/securing-your-digital-world</link>
+    <guid>https://ecraep.com/securing-your-digital-world</guid>
+    <pubDate>Fri, 15 Feb 2013 20:42:00 +0000</pubDate>
+    <dc:creator><![CDATA[ Securing your digital world ]]></dc:creator>
+    <description><![CDATA[  
+<p>Everything requires a password. A long time ago it bugged me that I couldn&#x2019;t think of something secure so I visited a web page that randomly generated passwords for you and I used the same 8 character password ever since, it contained 1 number and 7 letters one of which was uppercase. What if one of your favourite services gets hacked? What if someone&#xA0;<a href="http://blog.linkedin.com/2012/06/06/linkedin-member-passwords-compromised/">hacks</a>&#xA0;<a href="http://blog.linkedin.com/2012/06/06/linkedin-member-passwords-compromised/">Linkedin</a>&#xA0;and&#xA0;<a href="http://leakedin.org/">leaks 6 million user passwords</a>? Perhaps one day your&#xA0;<a href="http://blog.spiderlabs.com/2012/06/eharmony-password-dump-analysis.html">favourite dating website</a>&#xA0;might get hacked?&#xA0;These leaks give some interesting insights to people&#x2019;s passwords, of the&#xA0;1,215,846 passwords that were analysed in the recent eHarmony password dump 99.5% of them didn&#x2019;t contain a special character.</p>
+<p>I think it&#x2019;s safe (or not) to assume that if you&#x2019;re giving your password to somebody else to store and they don&#x2019;t&#xA0;<a href="https://lastpass.com/whylastpass_technology.php">openly publish</a>&#xA0;how they&#x2019;re storing your password then it&#x2019;s entirely possible it will get leaked for the world to use and abuse, so in that case we need to start setting completely different passwords for each website, but that&#x2019;s going to be impossible to manage right?. This is where password managers are handy, one database holding all your passwords for all your sites encrypted with a master key. There are&#xA0;<a href="http://passpack.com/">plenty</a>&#xA0;of&#xA0;<a href="https://agilebits.com/onepassword">password</a>&#xA0;<a href="http://keepass.info/">managers</a>&#xA0;<a href="https://lastpass.com/">out</a>&#xA0;<a href="http://passwordsafe.sourceforge.net/">there</a>&#xA0;all of which I wouldn&#x2019;t have a problem storing my passwords with, ensuring your passwords are protected is what these guys do and the cloud based products are very attractive. I&#x2019;m probably a bit old school but I &#xA0;opted for a&#xA0;<a href="http://keepass.info/">KeePass</a>&#xA0;database stored in my Dropbox that is protected using two-factor authentication to which the one time passwords required to access my Dropbox can only be&#xA0;<a href="https://myotp.net/">generated</a>&#xA0;using my&#xA0;<a href="http://www.yubico.com/">YubiKey</a>.</p>
+<p>So what is YubiKey and how can can two-factor authentication help me?</p>
+<p><a href="http://www.yubikey.com/">YubiKey</a>&#xA0;it&#x2019;s basically a <span class="small-caps">USB</span> device that any computer (laptop, <span class="small-caps">PS3</span>, iPad etc) will recognise a hardware keyboard. It has a contact/button on the top that allows you to generate&#xA0;<a href="http://en.wikipedia.org/wiki/One-time_password">one-time passwords</a>,&#xA0;<a href="http://en.wikipedia.org/wiki/HOTP">OATH-HOTP</a>,&#xA0;<a href="http://en.wikipedia.org/wiki/Challenge%E2%80%93response_authentication">challenge-response</a>&#xA0;and 32 character static passwords. YubiKey has memory for multiple configuration profiles and allows you to program your key with up to two&#xA0;different&#xA0;profiles, press the contact between 0.3 and 1.5 seconds and you&#x2019;ll get a code from profile 1, press the contact for 2-5 seconds and you&#x2019;ll get a code from profile 2.&#xA0;My YubiKey is setup as follows: Configuration profile 1 = Static password, Configuration profile 2 = Yubico Cloud <span class="small-caps">OTP</span>.</p>
+<p><img src="https://ecraep.com/_image_cache/ae3e9232-9805-46ee-932f-c8f8ef113234.jpg" alt="Yubikey" width="1000" height="586" data-action="zoom"><span class="caption">Yubikey</span></p>
+<p>One time passwords are 44 characters in length, by nature change each time they&#x2019;re generated and the best bit is that once a <span class="small-caps">OTP</span> is used once it cannot be used again. Here&#x2019;s an example of where this could help: You visit your favourite website whilst on holiday and unknowingly the internet cafe <span class="small-caps">PC</span> you&#x2019;re using has a keylogger installed. You login, eBay asks for your username, password and a <span class="small-caps">OTP</span> generated from your YubiKey. That <span class="small-caps">OTP</span> is then checked against&#xA0;<a href="http://www.yubico.com/products/services-software/yubicloud/">YubiCloud</a>&#xA0;or time-based one-time algorithm you setup earlier&#xA0;and you&#x2019;re authenticated. The hacker then tries to use those same details but they can&#x2019;t get in! The YubiKey <span class="small-caps">OTP</span> they&#xA0;recorded&#xA0;is now worthless because it&#x2019;s already been used. YubiCloud is completely open source and you can even run your own&#xA0;<a href="http://www.yubico.com/develop/open-source-software/validation-server/">authentication servers</a>. Developers can integrate their applications with YubiCloud using&#xA0;<a href="http://www.yubico.com/products/services-software/yubicloud/implement/">documented APIs</a>&#xA0;for free. Unfortunately not all services support YubiCloud yet, such as Google, however there is&#xA0;<a href="http://www.yubico.com/2013/01/google-protocol-yubico-identity-vision/">talk</a>&#xA0;that Google is trialing it internally. More and more of the web is starting to support two-factor authentication. Google and Dropbox today both support two-factor authentication in the form of&#xA0;<a href="http://en.wikipedia.org/wiki/Time-based_One-time_Password_Algorithm">time-based one-time passwords</a>.&#xA0;This is basically a one-time password that stays the same for an amount of time and then changes after that time, for Google and Dropbox this time is 30 seconds. Both companies offer time-based one-time passwords via text message or phone call, they text you a 6-digit code to use alongside&#xA0;your username and password.&#xA0;Google will offer to call you if you can&#x2019;t receive the text message (whenever that would be?!) and read out the 6-digit code to you,&#xA0;unfortunately&#xA0;some clever chap figured out a way to redirect voicemail to a VoIP service, <span class="small-caps">CEO</span> and Co-founder of CloudFlare Matthew Prince was&#xA0;<a href="http://blog.cloudflare.com/post-mortem-todays-attack-apparent-google-app">victim to an attack</a>&#xA0;like this and what&#x2019;s to say your network provider won&#x2019;t suffer the same&#xA0;social engineering hack. Anyone can spoof a phone number and many voicemail systems will grant access to your mailbox if it thinks you&#x2019;re calling from your own number, enter the default pin of 0000 and they&#x2019;re in! This relies on knowing a fair bit about the victim, still, not very secure!</p>
+<p>Google Authenticator&#xA0;is a mobile app that generates time-based <span class="small-caps">OTP</span> for you and works with Dropbox too. There are alternative apps out there such as&#xA0;<a href="https://www.authy.com/">Authy</a>&#xA0;that will generate these codes for you too.</p>
+<p><img src="https://ecraep.com/_image_cache/2ae44216-33ec-4d00-9563-7161b9316fd7.png" alt="Authy" width="644" height="553" data-action="zoom"><span class="caption">Authy</span></p>
+<p>I use Authy,&#xA0;<a href="https://myotp.net/about">myopt.net</a>&#xA0;&amp; KeePass. Myopt.net is&#xA0;an alternative to Google authenticator that securely stores the algorithm to generate your time-based one-time passwords using your YubiKey/YubiCloud. When you turn on two factor authentication for Dropbox, Google etc it will give you a <span class="small-caps">QR</span> code to scan or a randomly generated code that you then enter into your authenticator app, the app then uses this to generate those time-based one-time passwords. Myopt.net does not require registration you simply login with your YubiKey, you are then authenticated using YubiCloud and let into your own safe of time-based one-time passwords. The website functions the same way an app would generating new codes every 30 seconds based on that randomly generated code you were given when you enabled two-factor authentication. You&#x2019;re not required to give provide any identifiable information to use the website and you can give random descriptions to each code you have the site generate, so even if somebody where to extract the codes from the site they&#x2019;d be no use unless you specified the description as your full email address. It basically provides a third layer of security to those two-factor codes that are already providing the second later of security.</p>
+<p>What if you lose your YubiKey/smart phone?&#xA0;Most services that allow you to protect your account using YubiCloud will let you register more than one YubiKey against it. I&#x2019;ve done this with a few of my services and then kept a spare YubiKey at home (my girlfriend Stacey can then use the spare to authenticate against my stuff if she needs to). If you lose your smart phone, and therefore your time-based one-time password algorithms then you could be in trouble. Dropbox will allow you to recover your account using an<span class="push-single"></span> <span class="pull-single">&#x2018;</span>emergency code&#x2019;, this code is given to you when you enable two-factor authentication. To gain access to my Gmail wouldn&#x2019;t be an issue, as long as I hadn&#x2019;t lost both my YubiKeys. If I had then I guess Google have some stringent way of checking you are the owner of your account, I don&#x2019;t actually know how they verify this but I do know it&#x2019;s a manual process and can take up to 5 days. I also take a backup of my KeePass database file and store it in other places online, it really doesn&#x2019;t matter where I store it as it&#x2019;s encrypted.</p>
+<p>After you have setup a password manager, YubiKey etc test to see if you can gain access to your own accounts like a hacker would. Test your recovery options. If you see one there that you don&#x2019;t like the look of, remove it. Whilst writing this post I tried to do a password reset on my Gmail account and noticed an old recovery question that I set years ago and didn&#x2019;t even know was there, I&#x2019;ve now removed this. Of course this doesn&#x2019;t stop you becoming&#xA0;<a href="http://www.wired.com/gadgetlab/2012/08/apple-amazon-mat-honan-hacking/all/">Mat Honan and falling victim</a>&#xA0;to a companies poor security policies, this poor guy had his Macbook, iPad &amp; iPhone all remotely wiped and best of all he didn&#x2019;t have a backup for any of his data. The hackers used social engineering to have Amazon hand over the last 4 digits of his credit card, Apple then accepted those last 4 digits as authorisation to issue a password reset on his iCloud account.</p>
+<p><strong>Update:</strong> I recently discovered a chrome plugin called&#xA0;<a href="https://www.onelastpass.com/">One Last Pass</a>&#xA0;that generates and auto-fills password fields on websites based on a master password. Nothing is stored with the developers of the plugin and you can tell the plugin to remember your master key so you&#x2019;re not typing it in all the time.</p>  ]]></description>
+  </item>
+  <item> 
+    <title><![CDATA[ YubiKey and Mac OS X FileVault ]]></title>
+    <link>https://ecraep.com/yubikey-mac-os-x-filevault</link>
+    <guid>https://ecraep.com/yubikey-mac-os-x-filevault</guid>
+    <pubDate>Thu, 24 Jan 2013 00:00:00 +0000</pubDate>
+    <dc:creator><![CDATA[ YubiKey and Mac OS X FileVault ]]></dc:creator>
+    <description><![CDATA[  
+<p>If there&#x2019;s one thing I seem to be obsessed with lately and that&#x2019;s security. I&#x2019;ve never had any of my accounts hacked but that doesn&#x2019;t stop me. It happens all the time though and working in <span class="small-caps">IT</span> I should know how to prevent it. If you haven&#x2019;t heard about YubiKey and you want to prevent getting your accounts hacked then you should check it out, it&#x2019;s basically a <span class="small-caps">USB</span> key that anything you plug it into will see as a keyboard, if the application you&#x2019;re authenticating against supports it then it can generate one-time passwords for you so even keyloggers can&#x2019;t catch you out. It works with the likes of Gmail &amp; Dropbox&#x2019;s two-factor authentication, more and more services are starting to add it as a security feature.</p>
+<p><img src="https://ecraep.com/_image_cache/2326b927-d821-4488-9acb-244e5d72d18d.jpg" alt="Yubikey" width="1500" height="938" data-action="zoom"><span class="caption">Yubikey</span></p>
+<p>YubiKey allows you to use one of it&#x2019;s memory banks for a 32 character&#xA0;<em>static password</em>&#xA0;for services and devices that don&#x2019;t support two factor authentication, such as Mac <span class="small-caps">OS</span> X FileVault. When you enable FileVault it requires you to enter your password pre-boot so that it can decrypt your stuff, similar to TrueCrypt and Bitlocker for Windows. So I setup a 32 character randomly generated password on my YubiKey and then set this as my <span class="small-caps">OS</span> X login password. I rebooted and here&#x2019;s where the issue occurs, I press the button on my YubiKey to enter the password and <span class="small-caps">OS</span> X tells me wrong password.</p>
+<p><a href="http://forum.yubico.com/viewtopic.php?f=16&amp;t=834">Apparently</a>&#xA0;there is a bug in the <span class="small-caps">EFI</span> firmware that doesn&#x2019;t like with the speed at which the YubiKey enters the password and causes it to drop a few characters.</p>
+<p>There is a workaround for this.</p>
+<p>Using the YubiKey Personalization Tool that you programmed your YubiKey with you can set Output Character Rate, this is the speed in which the YubiKey types the characters. There are three increments in speed, I found that 40ms works great, 20ms suffered from the same issue however</p>
+<p>So there it is, if you&#x2019;re using you&#x2019;ve programmed your YubiKey with a static password and you&#x2019;re having problems authenticating at boot after enabling <span class="small-caps">OS</span> X FileVault then set your Output Character Rate to 40ms delay. Vuala!</p>  ]]></description>
+  </item>
+</channel>
+</rss>

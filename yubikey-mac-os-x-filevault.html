@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<html>
+
+<!-- Mirrored from ecraep.com/yubikey-mac-os-x-filevault by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 25 May 2019 15:00:31 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8">
+    <title>YubiKey and Mac OS X FileVault - ecraep.com</title>
+    <meta name="description" content="If there’s one thing I seem to be obsessed with lately and that’s security. I’ve never had any of my accounts hacked but that doesn’t stop me. It">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed for ecraep.com" href="feed.rss">
+    <link rel="stylesheet" href="style1ef1.css?1558722798200">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" sizes="180x180" href="_apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="_favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="_favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#b91d47">
+    <meta name="theme-color" content="#ffffff">
+</head>  <body>
+
+<div class="sidebar">
+
+  <a href="index.html" title="The homepage of ecraep.com" class="logo hasAvatar">
+    <img width="42" height="42" src="_avatars/9eeee76b-8be8-4f56-83e8-990f0f556786.png" class="avatar ">
+    <span style="display:block">ecraep.com</span>
+  </a>
+
+  <a href="index.html" class="light" title="Home">Home</a>
+  <a href="archives.html" class="light" title="Archives">Archives</a>
+  <a href="search.html" class="light" title="Search">Search</a>
+  <a href="feed.rss" class="light" title="Feed">Feed</a>
+  <a href="contact.html" class="light" title="Contact">Contact</a>
+
+</div>
+
+      <div class="entry">
+        <h1 id="yubikey-and-mac-os-x-filevault">YubiKey and Mac <span class="small-caps">OS</span> X FileVault</h1>
+<p>If there’s one thing I seem to be obsessed with lately and that’s security. I’ve never had any of my accounts hacked but that doesn’t stop me. It happens all the time though and working in <span class="small-caps">IT</span> I should know how to prevent it. If you haven’t heard about YubiKey and you want to prevent getting your accounts hacked then you should check it out, it’s basically a <span class="small-caps">USB</span> key that anything you plug it into will see as a keyboard, if the application you’re authenticating against supports it then it can generate one-time passwords for you so even keyloggers can’t catch you out. It works with the likes of Gmail &amp; Dropbox’s two-factor authentication, more and more services are starting to add it as a security feature.</p>
+<p><img src="_image_cache/2326b927-d821-4488-9acb-244e5d72d18d.jpg" alt="Yubikey" width="1500" height="938" data-action="zoom"><span class="caption">Yubikey</span></p>
+<p>YubiKey allows you to use one of it’s memory banks for a 32 character <em>static password</em> for services and devices that don’t support two factor authentication, such as Mac <span class="small-caps">OS</span> X FileVault. When you enable FileVault it requires you to enter your password pre-boot so that it can decrypt your stuff, similar to TrueCrypt and Bitlocker for Windows. So I setup a 32 character randomly generated password on my YubiKey and then set this as my <span class="small-caps">OS</span> X login password. I rebooted and here’s where the issue occurs, I press the button on my YubiKey to enter the password and <span class="small-caps">OS</span> X tells me wrong password.</p>
+<p><a href="http://forum.yubico.com/viewtopic.php?f=16&amp;t=834">Apparently</a> there is a bug in the <span class="small-caps">EFI</span> firmware that doesn’t like with the speed at which the YubiKey enters the password and causes it to drop a few characters.</p>
+<p>There is a workaround for this.</p>
+<p>Using the YubiKey Personalization Tool that you programmed your YubiKey with you can set Output Character Rate, this is the speed in which the YubiKey types the characters. There are three increments in speed, I found that 40ms works great, 20ms suffered from the same issue however</p>
+<p>So there it is, if you’re using you’ve programmed your YubiKey with a static password and you’re having problems authenticating at boot after enabling <span class="small-caps">OS</span> X FileVault then set your Output Character Rate to 40ms delay. Vuala!</p>
+      </div>
+
+      <div class="light">
+        <a href="yubikey-mac-os-x-filevault.html" title="Permalink for YubiKey and Mac OS X FileVault">January 24, 2013</a>
+</div>
+
+      <br />
+
+      <br />
+      <p class="entry">
+
+
+      <span class="light adjacent">Next:</span><a href="securing-your-digital-world.html" title="Securing your digital world">Securing your digital world</a>
+
+      </p>
+      <br />
+      <br />
+      <br />
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerneldump';
+    var disqus_identifier = 'entry_daebc6da26ab4dd585af45507c177554';
+    var disqus_title = 'YubiKey and Mac OS X FileVault';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the comments.</noscript>
+
+
+<script src="script1ef1.js?1558722798200" type="text/javascript"></script>
+<!-- Ticksel v1.0 -->
+<script type="text/javascript">
+  var _tcfg = _tcfg || [];
+  (function() {
+    _tcfg.push(["tags", ""]);
+    var u="https://cdn.ticksel.com/js/analytics_v1.0.js"; _tcfg.push(["account_id", 8456850]);
+    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0];
+    g.type="text/javascript"; g.async=true; g.src=u; g.setAttribute("crossorigin", "anonymous");
+    g.setAttribute("integrity", "sha256-7grd8jMivCG0iCcJ7m/Ny4gvWb0mPVpFhRQovLkaUl8=");
+    s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><img src="https://beacon.ticksel.com/beam?account_id=8456850&amp;referrer=&amp;tags=" style="border:0;" width="0" height="0" alt="" /></noscript>
+<!-- End Ticksel Code -->  </body>
+
+<!-- Mirrored from ecraep.com/yubikey-mac-os-x-filevault by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 25 May 2019 15:00:31 GMT -->
+</html>

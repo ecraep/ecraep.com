@@ -1,0 +1,169 @@
+
+<!DOCTYPE html>
+<html>
+
+<!-- Mirrored from ecraep.com/virgin-media-why-are-you-manipulating-my-traffic by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 25 May 2019 15:00:31 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8">
+    <title>Virgin Media, why are you manipulating my traffic? - ecraep.com</title>
+    <meta name="description" content="6th April: TalkTalk appear to be doing something similar
+7th April: Plusnet are doing it too. The responses to my post have hightlighted that using">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed for ecraep.com" href="feed.rss">
+    <link rel="stylesheet" href="style1ef1.css?1558722798200">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" sizes="180x180" href="_apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="_favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="_favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#b91d47">
+    <meta name="theme-color" content="#ffffff">
+</head>  <body>
+
+<div class="sidebar">
+
+  <a href="index.html" title="The homepage of ecraep.com" class="logo hasAvatar">
+    <img width="42" height="42" src="_avatars/9eeee76b-8be8-4f56-83e8-990f0f556786.png" class="avatar ">
+    <span style="display:block">ecraep.com</span>
+  </a>
+
+  <a href="index.html" class="light" title="Home">Home</a>
+  <a href="archives.html" class="light" title="Archives">Archives</a>
+  <a href="search.html" class="light" title="Search">Search</a>
+  <a href="feed.rss" class="light" title="Feed">Feed</a>
+  <a href="contact.html" class="light" title="Contact">Contact</a>
+
+</div>
+
+      <div class="entry">
+        <h1 id="virgin-media-why-are-you-manipulating-my-traffic">Virgin Media, why are you manipulating my traffic?</h1>
+<h2 id="updates">Updates</h2>
+<ul>
+<li>6th April: TalkTalk <a href="https://gist.github.com/Joev-/0e3cc1a3b613c54d97bb">appear</a> to be doing something similar</li>
+<li>7th April: <a href="http://equk.co.uk/2014/04/07/uk-isps-providing-cdn-for-google/">Plusnet</a> are doing it too. The responses to my post have hightlighted that using DNSCrypt + OpenDNS doesn’t allow you to opt out of this behaviour which suggests a deal between the ISPs, Google and OpenDNS has been made.</li>
+</ul>
+<hr>
+<p>Virgin Media why does <em><a href="http://www.google.com/">www.google.com</a> resolve to host-62-253-8-99.not-set-yet.virginmedia.net</em>? What a funny name for a <span class="small-caps">PTR</span> record, but seriously, why are you manipulating my traffic?</p>
+<p>I was testing something only to find that google.com, google.co.uk both resolve to an <span class="small-caps">IP</span> address owned by Virgin Media.</p>
+<blockquote>
+<p><em><span class="small-caps">PING</span> google.com (62.253.3.103): 56 data bytes 64 bytes from 62.253.3.103: icmp_seq=0 ttl=58 time=17.569 ms</em></p>
+</blockquote>
+<blockquote>
+<p><em>nslookup <a href="http://www.google.com/">www.google.com</a> Server: 208.67.222.222 Address: 208.67.222.222#53</em> <em>Non-authoritative answer: Name: <a href="http://www.google.com/">www.google.com</a> Address: 62.253.3.103</em></p>
+</blockquote>
+<blockquote>
+<p>host 62.253.3.103 103.3.253.62.in-addr.arpa domain name pointer host-62-253-8-103.not-set-yet.virginmedia.net.</p>
+</blockquote>
+<p>Performing a <code>dig a google.com +trace</code> fools me into thinking that ns1.google.com is dishing out these Virgin owned IPs, yet a query from elsewhere tells me otherwise.</p>
+<p><strong>Using Virgin Media</strong></p>
+<pre><code>dig a google.com @ns1.google.com
+;; ANSWER SECTION: google.com. 300 IN A 62.253.3.99 
+google.com. 300 IN A 62.253.3.93 
+google.com. 300 IN A 62.253.3.109 
+google.com. 300 IN A 62.253.3.103 
+google.com. 300 IN A 62.253.3.119 
+google.com. 300 IN A 62.253.3.94 
+google.com. 300 IN A 62.253.3.118 
+google.com. 300 IN A 62.253.3.108 
+google.com. 300 IN A 62.253.3.84 
+google.com. 300 IN A 62.253.3.88 
+google.com. 300 IN A 62.253.3.98 
+google.com. 300 IN A 62.253.3.123 
+google.com. 300 IN A 62.253.3.113 
+google.com. 300 IN A 62.253.3.114 
+google.com. 300 IN A 62.253.3.104 
+google.com. 300 IN A 62.253.3.89</code></pre>
+<p><strong>Another <span class="small-caps">ISP</span></strong></p>
+<pre><code>dig a google.com @ns1.google.com
+;; ANSWER SECTION: google.com. 300 IN A 74.125.136.113 
+google.com. 300 IN A 74.125.136.100 
+google.com. 300 IN A 74.125.136.102 
+google.com. 300 IN A 74.125.136.138 
+google.com. 300 IN A 74.125.136.101 
+google.com. 300 IN A 74.125.136.139</code></pre>
+<p>Most odd. Especially seeing as I <strong>do not use Virgin Media’s <span class="small-caps">DNS</span> resolvers</strong>, I use OpenDNS._m7.lon.opendns.com_ to be exact, according to <a href="http://www.dnsleaktest.com/">www.dnsleaktest.com</a>. <a href="http://cachecheck.opendns.com/">OpenDNS’ cache check</a> matches my other <span class="small-caps">ISP</span>, a whole bunch of IPs none of which are anywhere near this 62.253.3.0/24 we’re seeing from Virgin Media.</p>
+<p>So for some reason Virgin Media someone is manipulating the <span class="small-caps">DNS</span> response I recieve from OpenDNS’ 208.67.222.222, 208.67.220.220 for google.com, google.co.uk and possibly other domains. They’re also proxying google.com to me as loading <a href="http://62.253.3.103/">http://62.253.3.103</a> in a web browser shows me Google’s home page, creepy. Ok so where does a traceroute take me?</p>
+<blockquote>
+<p><em>traceroute: Warning: google.com has multiple addresses; using 62.253.3.93 traceroute to google.com (62.253.3.93), 64 hops max, 52 byte packets</em></p>
+</blockquote>
+<blockquote>
+<ul>
+<li>1 192.168.1.1 (192.168.1.1) 4.610 ms 4.257 ms 34.474 ms</li>
+<li>2 cpc10-sotn8-2-0-gw.15-1.cable.virginm.net (81.101.98.1) 22.904 ms 79.800 ms 14.122 ms</li>
+<li>3 sotn-core-2a-ae6-610.network.virginmedia.net (80.4.225.53) 13.692 ms 12.621 ms 11.575 ms</li>
+<li>4 popl-bb-1c-ae14-0.network.virginmedia.net (62.253.175.30) 33.107 ms 16.609 ms 27.541 ms</li>
+<li>5 brnt-bb-1c-et-000-0.network.virginmedia.net (62.253.175.238) 28.404 ms brnt-bb-1c-et-510-0.network.virginmedia.net (62.253.175.242) 15.146 ms 25.651 ms</li>
+<li>6 haye-icdn-1-ae0-0.network.virginmedia.net (62.253.174.242) 14.849 ms 16.701 ms 16.381 ms</li>
+<li>7 * * *</li>
+<li>8 * * *</li>
+</ul>
+</blockquote>
+<p>Most interesting that it stops here: <em>haye-<strong>icdn</strong>-1-ae0-0.network.virginmedia.net (62.253.174.242)</em></p>
+<p><strong>haye-icdn-1, what do you do?</strong> A quick google (ironic) reveals <a href="http://www.cableforum.co.uk/board/12/33694218-virgin-hijacking.html">this thread</a> titled<span class="push-single"></span> <span class="pull-single">‘</span>Virgin hijacking’. One user suggests:</p>
+<blockquote>
+<p>Content Distribution Network ran by Virgin to try and speed things up. It’s not really hijacking, per-se and if it worked, it would actually be a good thing. The problem is, it’s heavily congested so has the opposite effect.</p>
+</blockquote>
+<p>….</p>
+<p>I have no idea why Virgin and OpenDNS feel the need to proxy or <span class="small-caps">CDN</span> google.com for me. The ping response time to one of Google’s actual IPs is 20.049 ms. From now on I will encrypt my <span class="small-caps">DNS</span> traffic to OpenDNS using <a href="http://dnscrypt.org/">DNSCrypt</a> and one of the suggested <span class="small-caps">DNS</span> providers, it takes 5 seconds to install their app.</p>
+<p>Ahh, that’s better&nbsp;:-)</p>
+<hr>
+<h2 id="some-notes">Some Notes</h2>
+<ul>
+<li>My Virgin SuperHub is in modem mode</li>
+<li>It’s entirely possible Virgin Media has struck a deal with OpenDNS however I couldn’t find mention of that anywhere and it seems unlikely. The responses to this post have led me to believe some deal has been made.</li>
+</ul>
+<p>Discuss at <span class="small-caps">HN</span>: <a href="https://news.ycombinator.com/item?id=7504737" class="uri">https://news.ycombinator.com/item?id=7504737</a></p>
+      </div>
+
+      <div class="light">
+        <a href="virgin-media-why-are-you-manipulating-my-traffic.html" title="Permalink for Virgin Media, why are you manipulating my traffic?">April 1, 2014</a>
+</div>
+
+      <br />
+
+      <br />
+      <p class="entry">
+
+      <span class="light adjacent">Previous:</span><a href="ipv6-over-ipv4-at-home.html" title="How To: IPv6 over IPv4 at home, today">How To: IPv6 over IPv4 at home, today</a><br />
+
+      <span class="light adjacent">Next:</span><a href="bittorrent-sync-encrypted-secret-key-without-api.html" title="BitTorrent Sync encrypted secret key without API">BitTorrent Sync encrypted secret key without API</a>
+
+      </p>
+      <br />
+      <br />
+      <br />
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerneldump';
+    var disqus_identifier = 'entry_bc070b1529b140b3b9242afd5bf894e5';
+    var disqus_title = 'Virgin Media, why are you manipulating my traffic?';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the comments.</noscript>
+
+
+<script src="script1ef1.js?1558722798200" type="text/javascript"></script>
+<!-- Ticksel v1.0 -->
+<script type="text/javascript">
+  var _tcfg = _tcfg || [];
+  (function() {
+    _tcfg.push(["tags", ""]);
+    var u="https://cdn.ticksel.com/js/analytics_v1.0.js"; _tcfg.push(["account_id", 8456850]);
+    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0];
+    g.type="text/javascript"; g.async=true; g.src=u; g.setAttribute("crossorigin", "anonymous");
+    g.setAttribute("integrity", "sha256-7grd8jMivCG0iCcJ7m/Ny4gvWb0mPVpFhRQovLkaUl8=");
+    s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><img src="https://beacon.ticksel.com/beam?account_id=8456850&amp;referrer=&amp;tags=" style="border:0;" width="0" height="0" alt="" /></noscript>
+<!-- End Ticksel Code -->  </body>
+
+<!-- Mirrored from ecraep.com/virgin-media-why-are-you-manipulating-my-traffic by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 25 May 2019 15:00:31 GMT -->
+</html>

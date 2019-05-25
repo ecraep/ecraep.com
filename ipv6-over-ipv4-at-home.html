@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html>
+
+<!-- Mirrored from ecraep.com/ipv6-over-ipv4-at-home by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 25 May 2019 15:00:31 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8">
+    <title>How To: IPv6 over IPv4 at home, today - ecraep.com</title>
+    <meta name="description" content="In this article I explain how to enable IPv6 connectivity from any desktop in less than 5 minutes. I was chatting with Dan Jenkins on Twitter. He">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed for ecraep.com" href="feed.rss">
+    <link rel="stylesheet" href="style1ef1.css?1558722798200">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" sizes="180x180" href="_apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="_favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="_favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#b91d47">
+    <meta name="theme-color" content="#ffffff">
+</head>  <body>
+
+<div class="sidebar">
+
+  <a href="index.html" title="The homepage of ecraep.com" class="logo hasAvatar">
+    <img width="42" height="42" src="_avatars/9eeee76b-8be8-4f56-83e8-990f0f556786.png" class="avatar ">
+    <span style="display:block">ecraep.com</span>
+  </a>
+
+  <a href="index.html" class="light" title="Home">Home</a>
+  <a href="archives.html" class="light" title="Archives">Archives</a>
+  <a href="search.html" class="light" title="Search">Search</a>
+  <a href="feed.rss" class="light" title="Feed">Feed</a>
+  <a href="contact.html" class="light" title="Contact">Contact</a>
+
+</div>
+
+      <div class="entry">
+        <h1 id="how-to-ipv6-over-ipv4-at-home-today">How To: IPv6 over IPv4 at home, today</h1>
+<p>In this article I explain how to enable IPv6 connectivity from any desktop in less than 5 minutes.</p>
+<p>I was chatting with <a href="https://twitter.com/dan_jenkins">Dan Jenkins</a> on Twitter. He asked when will Virgin Media roll out IPv6 support? I suggested an IPv6 over IPv4 tunnel but it may be tricky to setup. I did a quick Google but to my surprise didn’t find the slew of blog posts explaining how to set this up. I did however find <a href="https://tunnelbroker.net/">Tunnel Broker</a>.</p>
+<p><strong>Tunnel Broker</strong></p>
+<blockquote>
+<p><span class="pull-double">“</span>Our free tunnel broker service enables you to reach the IPv6 Internet by tunneling over existing IPv4 connections from your IPv6 enabled host or router to one of our IPv6 routers. Try it now!”</p>
+</blockquote>
+<p>Awesome.</p>
+<ul>
+<li>It’s free</li>
+<li>It’s from <span class="small-caps">HE</span>. (Hurricane Electric)</li>
+<li>Your own /48 prefix once your tunnel is up</li>
+<li>Ability to create your tunnel on geographically diverse tunnel-servers (Fremont, Ashburn, Chicago, Dallas, Denver, Kansas City, Los Angeles, Miami, New York, Seattle, Toronto, Amsterdam, Berlin, Frankfurt, London, Paris, Prague, Stockholm, Warsaw, Zurich, Hong Kong, Singapore, and Tokyo)</li>
+</ul>
+<h2 id="step-by-step">Step by step</h2>
+<p>First <a href="http://test-ipv6.com/">test to see</a> if your <span class="small-caps">ISP</span> already supports IPv6. Nope? <span class="small-caps">OK</span> on to the next step.</p>
+<ul>
+<li>Register at <a href="https://tunnelbroker.net/">Tunnel Broker</a></li>
+<li><a href="https://tunnelbroker.net/new_tunnel.php">Create Regular Tunnel</a></li>
+<li>Fill in your <a href="http://queryip.net/ip/">IPv4 Endpoint</a>. It’s important to note that at this stage their system will attempt to ping the <span class="small-caps">IP</span> you supply. I enabled <span class="small-caps">WAN</span> <span class="small-caps">ICMP</span> response on my router until the form was submitted at which point I disabled it again.</li>
+<li>Choose a Tunnel Server that is geographically closest to you. After completing these steps <span class="small-caps">HE</span> will assign you a /64.</li>
+</ul>
+<p>On your<span class="push-single"></span> <span class="pull-single">‘</span>Tunnel Details’ page you’ll want to select the<span class="push-single"></span> <span class="pull-single">‘</span>Example Configurations’ tab.</p>
+<p>There will typically be three commands you’ll have to run. One to create the 6in4 tunnel. One to assign your IPv6 address to that tunnel and one to statically route all IPv6 traffic over that tunnel.</p>
+<p>There are examples for many routers and operating systems including Cisco <span class="small-caps">IOS</span>, JunOS, OpenWRT, pfSense, FreeBSD, Debian/Ubuntu, Mac <span class="small-caps">OS</span> X, and Windows etc.</p>
+<p>Well.. that was easy. <img src="_image_cache/ef341fc0-6e5e-482c-885d-708721700d90.png" alt="IPv6 on Macbook Air" width="1060" height="738" data-action="zoom"></p>
+<h2 id="bear-in-mind">Bear in mind</h2>
+<p><img src="_image_cache/987a9424-0e17-44c9-a310-40ee3f3e9897.png" alt="image" width="245" height="240"></p>
+<pre><code>route -n add -inet6 default 2001:470:1f08:1a6::1
+netsh interface ipv6 add route ::/0 IP6Tunnel 2001:470:1f08:1a6::1
+ipv6 route ::/0 Tunnel0</code></pre>
+<p>When running any of the above commands, these are just three examples, you’re telling your device to route all IPv6 traffic via <span class="small-caps">HE</span>. Afterall, this is a tunnel!</p>
+<p>IPv6 is a scary thing and I’d love to be more confident on the subject. This is something I am most definitely going to study for and I reccommend anyone in the industry to do the same.</p>
+      </div>
+
+      <div class="light">
+        <a href="ipv6-over-ipv4-at-home.html" title="Permalink for How To: IPv6 over IPv4 at home, today">January 29, 2014</a>
+</div>
+
+      <br />
+
+      <br />
+      <p class="entry">
+
+      <span class="light adjacent">Previous:</span><a href="investigating-the-dirty-world-of-phishing-emails.html" title="Investigating the dirty world of phishing emails">Investigating the dirty world of phishing emails</a><br />
+
+      <span class="light adjacent">Next:</span><a href="virgin-media-why-are-you-manipulating-my-traffic.html" title="Virgin Media, why are you manipulating my traffic?">Virgin Media, why are you manipulating my traffic?</a>
+
+      </p>
+      <br />
+      <br />
+      <br />
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerneldump';
+    var disqus_identifier = 'entry_94de10ef54da40729e3ae51e31b9900e';
+    var disqus_title = 'How To: IPv6 over IPv4 at home, today';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the comments.</noscript>
+
+
+<script src="script1ef1.js?1558722798200" type="text/javascript"></script>
+<!-- Ticksel v1.0 -->
+<script type="text/javascript">
+  var _tcfg = _tcfg || [];
+  (function() {
+    _tcfg.push(["tags", ""]);
+    var u="https://cdn.ticksel.com/js/analytics_v1.0.js"; _tcfg.push(["account_id", 8456850]);
+    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0];
+    g.type="text/javascript"; g.async=true; g.src=u; g.setAttribute("crossorigin", "anonymous");
+    g.setAttribute("integrity", "sha256-7grd8jMivCG0iCcJ7m/Ny4gvWb0mPVpFhRQovLkaUl8=");
+    s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><img src="https://beacon.ticksel.com/beam?account_id=8456850&amp;referrer=&amp;tags=" style="border:0;" width="0" height="0" alt="" /></noscript>
+<!-- End Ticksel Code -->  </body>
+
+<!-- Mirrored from ecraep.com/ipv6-over-ipv4-at-home by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 25 May 2019 15:00:31 GMT -->
+</html>

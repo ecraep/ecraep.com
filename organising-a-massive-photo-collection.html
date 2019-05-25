@@ -1,0 +1,128 @@
+
+<!DOCTYPE html>
+<html>
+
+<!-- Mirrored from ecraep.com/organising-a-massive-photo-collection by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 25 May 2019 15:00:31 GMT -->
+<head>
+    <meta charset="utf-8">
+    <title>Organising a massive photo collection - ecraep.com</title>
+    <meta name="description" content="I say massive, it’s not actually that big. It does make for a good title though. I’d like to share some of the methods I use to organise my photo">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed for ecraep.com" href="feed.rss">
+    <link rel="stylesheet" href="style1ef1.css?1558722798200">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" sizes="180x180" href="_apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="_favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="_favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#b91d47">
+    <meta name="theme-color" content="#ffffff">
+</head>  <body>
+
+<div class="sidebar">
+
+  <a href="index.html" title="The homepage of ecraep.com" class="logo hasAvatar">
+    <img width="42" height="42" src="_avatars/9eeee76b-8be8-4f56-83e8-990f0f556786.png" class="avatar ">
+    <span style="display:block">ecraep.com</span>
+  </a>
+
+  <a href="index.html" class="light" title="Home">Home</a>
+  <a href="archives.html" class="light" title="Archives">Archives</a>
+  <a href="search.html" class="light" title="Search">Search</a>
+  <a href="feed.rss" class="light" title="Feed">Feed</a>
+  <a href="contact.html" class="light" title="Contact">Contact</a>
+
+</div>
+
+      <div class="entry">
+        <h1 id="organising-a-massive-photo-collection">Organising a massive photo collection</h1>
+<p>I say massive, it’s not actually that big. It does make for a good title though. I’d like to share some of the methods I use to organise my photo collection. Most of the stuff I do is a result of reading somebody’s blog and then implementing in my own way. Organizing my photo collection has been incredibly liberating these past few days. I set out to de-duplicate, sort my photos into some sort of folder structure, shrink their file size down somewhat without affecting the quality of the images and then finally automate this for the future. This article assumes you are using a Mac as most of the software featured here isn’t available on Windows. I also recommend anyone who has a keen interest in this subject to follow <a href="https://twitter.com/bradleychambers">Bradley Chambers</a> on Twitter, he shares this passion and invests more time in it than I do.</p>
+<p>Like many, this blog post would probably not exist had Everpix not shutdown. Pre-Everpix I had photos stored everywhere, mostly dumped into random folders synced to Dropbox. I would often restore iOS betas to my iPhone, dumping my photos out to randomly named folders before doing so. My dad had 20,000 something photos on his iMac in iPhoto dating back to 2006 which I synced to my Everpix account and then backed up using CrashPlan. Everpix - the be all and end all of photo management software in the cloud. Install the desktop uploader, iOS app - tell it to upload everything - be ignorant to the complete mess behind the scenes. Everpix hid this, allowed you to view your photos with no duplicates, no folder structure, just pure photos. Boy was Everpix a good product. A massive time saver, not fully realised by myself until now.</p>
+<h2 id="exporting-your-iphoto-library">Exporting Your iPhoto Library</h2>
+<p>Sven Fechner wrote up an <a href="http://simplicitybliss.com/exporting-your-iphoto-library-to-dropbox">excellent blog post</a> that details how to <em>correctly</em> export your iPhoto library and then sort those photos into a date based folder structure. At first I followed Sven’s method, it involves using <a href="http://code.google.com/p/phoshare/">Phoshare</a> to export your photos instead of File&gt;Export in iPhoto. The reason behind this is that iPhoto will set Date modified and Date created on all the files it exports to <em>today’s date</em>, this hampers the automated sorting process later on. I have since discovered <span class="small-caps">DIM</span> - Digital Image Mover that can sort photos based on Exif data rather than the Date created / Date modified time stamps.</p>
+<h2 id="sorting-your-photos-into-folders">Sorting your photos into folders</h2>
+<p>Once you have an export of all your images, or if you do not use iPhoto you may already have all your photos dumped into folders, you’ll want to organise them into subfolders based on Year, Month and depending on the number of photos you have maybe even days. When I first experimented with this I used Hazel to organise my photos into subfolders, as described by Sven. Due to limitations in <span class="small-caps">OS</span> X Spotlight Hazel can only organise photos based on the file’s<span class="push-single"></span> <span class="pull-single">‘</span>Date Created’ or<span class="push-single"></span> <span class="pull-single">‘</span>Date Modified’ and not Exif data from the image itself such as<span class="push-single"></span> <span class="pull-single">‘</span>Date Time Digitized’ and<span class="push-single"></span> <span class="pull-single">‘</span>Date Time Original’. Really if you’re going to organise your photos accurately you’ll want to use Exif data as this remain unchanged since your camera first recorded the image, unlike<span class="push-single"></span> <span class="pull-single">‘</span>Date Created’ and<span class="push-single"></span> <span class="pull-single">‘</span>Date Modified’. For this I used <a href="http://digitalimagemover.tumblr.com/"><span class="small-caps">DIM</span>: Digital Image Mover 5.0 Beta</a>.</p>
+<p><img src="_image_cache/46a0dfff-0235-4334-bba7-2bfe83722c31.png" alt="DIM" width="873" height="492" data-action="zoom"><span class="caption">DIM</span></p>
+<p>I only stumbled across <span class="small-caps">DIM</span> the other day. It looks to of been created in 2001, the latest beta version released Dec 2013 still has a <span class="small-caps">UI</span> from 2001 but that really doesn’t matter. The tasks the software is designed to do it does very well. It sorted my 27,000+ photos into subfolders in less than 5 minutes. The software is very self-explanatory, it will copy your photos by default rather than altering the originals. To speed things up a bit I switched off the Geolocation functionality. This allows you to sort your photos based on Location. You can see which <span class="small-caps">DIM</span> settings I switched on and off <a href="https://i.imgur.com/M0RCCZj.png">here</a> and <a href="https://i.imgur.com/6gOOSNI.png">here</a>.</p>
+<h2 id="de-duplicating">De-duplicating</h2>
+<p>If like me you have a ton of duplicate photos there are two pieces of software that can help with that.</p>
+<p><a href="http://macpaw.com/gemini">MacPaw Gemini</a> is an awesome piece of software, you can use it to de-duplicate any file not just photos. Gemini scanned through my <span class="small-caps">60GB</span> photo collection in less than 1 minute showing me all the duplicates. The software itself is pretty self explanatory and doesn’t require any guidance. Gemini will detect duplicates based on the file itself rather than the image content i.e those that are exactly the same size and share the same <span class="small-caps">MD5</span> hash. It won’t detect two of the same photo if one has been resized or compressed. For this you need <a href="http://photosweeper.com/">PhotoSweeper</a>.</p>
+<p><img src="_image_cache/e8262ad5-5fc4-43ac-90a1-515e5968b695.png" alt="Gemini" width="338" height="320" data-action="zoom"><span class="caption">Gemini</span></p>
+<p><a href="http://photosweeper.com/">PhotoSweeper</a> is an excellent piece of software that has helped me to remove all my what I call<span class="push-single"></span> <span class="pull-single">‘</span>WhatsApp duplicates’. These are low-resolution copies of photos that WhatsApp creates and end up in recipients Camera Roll when you send somebody a photo i.e your partner that syncs their photos to the same Dropbox account as you. PhotoSweeper isn’t as 100% accurate as Gemini. It’s detection methods are based on the image content itself however I found it more than accurate enough to rid my collection of nearly all duplicates.</p>
+<h2 id="saving-space">Saving space</h2>
+<p>When I first started sorting through my photo collection I told myself I wouldn’t compress or shrink any of my photos. After <a href="http://www.jpeg.org/.demo/FAQJpeg2k/coding-and-compression.htm#Why%20is%20a%20lossy%20compression%20acceptable?">researching</a> the <a href="http://www.ece.ucdavis.edu/cerl/ReliableJPEG/Cung/jpeg.html">process behind compressing a <span class="small-caps">JPEG</span> photo</a> I changed my mind. Although I do not fully understand the science behind losslessly compressing a <span class="small-caps">JPEG</span> image I do trust it and the results are amazing. At no point have I shrunk the resolution of any of my photos, only re-organised the<span class="push-single"></span> <span class="pull-single">‘</span>huffman tables’ to shrink the size of the file itself. The software I am using is <a href="https://github.com/tjko/jpegoptim">jpegoptim</a>, available as a command line tool for Mac <span class="small-caps">OS</span> X and <span class="small-caps">GUI </span><a href="http://imageoptim.com/">here</a>. I will show you how to implement an automated workflow using the command line tool.</p>
+<p>Lossless compression (100% quality) produced significant savings in photos where colors are similar across the whole image. I started to experiment with lower quality settings. At 80% I was hitting near 60% space savings on every image I ran through jpegoptim with no visual loss of image quality. I ran a handful of completely different photos from different devices through jpegoptim with a maximum quality of 80%, zoomed in to 100% and could spot no differences to the original. My whole photo collection now comes in at 25.29 GB where as before running this process it was just over <span class="small-caps">55 GB</span>, that’s just under a 50% reduction in size with no visible loss in photo quality.</p>
+<h2 id="automating-this---my-workflow">Automating this - My Workflow</h2>
+<p>As I only shoot using my iPhone my workflow is perhaps more simple than most. I use Dropbox to automatically sync my photos and then have a very simple set of Hazel rules that compress, tag and sort my photos from there. Dropbox’s camera upload app is very well made, files are dropped into a<span class="push-single"></span> <span class="pull-single">‘</span>Camera Uploads’ folder renamed with the date the photo was taken, extracted from Exif, it also sets the<span class="push-single"></span> <span class="pull-single">‘</span>Date Created’ as per Exif.</p>
+<h2 id="rule-1">Rule 1</h2>
+<p>Rule Name: Compress, tag, move to photos folder <br>
+Target: Dropbox/Camera Uploads <br>
+Conditions: Extension is jpg <br>
+Actions: Run shell script- embedded script: </p>
+<pre><code>jpegoptim -m80 -p &quot;$1&quot;</code></pre>
+<p>Add tags: jpegoptim80 <br>
+Move: to folder: Dropbox/Photos</p>
+<p>The embedded script broken down. jpegoptim calls the executable, -m80 sets quality to 80%, -p<span class="push-double"></span> <span class="pull-double">“</span>$1”tells jpegoptim to process the file that <a href="http://www.noodlesoft.com/hazel.php">Hazel</a> has detected in Dropbox/Camera Uploads.</p>
+<p><img src="_image_cache/0b0c5095-97bc-45f6-8f88-fc196dc6a6ef.png" alt="Hazel Rule" width="782" height="641" data-action="zoom"><span class="caption">Hazel Rule</span></p>
+<h2 id="rule-2">Rule 2</h2>
+<p>Rule Name: once moved to photos, sort into subfolders <br>
+Target: Dropbox/Photos <br>
+Conditions: Extension is jpg <br>
+Actions: Sort into subfolders: date created (2013) ▸ date created (12 - Dec) ▸ date created (01)</p>
+<p><img src="_image_cache/6dda8d3a-9832-4619-a9f6-b43b501f7e6e.png" alt="Hazel Rule" width="782" height="641" data-action="zoom"><span class="caption">Hazel Rule</span></p>
+<p>This sorts the photos into a dated folder structure moved to Dropbox/Photos by Rule #1. Here we can use Hazel because Dropbox has set the Date Created / Date Modified attributes on the file as per Exif.</p>
+<h2 id="what-about-video">What about Video?</h2>
+<p>I’m yet to work out how I can de-duplicate, compress and accurately sort my videos. Nearly 70% of my Dropbox is consumed by video and I’d love to do get that number down. If anybody has a similar workflow for video I’d love to here it.</p>
+      </div>
+
+      <div class="light">
+        <a href="organising-a-massive-photo-collection.html" title="Permalink for Organising a massive photo collection">January 13, 2014</a>
+</div>
+
+      <br />
+
+      <br />
+      <p class="entry">
+
+      <span class="light adjacent">Previous:</span><a href="finding-an-everpix-replacement.html" title="Finding an Everpix replacement">Finding an Everpix replacement</a><br />
+
+      <span class="light adjacent">Next:</span><a href="have-a-lightning-fast-blog-and-host-it-for-free.html" title="Have a lightning fast blog and host it for free">Have a lightning fast blog and host it for free</a>
+
+      </p>
+      <br />
+      <br />
+      <br />
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'kerneldump';
+    var disqus_identifier = 'entry_056d91e9769a47099fd6dddb328c531a';
+    var disqus_title = 'Organising a massive photo collection';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the comments.</noscript>
+
+
+<script src="script1ef1.js?1558722798200" type="text/javascript"></script>
+<!-- Ticksel v1.0 -->
+<script type="text/javascript">
+  var _tcfg = _tcfg || [];
+  (function() {
+    _tcfg.push(["tags", ""]);
+    var u="https://cdn.ticksel.com/js/analytics_v1.0.js"; _tcfg.push(["account_id", 8456850]);
+    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0];
+    g.type="text/javascript"; g.async=true; g.src=u; g.setAttribute("crossorigin", "anonymous");
+    g.setAttribute("integrity", "sha256-7grd8jMivCG0iCcJ7m/Ny4gvWb0mPVpFhRQovLkaUl8=");
+    s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><img src="https://beacon.ticksel.com/beam?account_id=8456850&amp;referrer=&amp;tags=" style="border:0;" width="0" height="0" alt="" /></noscript>
+<!-- End Ticksel Code -->  </body>
+
+<!-- Mirrored from ecraep.com/organising-a-massive-photo-collection by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 25 May 2019 15:00:31 GMT -->
+</html>
